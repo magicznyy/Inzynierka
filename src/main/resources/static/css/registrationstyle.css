@@ -1,0 +1,95 @@
+body
+{
+
+    background-image: url("tlooo.png");
+    display: flex;
+    flex-direction: row;
+    font-family: 'Baloo Thambi 2', cursive;
+}
+img
+{
+
+    width: 30%;
+    height: 30%;
+    margin: auto;
+}
+
+#kontenerrejestracji
+{
+    margin-top: 3%;
+    margin-bottom: 3%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 8%;
+    background-color: #84D9EC;
+    height: 40em;
+    width: 37em;
+    /* border */
+    left: 0%;
+    right: 0%;
+    top: 5.88%;
+    bottom: 0%;
+    background: #BFE0EE;
+    border: 10px solid #84D9EC;
+    border-radius: 10px;
+
+}
+
+#rejestracja
+{
+    color: black;
+    font-size: 3.8em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+main
+{
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label
+{
+
+    font-size: 1.3em;
+}
+
+input:not(#buttonzalogujsie)
+{
+    border-radius: 0.5em;
+    height: 2.5em;
+    width: 22em;
+    border: none;
+}
+
+#buttonzalogujsie
+{
+
+    width: 6em;
+    height: 1.8em;
+    text-align: center;
+
+    margin-top: 2%;
+
+    background: #BFE0EE;
+    border: 0.15em solid #84D9EC;
+    font-size: 2em;
+    color: rgba(0, 0, 0, 0.7);
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#polawymagane
+{
+    margin-left: 25%; /* text-align: center; */
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>abababa</title>
+    <link rel="stylesheet" href="/css/loginstyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="logopowitanie">
+   <img alt=" idk" src="/css/logo.jpg">
+    <h1 id="powitanie">Witaj na Photoit!</h1>
+</div>
+<div id="kontener">
+<div id="kontenerlogowania">
+    <h2 id="zalogujsie">Zaloguj się</h2>
+    <form action="/process_login" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <main>
+        <label>Login lub adres e-mail:</label>
+        <input type="text" name="name" id="name" />
+        </main>
+
+        <main>
+        <label>Hasło:</label>
+        <input type="text" name="password" id="password" />
+        </main>
+
+        <input type="submit" id="buttonzalogujsie" value="Zaloguj się"/>
+    </form>
+    <button type="button" id="buttonhaslo">Zapomniałem hasła</button>
+</div>
+
+<div id="zajerestrujkonto">
+    <h2 id="zarejestruj">Nie masz konta?</h2>
+    <button type="button" id="buttonzarejestrujsie">Zarejestruj się już teraz!</button>
+</div>
+</div>
+
+
+
+</body>
+</html>
