@@ -31,13 +31,13 @@ public class LoginController {
     }
 
     private boolean userexist(String name) {
-        return userRepository.findUserByName(name) != null;
+        return userRepository.findUserByLogin(name) != null;
     }
 
     @PostMapping("/process_login")
     public String checkifregistered(User user)
     {
-       if(userexist(user.getName()))
+       if(userexist(user.getLogin()))
             System.out.println("jest git");
        else             System.out.println("nie git");
 

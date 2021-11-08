@@ -29,7 +29,7 @@ public class RegistrationController{
     @GetMapping("/registration")
     public String register(Model model)
     {
-        model.addAttribute("user", new User());
+
         return "Registration";
 
     }
@@ -46,5 +46,6 @@ public class RegistrationController{
             return "process_success";
         }
     }
+
 
 }
