@@ -38,7 +38,7 @@ public class LoginController {
     public String checkifregistered(User user)
     {
        if(userexist(user.getLogin()))
-            System.out.println("jest git");
+        System.out.println("jest git");
        else             System.out.println("nie git");
 
         return "process_success";
