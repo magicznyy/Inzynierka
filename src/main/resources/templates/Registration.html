@@ -21,13 +21,37 @@
         <input type="text" name="login" id="login" required pattern="[A-Za-z0-9]{4,30}"/>
     </main>
 
+        <main>
+            <label>*Adres e-mail:</label>
+            <input type="text" name="email"  id="email" required pattern="[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@+[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,350})$"/>
+        </main>
+        <main>
+            <label>*Haslo:</label>
+            <input type="password" name="hashhasla"  id="hashhasla" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"  /> <!--8 znakow min 1 wielka litera 1 mala i jedna cyfra  -->
+        </main>
+        <main>
+            <label>*Powtorz haslo:</label>
+            <input type="password" name="repeatpassword"  id="repeatpassword" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" /> <!--8 znakow min 1 wielka litera 1 mala i jedna cyfra  -->
+        </main>
+        <main>
+            <label>Imie:</label> <!-- dlaczego niewymagane? a jak zaciagniemy kredyty?-->
+            <input type="text" name="imie"  id="imie" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,85}$"/>
+        </main>
+
+        <main>
+            <label>Nazwisko:</label> <!-- dlaczego niewymagane? a jak zaciagniemy kredyty?-->
+            <input type="text" name="nazwisko"  id="nazwisko" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,100}$" />
+        </main>
 
 
-        <input type="submit" id="buttonzalogujsie" value="Zaloguj się"/>
+
+        <input type="submit" id="buttonzalogujsie" value="Zarejestruj się!"/>
     </form>
     <h3 id="polawymagane"> * - pola wymagane</h3>
 </div>
 <script src="js/jquery.js"></script>
+
+//sprawdza, czy powtorzone haslo jest takie samo
 <script src="js/passwordcheck.js"></script>
 </body>
 </html>

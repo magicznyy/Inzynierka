@@ -36,7 +36,6 @@ public class RegistrationController{
 
     @PostMapping("/process_register")
     public String send(@Valid User user, BindingResult result) {
-        System.out.print(user.getLogin());
         if (result.hasErrors()) {
             System.out.println("Sa bledy lmao");
             return "process_success";
