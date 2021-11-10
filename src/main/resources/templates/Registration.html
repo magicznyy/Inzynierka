@@ -34,12 +34,12 @@
             <input type="password" name="repeatpassword"  id="repeatpassword" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" /> <!--8 znakow min 1 wielka litera 1 mala i jedna cyfra  -->
         </main>
         <main>
-            <label>Imie:</label> <!-- dlaczego niewymagane? a jak zaciagniemy kredyty?-->
+            <label>*Imie:</label> <!-- tymczasowo wymagane, bo sie jebnalem z baza-->
             <input type="text" name="imie"  id="imie" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,85}$"/>
         </main>
 
         <main>
-            <label>Nazwisko:</label> <!-- dlaczego niewymagane? a jak zaciagniemy kredyty?-->
+            <label>*Nazwisko:</label> <!-- tymczasowo wymagane, bo sie jebnalem z baza -->
             <input type="text" name="nazwisko"  id="nazwisko" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,100}$" />
         </main>
 
@@ -51,7 +51,7 @@
 </div>
 <script src="js/jquery.js"></script>
 
-//sprawdza, czy powtorzone haslo jest takie samo
+
 <script src="js/passwordcheck.js"></script>
 </body>
 </html>

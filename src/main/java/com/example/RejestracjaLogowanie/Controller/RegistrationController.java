@@ -5,6 +5,7 @@ import com.example.RejestracjaLogowanie.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,9 @@ import javax.validation.Valid;
 public class RegistrationController{
 
     UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public RegistrationController(UserRepository userRepository) {
@@ -41,11 +45,18 @@ public class RegistrationController{
             return "process_success";
         }
         else {
+            hashPasswd(user);
             log.info(">> User : {}", user.toString());
             userRepository.save(user);
             return "process_success";
         }
     }
+
+    public void hashPasswd(User user){
+       user.setHashhasla(passwordEncoder.encode(user.getHashhasla()));
+
+    }
+
 
 
 }

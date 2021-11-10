@@ -34,7 +34,7 @@ public class LoginController {
         return userRepository.findUserByLogin(name) != null;
     }
 
-    @PostMapping("/process_login")
+    @PostMapping("/login")
     public String checkifregistered(User user)
     {
        if(userexist(user.getLogin()))

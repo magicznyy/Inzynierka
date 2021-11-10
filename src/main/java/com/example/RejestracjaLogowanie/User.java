@@ -2,11 +2,17 @@ package com.example.RejestracjaLogowanie;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.lang.annotation.Documented;
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.Collection;
 
 @Entity
 @Table(name = "uzytkownik")
@@ -16,8 +22,7 @@ import java.text.DecimalFormat;
         @SecondaryTable(name  = "danekontaktowe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
 })
 
-public class User {
-
+public class User implements UserDetails {
 
     public User(){
         this.rola = 0;
@@ -201,6 +206,42 @@ public class User {
                 ", prywatnoscKonta='" + prywatnosckonta + '\'' +
                 ", czyZbanowany='" + czyzbanowany + '\'' +
                 ", rola='" + rola + '\'' +
+                ", hash='" + hashhasla + '\'' +
                 '}';
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(new SimpleGrantedAuthority("USER"));
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }
