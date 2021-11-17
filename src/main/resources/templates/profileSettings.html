@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Settings</title>
+</head>
+<body>
+<div>
+<div>
+    <h1 th:inline="text">Aktualne dane użytkownika  <a th:text="${user.getLogin()}"> </a>  </h1>
+    <div>
+        <p>Pseudonim: <a th:text="${user.getLogin()}"> </a> </p>
+        <p>Imie: <a th:text="${user.getImie()}"> </a> </p>
+        <p>Nazwisko: <a th:text="${user.getNazwisko()}"> </a> </p>
+        <p>Adres e-mail: <a th:text="${user.getEmail()}"> </a> </p>
+        <div th:if="${user.Nrkontabankowego==null}" class="alert alert-error">
+            Numer konta bankowego: brak
+        </div>
+        <div th:if="${user.Nrkontabankowego!=null}" class="alert alert-error">
+           <p> Numer konta bankowego: <a th:text="${user.getNrkontabankowego()}"> </a> </p>
+        </div>
+
+    </div>
+</div>
+
+
+<div>
+    <h1 th:inline="text">Edycja danych użytkownika </h1>
+    <div>
+    <form th:action="@{/updatingLogin}" method="post">
+
+            <label for="username">Edytuj pseudonim</label>
+            <input type="text" id="username" name="username"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+    </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingPasswd}" method="post">
+
+            <label for="username">Edytuj hasło:</label>
+            <input type="password" id="password" name="password"/>
+
+            <label for="username">Powtórz hasło:</label>
+            <input type="password" id="password2" name="password"/>
+
+
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingEmail}" method="post">
+
+            <label for="username">Edytuj adres e-mail</label>
+            <input type="email" id="email" name="email"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <div>
+        <form  th:action="@{/updatingName}" method="post">
+
+            <label for="username">Edytuj imię:</label>
+            <input type="text" id="name" name="name"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingLastName}" method="post">
+
+            <label for="username">Edytuj nazwisko:</label>
+            <input type="text" id="lastname" name="lastname"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingBankAccountNumber}" method="post">
+
+            <div th:if="${user.Nrkontabankowego==null}" class="alert alert-error">
+                <label for="username">Dodaj numer konta bankowego: </label>
+            </div>
+
+            <div th:if="${user.Nrkontabankowego!=null}" class="alert alert-error">
+                <label for="username">Edytuj numer konta bankowego: </label>
+            </div>
+
+            <input type="text" id="bankaccnumb" name="bankaccnumb"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<div>
+    <h1 th:inline="text">Edycja profilu <a th:text="${user.getLogin()}"> </a>  </h1>
+
+    <div>
+        <form  th:action="@{/updatingLastName}" method="post">
+
+            <label for="username">Edytuj nazwisko:</label>
+            <input type="text" id="lastname" name="lastname"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingLastName}" method="post">
+
+            <label for="username">Edytuj nazwisko:</label>
+            <input type="text" id="lastname" name="lastname"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingLastName}" method="post">
+
+            <label for="username">Edytuj nazwisko:</label>
+            <input type="text" id="lastname" name="lastname"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+    <div>
+        <div>
+            <form  th:action="@{/updatingLastName}" method="post">
+
+                <label for="username">Usuń konto:</label>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn">Usuń konto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
