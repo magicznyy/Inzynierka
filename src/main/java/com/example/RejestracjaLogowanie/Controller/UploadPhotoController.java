@@ -31,12 +31,13 @@ public class UploadPhotoController {
     @RequestMapping("/upload")
     public String upload (Model model, @RequestParam("image") MultipartFile image)
     {
-        Path fileNameAndPath = Paths.get("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images");
+        Path fileNameAndPath = Paths.get("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\dupa.jpg");
         try{
             Files.write(fileNameAndPath, image.getBytes());
         }
         catch(Exception e){
             System.out.printf("Problem z zapisem");
+            e.printStackTrace();
     }
         return "uploadPhoto";
     }
