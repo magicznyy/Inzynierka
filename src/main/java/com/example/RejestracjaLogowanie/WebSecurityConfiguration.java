@@ -45,12 +45,13 @@ public class WebSecurityConfiguration  extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 .antMatchers("/registration*").permitAll()
+                .antMatchers("/process_register").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/mainPage", true)
+                .defaultSuccessUrl("/profile", true)
                 .permitAll();
 
                // .and()
