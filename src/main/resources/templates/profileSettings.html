@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Settings</title>
+</head>
+<body>
+<div>
+<div>
+    <h1 th:inline="text">Aktualne dane użytkownika  <a th:text="${user.getLogin()}"> </a>  </h1>
+    <div>
+        <p>Pseudonim: <a th:text="${user.getLogin()}"> </a> </p>
+        <p>Imie: <a th:text="${user.getImie()}"> </a> </p>
+        <p>Nazwisko: <a th:text="${user.getNazwisko()}"> </a> </p>
+        <p>Adres e-mail: <a th:text="${user.getEmail()}"> </a> </p>
+        <div th:if="${user.Nrkontabankowego==null}" class="alert alert-error">
+            Numer konta bankowego: brak
+        </div>
+        <div th:if="${user.Nrkontabankowego!=null}" class="alert alert-error">
+           <p> Numer konta bankowego: <a th:text="${user.getNrkontabankowego()}"> </a> </p>
+        </div>
+
+    </div>
+</div>
+
+
+<div>
+    <h1 th:inline="text">Edycja danych użytkownika </h1>
+    <div>
+    <form th:action="@{/updatingLogin}" method="post">
+
+            <label for="username">Edytuj pseudonim</label>
+             <input type="text" name="username" id="username" required pattern="[A-Za-z0-9]{4,30}"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+    </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingPasswd}" method="post">
+
+            <label for="username">Podaj aktualne hasło:</label>
+            <input type="password" id="currpassword" name="currpassword"/>
+
+            <label for="username">Podaj nowe hasło:</label>
+            <input type="password" name="password"  id="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"  />
+
+            <label for="username">Powtórz nowe hasło:</label>
+            <input type="password" id="repeatpassword" name="repeatpassword"/>
+
+
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingEmail}" method="post">
+
+            <label for="username">Edytuj adres e-mail</label>
+            <input type="text" name="email"  id="email" required pattern="[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@+[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,350})$"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingName}" method="post">
+
+            <label for="username">Edytuj imię:</label>
+            <input type="text" name="name"  id="name" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,85}$"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingLastName}" method="post">
+
+            <label for="username">Edytuj nazwisko:</label>
+            <input type="text" name="lastName"  id="lastName" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,100}$" />
+            <div class="form-actions">
+                <button onclick="myFunction2()" type="submit" class="btn">Zapisz</button>
+                <script>
+
+</script>
+                <script>
+                function myFunction2() {
+                var txt;
+                if (confirm("Na pewno chcesz całkowicie usunąć konto?")) {
+                txt = "You pressed OK!";
+                } else {
+                txt = "You pressed Cancel!";
+                }
+                document.getElementById("demo").innerHTML = txt;
+                }
+                </script>
+
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingBankAccountNumber}" method="post">
+
+            <div th:if="${user.Nrkontabankowego==null}" class="alert alert-error">
+                <label for="username">Dodaj numer konta bankowego: </label>
+            </div>
+
+            <div th:if="${user.Nrkontabankowego!=null}" class="alert alert-error">
+                <label for="username">Edytuj numer konta bankowego: </label>
+            </div>
+
+            <input type="text" id="bankaccnumb" name="bankaccnumb"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<div>
+    <h1 th:inline="text">Edycja profilu <a th:text="${user.getLogin()}"> </a>  </h1>
+
+    <div>
+        <form  th:action="@{/updatingProfileDesc}" method="post">
+
+            <label for="username">Zmień opis profilu:</label>
+            <input type="text" id="opis" name="opis"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingStarterPoint}" method="post">
+
+            <label for="username">Ustaw punkt startowy mapy:</label>
+            <input type="text" id="start" name="start"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form  th:action="@{/updatingProfilePrivacy}" method="post">
+
+            <label for="username">Prywatność profilu:</label>
+            <input type="text" id="privacy" name="privacy"/>
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+        <div>
+        <div>
+            <form  th:action="@{/deleteAccount}" method="post">
+
+                <label for="username">Usuń konto:</label>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn">Usuń konto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="js/passwordcheck.js"></script>
+</body>
+</html>
