@@ -1,0 +1,69 @@
+
+#mainbox
+{
+width: auto;
+background: linear-gradient(180deg, #0C2C4C 0%, rgba(0, 36, 67, 0.38) 5.21%, rgba(219, 233, 239, 0.78) 100%);
+}
+#userbox
+{
+height: 17em;
+width: auto;
+margin-left: 2em;
+margin-right: 2em;
+margin-top: 5%;
+background-color: #0C2C4C;
+display: flex;
+    border-radius: 20px;
+
+}
+#user
+{
+    text-align: center;
+}
+#profpic
+{
+    object-fit:cover; /*aby bylo kwadratowe*/
+    margin: 1em 0 0 1em;
+    width: 8.5em;
+    height: 8.5em;
+    border: 3px solid #84D9EC;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+#userdescription
+{
+    padding-left: 5%;
+    width: 100%;
+    color: #BFE0EE;
+}
+
+
+#settings
+{
+    width: 30%;
+    height: 14%;
+    background: #BFE0EE;
+    border: 0.15em solid #84D9EC;
+    font-size: 1.2em;
+    color: rgba(0, 0, 0, 0.7);
+    margin: auto 5% 5% 1%;
+}
+
+#photobox
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+.album
+{
+    margin:1em;
+    border: 0.5em solid white;
+    object-fit:cover; /*aby bylo kwadratowe*/
+    width: 20em;
+    height: 20em;
+
+}

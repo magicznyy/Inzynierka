@@ -70,7 +70,7 @@ label
 
     font-size: 1.3em;
 }
-#name, #password
+#username, #password
 {
     border-radius: 0.5em;
     height: 2.5em;
@@ -82,7 +82,7 @@ label
 {
 
     /* Przycisk zaloguj  */
-    width: 6em;
+    width: 8em;
     height: 1.8em;
     text-align: center;
 
