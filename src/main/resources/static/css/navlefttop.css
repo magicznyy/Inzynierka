@@ -1,0 +1,167 @@
+body
+{
+    background-image: url("tlooo.png");
+    font-family: 'Baloo Thambi 2', cursive;
+    display: flex;
+    flex-direction: row;
+
+}
+::-webkit-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    font-family: 'Baloo Thambi 2', cursive;
+    font-size: 130%;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-family: 'Baloo Thambi 2', cursive;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    font-family: 'Baloo Thambi 2', cursive;
+}
+
+
+/* webkit-scrollbar nie jest wspierany przez firefoxa i Internet Explorera ale pewnie inne sa tj do ogarniecia
+
+!*nowy scroll dla centerboxa*!
+
+#centerbox::-webkit-scrollbar {
+    width: 10px;
+}
+
+!* Track *!
+#centerbox::-webkit-scrollbar-track {
+
+    background: #C4C4C4;
+    width: 3em;
+}
+
+!* Handle *!
+#centerbox::-webkit-scrollbar-thumb {
+    background: #0C2C4C;
+    border-radius: 1em;
+}
+
+!* Handle on hover *!
+#centerbox::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}*/ /*wazne!!*/
+
+#nav
+{
+position: fixed;
+margin-left: 4em;
+margin-right: 4em;
+width: 7em;
+
+}
+img
+{
+    width: 7em;
+    background: transparent;
+
+}
+a
+{
+    text-decoration: none;
+    text-align: center;
+}
+hr /*linia miedzy przyciskami nawigacji*/
+{
+    display: block;
+    border-style: solid;
+    border-width: 0.1em;
+    color: #BFE0EE;
+
+}
+
+#centerbox
+{
+    width: 100%;
+    padding-left: 13em;
+}
+
+#top
+{
+    display: flex;
+    flex-direction: row;
+}
+
+form
+{
+    width: 80%;
+}
+
+label
+{
+    position:relative;
+    padding:0 0 0 20px;
+    margin:0 20px;
+}
+input
+{
+    /*border-radius: 0.5em;*/
+    height: 2.8em;
+    width: 30em;
+    border: 0.4em solid #84D9EC;
+    border-radius: 10px;
+
+    text-indent: 1em; /*odstep dla placeholdera*/
+
+}
+
+/*#iconinput
+{
+    position:absolute;
+    bottom:2px;
+    right:7px;
+    width:24px;
+    height:24px;
+}*/ /*zostawmy to w spokoju*/
+
+
+
+#search
+{
+    width: 14%;
+    height: 3.2em;
+    text-align: center;
+    margin-top: 2%;
+    background: #BFE0EE;
+    border: 0.25em solid #84D9EC;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-indent: 0;
+    color: rgba(0, 0, 0, 0.7);
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#notification
+{
+    width: 2em;
+    margin: auto 1em;
+}
+
+#saldoreturn /*informacja o saldzie*/
+{
+    margin-block-start: 1.6em;
+    margin-left: 0.4em;
+    margin-right: 0.4em;
+}
+
+#profpicminature
+{
+
+    width: 4.2em;
+    height:4.2em;
+    object-fit:cover; /*aby bylo kwadratowe*/
+    margin: auto 1em;
+
+    border: 3px solid #84D9EC;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+}
