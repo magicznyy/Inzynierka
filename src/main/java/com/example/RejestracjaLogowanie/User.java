@@ -38,7 +38,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "iduzytkownik")
     private Long id;
 
 
@@ -64,8 +64,16 @@ public class User implements UserDetails {
     @Column(name = "rola")
     private byte rola;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private List <Post> posts = new ArrayList<>();
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 
     //tabela danelogowania
     @Column(name = "email", table = "danelogowania")

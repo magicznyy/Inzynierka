@@ -2,14 +2,19 @@ package com.example.RejestracjaLogowanie;
 
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "post")
 public class Post {
 
-   public  Post(){
+   public  Post(String tags, String description, LocalDateTime date, User user){
 
+       this.tags = tags;
+       this.description = description;
+       //this.date = date;
+       this.user = user;
    }
 
     @Id
@@ -22,9 +27,21 @@ public class Post {
 
     @Column(name="opis", table="post")
     private String description;
-
+/*
     @Column(name="datazamieszczenia", table="post")
-    private Date date;
+    private LocalDateTime date;*/
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="uzytkownik_iduzytkownik", referencedColumnName = "iduzytkownik")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @OneToOne(mappedBy = "post")
     @PrimaryKeyJoinColumn
@@ -58,14 +75,14 @@ public class Post {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public Date getDate() {
+/*
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
-
+*/
 
 }
