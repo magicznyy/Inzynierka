@@ -11,15 +11,18 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.lang.annotation.Documented;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "uzytkownik")
 
 @SecondaryTables({
         @SecondaryTable(name  = "danelogowania", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
-        @SecondaryTable(name  = "danekontaktowe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
+        @SecondaryTable(name  = "danekontaktowe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
+        @SecondaryTable(name  = "post", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
 })
 
 public class User implements UserDetails {
@@ -30,8 +33,7 @@ public class User implements UserDetails {
         this.aktywnosc =  0;
         this.prywatnosckonta = 0;
         this.czyzbanowany = 0;
-        //sol na razie tylko taka, żeby była
-        this.solhasla ="soldupa2";
+
     }
 
     @Id
@@ -62,6 +64,8 @@ public class User implements UserDetails {
     @Column(name = "rola")
     private byte rola;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List <Post> posts = new ArrayList<>();
 
     //tabela danelogowania
     @Column(name = "email", table = "danelogowania")
@@ -69,10 +73,6 @@ public class User implements UserDetails {
 
     @Column( name = "hashhasla",table= "danelogowania")
     private String hashhasla;
-
-    @Column( name = "solhasla",table= "danelogowania")
-    private String solhasla;
-
 
     //tabela danekontaktowe
     @Column( name = "imie",table= "danekontaktowe")
@@ -160,14 +160,6 @@ public class User implements UserDetails {
 
     public void setHashhasla(String hashhasla) {
         this.hashhasla = hashhasla;
-    }
-
-    public String getSolhasla() {
-        return solhasla;
-    }
-
-    public void setSolhasla(String solhasla) {
-        this.solhasla = solhasla;
     }
 
     public String getImie() {

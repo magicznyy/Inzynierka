@@ -36,8 +36,11 @@ public class UploadPhotoController {
     }
 
     @RequestMapping("/upload")
-    public String upload (Model model, @RequestParam("image") MultipartFile image)
+    public String upload (Model model, @RequestParam("image") MultipartFile image, @RequestParam("description") String description, @RequestParam("tags") String tags)
     {
+
+
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user = (User) userRepository.findUserByLogin(userDetails.getUsername());

@@ -6,16 +6,12 @@ import java.util.Date;
 
 @Entity
 @Table(name = "post")
-@SecondaryTables({
-        @SecondaryTable(name="zdjecie",  pkJoinColumns = @PrimaryKeyJoinColumn(name = "post_idpost"))
-})
 public class Post {
 
    public  Post(){
 
    }
 
-    
     @Id
     @GeneratedValue
     @Column(name="idpost", table="post")
@@ -30,13 +26,12 @@ public class Post {
     @Column(name="datazamieszczenia", table="post")
     private Date date;
 
+    @OneToOne(mappedBy = "post")
+    @PrimaryKeyJoinColumn
+    private Photo photo;
 
 
-    @Column(name="sciezka", table = "zdjecie")
-    private String path;
 
-    @Column(name="czynasprzedaz", table = "zdjecie")
-    private byte isForSale;
 
 
 
@@ -72,19 +67,5 @@ public class Post {
         this.date = date;
     }
 
-    public String getPath() {
-        return path;
-    }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public byte getIsForSale() {
-        return isForSale;
-    }
-
-    public void setIsForSale(byte isForSale) {
-        this.isForSale = isForSale;
-    }
 }
