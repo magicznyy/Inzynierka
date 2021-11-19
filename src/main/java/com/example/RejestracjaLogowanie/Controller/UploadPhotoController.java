@@ -2,7 +2,13 @@ package com.example.RejestracjaLogowanie.Controller;
 
 
 
+import com.example.RejestracjaLogowanie.User;
+import com.example.RejestracjaLogowanie.UserRepository;
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +26,8 @@ import java.nio.file.Paths;
 public class UploadPhotoController {
     public static String uploadDir = System.getProperty("user.dir") + "/uploads";
 
-
+    @Autowired
+   private  UserRepository userRepository;
 
     @GetMapping("/uploadPhoto")
     public String uploadPhoto(){
@@ -31,7 +38,17 @@ public class UploadPhotoController {
     @RequestMapping("/upload")
     public String upload (Model model, @RequestParam("image") MultipartFile image)
     {
-        Path fileNameAndPath = Paths.get("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\dupa.jpg");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + "dupa.png");
+
+        String path = builder.toString();
+
+
+        Path fileNameAndPath = Paths.get(path);
         try{
             Files.write(fileNameAndPath, image.getBytes());
         }
