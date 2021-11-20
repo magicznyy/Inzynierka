@@ -9,7 +9,11 @@ import java.util.Date;
 @Table(name = "post")
 public class Post {
 
-   public  Post(String tags, String description, LocalDateTime date, User user){
+
+    public Post() {
+    }
+
+    public  Post(String tags, String description, LocalDateTime date, User user){
 
        this.tags = tags;
        this.description = description;
@@ -31,7 +35,7 @@ public class Post {
     @Column(name="datazamieszczenia", table="post")
     private LocalDateTime date;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="uzytkownik_iduzytkownik", referencedColumnName = "iduzytkownik")
     private User user;
 
@@ -43,8 +47,7 @@ public class Post {
         this.user = user;
     }
 
-    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private Photo photo;
 
 

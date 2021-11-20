@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -43,16 +45,23 @@ public class UploadPhotoController {
         return "uploadPhoto" ;
     }
 
-    @RequestMapping("/upload")
+    @PostMapping("/upload")
     public String upload (Model model, @RequestParam("image") MultipartFile image, @RequestParam("description") String description, @RequestParam("tags") String tags)
         {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
 
 
+            List<User> photos =  userRepository.findAll();
+            for (User user1 :photos) {
+                System.out.println( "Przed:" + user1.getLogin());
+
+            }
+
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserDetails userDetails = (UserDetails) auth.getPrincipal();
-            User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+          User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+
 
             Post post = new Post(description,tags, now, user);
            postRepository.save(post);
@@ -62,7 +71,7 @@ public class UploadPhotoController {
 
         String photoExtension = image.getOriginalFilename().toString();
         photoExtension = photoExtension.substring(photoExtension.length() - 3);
-      
+
         StringBuilder builder = new StringBuilder();
 
         if(Objects.equals(photoExtension,"jpg"))
@@ -72,8 +81,8 @@ public class UploadPhotoController {
 
         String path = builder.toString();
 
-        photo.setPath(path);
-        photoRepository.save(photo);
+       /* photo.setPath(path);
+        photoRepository.save(photo);*/
 
 
         Path fileNameAndPath = Paths.get(path);

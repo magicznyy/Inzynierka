@@ -31,9 +31,8 @@ public class Photo {
     private byte isForSale;
 
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name="post_idpost")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="post_idpost",referencedColumnName = "idpost")
     private Post post;
 
     public Long getPhotoId() {

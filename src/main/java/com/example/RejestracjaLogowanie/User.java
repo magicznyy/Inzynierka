@@ -64,7 +64,7 @@ public class User implements UserDetails {
     @Column(name = "rola")
     private byte rola;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Post> posts = new ArrayList<>();
 
     public List<Post> getPosts() {
