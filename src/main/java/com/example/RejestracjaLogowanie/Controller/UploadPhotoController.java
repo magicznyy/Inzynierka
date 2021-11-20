@@ -2,10 +2,7 @@ package com.example.RejestracjaLogowanie.Controller;
 
 
 
-import com.example.RejestracjaLogowanie.Post;
-import com.example.RejestracjaLogowanie.PostRepository;
-import com.example.RejestracjaLogowanie.User;
-import com.example.RejestracjaLogowanie.UserRepository;
+import com.example.RejestracjaLogowanie.*;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -25,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Controller
 public class UploadPhotoController {
@@ -35,6 +33,9 @@ public class UploadPhotoController {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private PhotoRepository photoRepository;
 
     @GetMapping("/uploadPhoto")
     public String uploadPhoto(){
@@ -56,12 +57,23 @@ public class UploadPhotoController {
             Post post = new Post(description,tags, now, user);
            postRepository.save(post);
 
+           Photo photo = new Photo("sciezka", post);
+           photoRepository.save(photo);
 
+        String photoExtension = image.getOriginalFilename().toString();
+        photoExtension = photoExtension.substring(photoExtension.length() - 3);
+      
         StringBuilder builder = new StringBuilder();
 
-        builder.append("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + "dupa.png");
+        if(Objects.equals(photoExtension,"jpg"))
+            builder.append("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
+        else
+            builder.append("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
 
         String path = builder.toString();
+
+        photo.setPath(path);
+        photoRepository.save(photo);
 
 
         Path fileNameAndPath = Paths.get(path);

@@ -13,7 +13,7 @@ public class Post {
 
        this.tags = tags;
        this.description = description;
-       //this.date = date;
+       this.date = date;
        this.user = user;
    }
 
@@ -27,9 +27,9 @@ public class Post {
 
     @Column(name="opis", table="post")
     private String description;
-/*
+
     @Column(name="datazamieszczenia", table="post")
-    private LocalDateTime date;*/
+    private LocalDateTime date;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="uzytkownik_iduzytkownik", referencedColumnName = "iduzytkownik")
@@ -43,14 +43,18 @@ public class Post {
         this.user = user;
     }
 
-    @OneToOne(mappedBy = "post")
+    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Photo photo;
 
 
+    public Photo getPhoto() {
+        return photo;
+    }
 
-
-
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
 
     public Long getIdPost() {
         return idPost;
@@ -75,7 +79,7 @@ public class Post {
     public void setDescription(String description) {
         this.description = description;
     }
-/*
+
     public LocalDateTime getDate() {
         return date;
     }
@@ -83,6 +87,6 @@ public class Post {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
-*/
+
 
 }

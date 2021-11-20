@@ -11,6 +11,12 @@ public class Photo {
 
     }
 
+    public Photo( String path, Post post) {
+        this.path = path;
+        this.isForSale = 0;
+        this.post = post;
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "idzdjecie")
@@ -19,12 +25,15 @@ public class Photo {
     @Column(name = "sciezka")
     private String path;
 
+
+
     @Column(name = "czynasprzedaz")
-    private Long isForSale;
+    private byte isForSale;
+
 
     @OneToOne
     @MapsId
-    @JoinColumn(name="postid")
+    @JoinColumn(name="post_idpost")
     private Post post;
 
     public Long getPhotoId() {
@@ -43,11 +52,11 @@ public class Photo {
         this.path = path;
     }
 
-    public Long getIsForSale() {
+    public byte getIsForSale() {
         return isForSale;
     }
 
-    public void setIsForSale(Long isForSale) {
+    public void setIsForSale(byte isForSale) {
         this.isForSale = isForSale;
     }
 
@@ -58,4 +67,5 @@ public class Photo {
     public void setPost(Post post) {
         this.post = post;
     }
+
 }
