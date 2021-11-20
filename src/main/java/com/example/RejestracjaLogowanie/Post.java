@@ -2,20 +2,21 @@ package com.example.RejestracjaLogowanie;
 
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "post")
-@SecondaryTables({
-        @SecondaryTable(name="zdjecie",  pkJoinColumns = @PrimaryKeyJoinColumn(name = "post_idpost"))
-})
 public class Post {
 
-   public  Post(){
+   public  Post(String tags, String description, LocalDateTime date, User user){
 
+       this.tags = tags;
+       this.description = description;
+       this.date = date;
+       this.user = user;
    }
 
-    
     @Id
     @GeneratedValue
     @Column(name="idpost", table="post")
@@ -28,17 +29,32 @@ public class Post {
     private String description;
 
     @Column(name="datazamieszczenia", table="post")
-    private Date date;
+    private LocalDateTime date;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="uzytkownik_iduzytkownik", referencedColumnName = "iduzytkownik")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Photo photo;
 
 
+    public Photo getPhoto() {
+        return photo;
+    }
 
-    @Column(name="sciezka", table = "zdjecie")
-    private String path;
-
-    @Column(name="czynasprzedaz", table = "zdjecie")
-    private byte isForSale;
-
-
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
 
     public Long getIdPost() {
         return idPost;
@@ -64,27 +80,13 @@ public class Post {
         this.description = description;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
-    public String getPath() {
-        return path;
-    }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public byte getIsForSale() {
-        return isForSale;
-    }
-
-    public void setIsForSale(byte isForSale) {
-        this.isForSale = isForSale;
-    }
 }

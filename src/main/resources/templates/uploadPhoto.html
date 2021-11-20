@@ -9,9 +9,13 @@
 
 <form th:action=${"/upload"} method="post" enctype="multipart/form-data">
     <div>
-        <label>Photos: </label>
+        <label>Załącz zdjęcie z dysku: </label>
         <input type="file" name="image" accept="image/png, image/jpeg"/>
-        <input type="submit" value=" Upload"/>
+        <label>Dodaj opis: </label>
+        <input type="text" name="description"/>
+        <label>Dodaj tagi: </label>
+        <input type="text" name="tags" />
+        <input type="submit" value=" Opublikuj"/>
     </div>
 </form>
 
