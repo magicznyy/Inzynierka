@@ -15,16 +15,15 @@ public class MainPageController {
 
 
     @Autowired
-    PostRepository userRepository;
+    PostRepository postRepository;
 
     @GetMapping("/mainPage")
     public String mainPage(){
 
-        List<Post> photos =  userRepository.findAll();
-        for (Post user :photos) {
+        List<Post> posts =  postRepository.findAll();
+        for (Post post :posts) {
 
-            System.out.println(user.getIdPost());
-            System.out.println(user.getUser().getLogin());
+            System.out.println(post.toString());
         }
 
 

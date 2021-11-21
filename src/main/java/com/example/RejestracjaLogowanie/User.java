@@ -22,7 +22,7 @@ import java.util.List;
 @SecondaryTables({
         @SecondaryTable(name  = "danelogowania", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
         @SecondaryTable(name  = "danekontaktowe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
-        @SecondaryTable(name  = "post", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
+
 })
 
 public class User implements UserDetails {
@@ -64,7 +64,7 @@ public class User implements UserDetails {
     @Column(name = "rola")
     private byte rola;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity=Post.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Post> posts = new ArrayList<>();
 
     public List<Post> getPosts() {

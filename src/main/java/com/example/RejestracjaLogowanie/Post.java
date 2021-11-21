@@ -35,8 +35,20 @@ public class Post {
     @Column(name="datazamieszczenia", table="post")
     private LocalDateTime date;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="uzytkownik_iduzytkownik", referencedColumnName = "iduzytkownik")
+    @Override
+    public String toString() {
+        return "Post{" +
+                "idPost=" + idPost +
+                ", tags='" + tags + '\'' +
+                ", description='" + description + '\'' +
+                ", date=" + date +
+                ", user=" + user +
+                ", photo=" + photo +
+                '}';
+    }
+
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "uzytkownik_iduzytkownik")
     private User user;
 
     public User getUser() {

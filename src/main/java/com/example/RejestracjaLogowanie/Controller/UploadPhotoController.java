@@ -52,19 +52,21 @@ public class UploadPhotoController {
             LocalDateTime now = LocalDateTime.now();
 
 
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails = (UserDetails) auth.getPrincipal();
+          User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+
+          System.out.println("id: " + user.getId());
+
+            Post post = new Post(description,tags, now, user);
+           postRepository.save(post);
+
             List<User> photos =  userRepository.findAll();
             for (User user1 :photos) {
                 System.out.println( "Przed:" + user1.getLogin());
 
             }
 
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            UserDetails userDetails = (UserDetails) auth.getPrincipal();
-          User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
-
-
-            Post post = new Post(description,tags, now, user);
-           postRepository.save(post);
 
            Photo photo = new Photo("sciezka", post);
            photoRepository.save(photo);
@@ -81,8 +83,8 @@ public class UploadPhotoController {
 
         String path = builder.toString();
 
-       /* photo.setPath(path);
-        photoRepository.save(photo);*/
+        photo.setPath(path);
+        photoRepository.save(photo);
 
 
         Path fileNameAndPath = Paths.get(path);
