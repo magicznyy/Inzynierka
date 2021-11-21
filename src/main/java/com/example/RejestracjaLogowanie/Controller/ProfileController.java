@@ -26,7 +26,7 @@ public class ProfileController {
 
     public String getProfilePic() /*w zaleznosci od id usera- finduserbyid i wtedy po folderach patrzymy*/
     {
-        File picpath=new File("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\profpic.jpg");
+        File picpath=new File("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\profpic.jpg");
         boolean doespicexists = picpath.exists();
         if(picpath.isFile())
         {
@@ -54,6 +54,7 @@ public class ProfileController {
             String[] imagename = Objects.requireNonNull(directory.list());
             model.addAttribute("photos", imagename);
             System.out.println(Arrays.toString(imagename));
+            System.out.println(directory);
 
         }
     }
