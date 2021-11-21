@@ -8,8 +8,20 @@
 
 <h1 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]] </h1>
 
-<form th:action="@{/logout}" method="post">
+
+<div><form th:action="@{/logout}" method="post">
     <input type="submit" value="Logout" />
-</form>
+</form></div>
+
+<div>
+<div th:each="post: ${posts}">
+    <p>Id postu:<a th:text="${post.getIdPost()}" ></a></p>
+    <p>Opis: <a th:text="${post.getDescription()}"></a></p>
+    <p>Tagi: <a th:text="${post.getTags()}"></a></p>
+    <p>Id zdjecia: <a th:text="${post.getPhoto().getPhotoId()}"></a></p>
+    <p>Login twórcy: <a th:text="${post.getUser().getLogin()}"></a></p>
+</div>
+</div>
+
 </body>
 </html>

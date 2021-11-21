@@ -9,12 +9,17 @@ import java.util.Date;
 @Table(name = "post")
 public class Post {
 
-   public  Post(String tags, String description, LocalDateTime date, User user){
+
+    public Post() {
+    }
+
+    public  Post(String tags, String description, LocalDateTime date, User user, Photo photo){
 
        this.tags = tags;
        this.description = description;
        this.date = date;
        this.user = user;
+       this.photo = photo;
    }
 
     @Id
@@ -31,8 +36,20 @@ public class Post {
     @Column(name="datazamieszczenia", table="post")
     private LocalDateTime date;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="uzytkownik_iduzytkownik", referencedColumnName = "iduzytkownik")
+    @Override
+    public String toString() {
+        return "Post{" +
+                "idPost=" + idPost +
+                ", tags='" + tags + '\'' +
+                ", description='" + description + '\'' +
+                ", date=" + date +
+                ", user=" + user +
+                ", photo=" + photo +
+                '}';
+    }
+
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "uzytkownik_iduzytkownik")
     private User user;
 
     public User getUser() {
@@ -43,10 +60,10 @@ public class Post {
         this.user = user;
     }
 
-    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Photo photo;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="zdjecie_idzdjecie",referencedColumnName = "idzdjecie")
+    private Photo photo;
 
     public Photo getPhoto() {
         return photo;
