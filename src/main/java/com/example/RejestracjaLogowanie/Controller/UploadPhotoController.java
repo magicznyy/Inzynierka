@@ -37,6 +37,8 @@ public class UploadPhotoController {
     @Autowired
     private PhotoRepository photoRepository;
 
+
+
     @GetMapping("/uploadPhoto")
     public String uploadPhoto(){
 
@@ -60,15 +62,16 @@ public class UploadPhotoController {
            Photo photo = new Photo("sciezka", post);
            photoRepository.save(photo);
 
+
         String photoExtension = image.getOriginalFilename().toString();
         photoExtension = photoExtension.substring(photoExtension.length() - 3);
       
         StringBuilder builder = new StringBuilder();
 
         if(Objects.equals(photoExtension,"jpg"))
-            builder.append("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
+            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
         else
-            builder.append("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
+            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
 
         String path = builder.toString();
 

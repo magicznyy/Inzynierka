@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class NavigationController {
 
-    @GetMapping("/maps")
+    @GetMapping("/photoit")
     public String photoit()
     {
-        return "Maps";
+        return "process_success";
     }
 
     @GetMapping("/add")
