@@ -11,10 +11,10 @@ public class Photo {
 
     }
 
-    public Photo( String path, Post post) {
+    public Photo( String path) {
         this.path = path;
         this.isForSale = 0;
-        this.post = post;
+
     }
 
     @Id
@@ -26,14 +26,11 @@ public class Photo {
     private String path;
 
 
-
     @Column(name = "czynasprzedaz")
     private byte isForSale;
 
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name="post_idpost")
+    @OneToOne(mappedBy = "photo", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private Post post;
 
     public Long getPhotoId() {
