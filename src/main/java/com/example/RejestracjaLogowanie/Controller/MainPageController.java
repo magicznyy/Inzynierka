@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -18,14 +19,10 @@ public class MainPageController {
     PostRepository postRepository;
 
     @GetMapping("/mainPage")
-    public String mainPage(){
+    public String mainPage(Model model){
 
         List<Post> posts =  postRepository.findAll();
-        for (Post post :posts) {
-
-            System.out.println(post.toString());
-        }
-
+        model.addAttribute("posts", posts);
 
         return "mainPage";
     }

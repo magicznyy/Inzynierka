@@ -13,12 +13,13 @@ public class Post {
     public Post() {
     }
 
-    public  Post(String tags, String description, LocalDateTime date, User user){
+    public  Post(String tags, String description, LocalDateTime date, User user, Photo photo){
 
        this.tags = tags;
        this.description = description;
        this.date = date;
        this.user = user;
+       this.photo = photo;
    }
 
     @Id
@@ -59,9 +60,10 @@ public class Post {
         this.user = user;
     }
 
-    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    private Photo photo;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="zdjecie_idzdjecie",referencedColumnName = "idzdjecie")
+    private Photo photo;
 
     public Photo getPhoto() {
         return photo;

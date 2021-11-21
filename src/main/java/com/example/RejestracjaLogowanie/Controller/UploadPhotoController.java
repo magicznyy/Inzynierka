@@ -58,7 +58,10 @@ public class UploadPhotoController {
 
           System.out.println("id: " + user.getId());
 
-            Post post = new Post(description,tags, now, user);
+            Photo photo = new Photo("sciezka");
+            photoRepository.save(photo);
+
+            Post post = new Post(description,tags, now, user, photo);
            postRepository.save(post);
 
             List<User> photos =  userRepository.findAll();
@@ -68,8 +71,7 @@ public class UploadPhotoController {
             }
 
 
-           Photo photo = new Photo("sciezka", post);
-           photoRepository.save(photo);
+
 
         String photoExtension = image.getOriginalFilename().toString();
         photoExtension = photoExtension.substring(photoExtension.length() - 3);
