@@ -26,7 +26,7 @@ public class ProfileController {
 
     public String getProfilePic() /*w zaleznosci od id usera- finduserbyid i wtedy po folderach patrzymy*/
     {
-        File picpath=new File("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\profpic.jpg");
+        File picpath=new File("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\profpic.jpg");
         boolean doespicexists = picpath.exists();
         if(picpath.isFile())
         {
