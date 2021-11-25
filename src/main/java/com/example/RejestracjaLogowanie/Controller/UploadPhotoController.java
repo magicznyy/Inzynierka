@@ -76,6 +76,7 @@ public class UploadPhotoController {
 
 
 
+
         String photoExtension = image.getOriginalFilename().toString();
         photoExtension = photoExtension.substring(photoExtension.length() - 3);
 
