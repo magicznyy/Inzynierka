@@ -57,10 +57,10 @@
             <img th:src="${profilepic}" alt="Zdjęcie profilowe" id="profpic">
             <p style="color: #BFE0EE; margin-left:1em; font-size: 2em; margin-top: 0"  th:text="${login}"></p>
         </div>
-        <h1 id="userdescription">
-            Cześć, jestem Człowiek Dynia.
-        </h1>
-        <button id="settings">Ustawienia profilu</button>
+
+        <h1 th:text="${profileDescription}"   id="userdescription"></h1>
+
+            <button id="settings">Ustawienia profilu</button>
 
         </div>
         <div id="photobox">

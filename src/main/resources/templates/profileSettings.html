@@ -131,7 +131,7 @@
         <form  th:action="@{/updatingProfileDesc}" method="post">
 
             <label for="username">Zmień opis profilu:</label>
-            <input type="text" id="opis" name="opis"/>
+            <input type="text" id="profileDescription" name="profileDescription" th:value="${user.getProfileDescription()}"/>
             <div class="form-actions">
                 <button type="submit" class="btn">Zapisz</button>
             </div>

@@ -49,6 +49,7 @@ public class ProfileController {
         model.addAttribute("login", user.getLogin());
         model.addAttribute("money", user.getSaldo());
         model.addAttribute("id", user.getId());
+        model.addAttribute("profileDescription", user.getProfileDescription());
         File directory=new File("src/main/resources/static/images/user"+user.getId());
         if(directory.list()!=null) {
             String[] imagename = Objects.requireNonNull(directory.list());
@@ -65,7 +66,7 @@ public class ProfileController {
 
         if(!getProfilePic().equals("none"))
             model.addAttribute("profilepic", getProfilePic()); /*nie wiem czy to jest optymalne XD*/
-        return "Photo";
+        return "profile";
     }
 
 }
