@@ -75,7 +75,7 @@ public class RegistrationController{
             Long id=getIdFromRepository(user, userRepository);
             createDirectory(id);
 
-            return "process_success";
+            return "Login";
         }
     }
 

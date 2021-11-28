@@ -21,8 +21,8 @@ import java.util.List;
 
 @SecondaryTables({
         @SecondaryTable(name  = "danelogowania", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
-        @SecondaryTable(name  = "danekontaktowe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
-       // @SecondaryTable(name = "profil", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
+        @SecondaryTable(name  = "danekontaktowe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
+        @SecondaryTable(name = "profil", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
 })
 
 public class User implements UserDetails {
@@ -33,7 +33,8 @@ public class User implements UserDetails {
         this.aktywnosc =  0;
         this.prywatnosckonta = 0;
         this.czyzbanowany = 0;
-
+        this.mapsCenterLatitude = 0d;
+        this.mapsCenterLongitude = 0d;
     }
 
     @Id
@@ -92,20 +93,20 @@ public class User implements UserDetails {
     @Column( name = "nrkontabankowego",table= "danekontaktowe")
     private String nrkontabankowego;
 
-/*
+
     //tabela profil
-    @Column(name = "" , table = "profil")
+    @Column(name = "opisprofilu" , table = "profil")
     private String profileDescription;
 
-    @Column(name = "" , table = "profil")
+    @Column(name = "sciezkazdjecieprofilowe" , table = "profil")
     private String profilePicPath;
 
-    @Column(name = "" , table = "profil")
-    private String mapsCenterLongitude;
+    @Column(name = "szerokoscgeograficzna" , table = "profil")
+    private Double mapsCenterLongitude;
 
-    @Column(name = "" , table = "profil")
-    private String mapsCenterLatitude;
-*/
+    @Column(name = "dlugoscgeograficzna" , table = "profil")
+    private Double mapsCenterLatitude;
+
 
 
     //gettery i settery są potrzebne do zapisu i odczytu (chyba) z bazy
@@ -205,7 +206,37 @@ public class User implements UserDetails {
         this.nrkontabankowego = nrkontabankowego;
     }
 
+    public String getProfileDescription() {
+        return profileDescription;
+    }
 
+    public void setProfileDescription(String profileDescription) {
+        this.profileDescription = profileDescription;
+    }
+
+    public String getProfilePicPath() {
+        return profilePicPath;
+    }
+
+    public void setProfilePicPath(String profilePicPath) {
+        this.profilePicPath = profilePicPath;
+    }
+
+    public Double getMapsCenterLongitude() {
+        return mapsCenterLongitude;
+    }
+
+    public void setMapsCenterLongitude(Double mapsCenterLongitude) {
+        this.mapsCenterLongitude = mapsCenterLongitude;
+    }
+
+    public Double getMapsCenterLatitude() {
+        return mapsCenterLatitude;
+    }
+
+    public void setMapsCenterLatitude(Double mapsCenterLatitude) {
+        this.mapsCenterLatitude = mapsCenterLatitude;
+    }
 
     @Override
     public String toString() {
