@@ -16,34 +16,34 @@
 
 <div id="nav">
 
-<a th:href="@{/photoit}">
-<img src="navicons/photoit.png" alt="Strona główna">
-</a> <hr>
-<a th:href="@{/photoit}">
-<img src="navicons/add.png" alt="Dodaj zdjęcie">
-</a><hr>
-<a th:href="@{/photoit}">
-<img src="navicons/world.png" alt="Mapa">
-</a><hr>
-<a th:href="@{/photoit}">
-<img src="navicons/weather.png" alt="Pogoda">
-</a><hr>
-<a th:href="@{/photoit}">
-<img src="navicons/purchasedphotos.png" alt="Zakupione zdjęcia">
-</a>
+    <a th:href="@{/photoit}">
+        <img src="/navicons/photoit.png" alt="Strona główna">
+    </a> <hr>
+    <a th:href="@{/photoit}">
+        <img src="/navicons/add.png" alt="Dodaj zdjęcie">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img th:src="@{/navicons/world.png}" alt="Mapa">
+    </a><hr>
+    <a>
+        <img src="/navicons/world.png" alt="Zakupione zdjęcia">
+    </a><hr>
+    <a>
+        <img src="/navicons/weather.png" alt="Zakupione zdjęcia">
+    </a>
 
 </div>
 <div id="centerbox">
 
     <div id="top">
-    <form th:action="@{/searchResults}" method="get">
-    <input type="search" name="searchValue" placeholder="Wyszukaj">
-        <!--<label>
+        <form th:action="@{/search}" method="get">
             <input type="search" name="search" placeholder="Wyszukaj">
-            <img src="/navicons/loupe.png" id="iconinput">
-        </label>--> <!--do usuniecia okej-->
-        <input type="submit" value="Szukaj" id="search"/>
-    </form>
+            <!--<label>
+                <input type="search" name="search" placeholder="Wyszukaj">
+                <img src="/navicons/loupe.png" id="iconinput">
+            </label>--> <!--do usuniecia okej-->
+            <input type="submit" value="Szukaj" id="search"/>
+        </form>
 
         <h2 style="color: white">Saldo: </h2> <p style="color: white; font-size: 1.4em; margin-top: 1em" id="saldoreturn" th:text="${money}"></p>
         <img src="navicons/notification.png" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
@@ -53,14 +53,14 @@
 
     <div id="mainbox">
         <div id="userbox">
-        <div id="user">
-            <img th:src="${profilepic}" alt="Zdjęcie profilowe" id="profpic">
-            <p style="color: #BFE0EE; margin-left:1em; font-size: 2em; margin-top: 0"  th:text="${login}"></p>
-        </div>
-        <h1 id="userdescription">
-            Cześć, jestem Człowiek Dynia.
-        </h1>
-        <button id="settings">Ustawienia profilu</button>
+            <div id="User">
+                <img th:src="${profilepic}" alt="Zdjęcie profilowe" id="profpic">
+                <p style="color: #BFE0EE; margin-left:1em; font-size: 2em; margin-top: 0"  th:text="${login}"></p>
+            </div>
+            <h1 id="userdescription">
+                Cześć, jestem Człowiek Dynia.
+            </h1>
+            <button id="settings">Obserwuj</button>
 
         </div>
         <div id="photobox">

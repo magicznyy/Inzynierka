@@ -63,8 +63,10 @@ public class UploadPhotoController {
             Photo photo = new Photo("sciezka");
             photoRepository.save(photo);
 
-            Post post = new Post(description,tags, now, user, photo);
+            Post post = new Post(tags, description, now, user, photo);
            postRepository.save(post);
+
+
 
             List<User> photos =  userRepository.findAll();
             for (User user1 :photos) {
@@ -83,15 +85,11 @@ public class UploadPhotoController {
         StringBuilder builder = new StringBuilder();
 
         if(Objects.equals(photoExtension,"jpg"))
-            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
+            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
         else
-            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
+            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
 
         String path = builder.toString();
-
-        photo.setPath(path);
-        photoRepository.save(photo);
-
 
         Path fileNameAndPath = Paths.get(path);
         try{
@@ -101,6 +99,14 @@ public class UploadPhotoController {
             System.out.printf("Problem z zapisem");
             e.printStackTrace();
     }
+
+            int index = path.lastIndexOf("images");
+            path = path.substring(index-1);
+
+            photo.setPath(path);
+            photoRepository.save(photo);
+
+
         return "uploadPhoto";
     }
 

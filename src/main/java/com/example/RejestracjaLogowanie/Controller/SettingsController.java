@@ -148,6 +148,17 @@ public class SettingsController {
     }
 
 
+    @PostMapping("/updatingProfileDescription")
+    public String updateProfileDescription (Model model, @RequestParam("name") String name){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        model.addAttribute("user", user);
+        user.setImie(name);
+        userRepository.save(user);
+        return "redirect:/profileSettings";
+    }
+
 }
 
 

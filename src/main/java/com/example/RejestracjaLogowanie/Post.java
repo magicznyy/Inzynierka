@@ -1,9 +1,15 @@
 package com.example.RejestracjaLogowanie;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 @Table(name = "post")
@@ -21,6 +27,7 @@ public class Post {
        this.user = user;
        this.photo = photo;
    }
+
 
     @Id
     @GeneratedValue
@@ -104,6 +111,27 @@ public class Post {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
+
+    public List<String> extractTags() {
+        Pattern pattern = Pattern.compile("#(\\S+)");
+        Matcher matcher = pattern.matcher(this.getTags());
+        List<String> tags = new ArrayList<String>();
+        while (matcher.find()) {
+            tags.add(matcher.group(1));
+        }
+        return tags;
+    }
+
+    public boolean matchTag(String value){
+            List<String> tags = this.extractTags();
+            for (String tag:tags) {
+                if(tag.equals(value))
+                    return true;
+            }
+        return false;
+        }
+
 
 
 }

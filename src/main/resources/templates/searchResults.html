@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Searching Results</title>
+</head>
+<body>
+<div>
+
+    <div>
+        <h1>Użytkownicy</h1>
+        <div th:if="${user != null}">
+            <p>Znaleziony użytkownik: <a th:text="${user.getLogin()}" th:href="@{/test/{login}(login=${user.getLogin()})}"></a></p>
+        </div>
+        <div th:if="${user == null}">
+            <p>Brak uzytkownika o takim pseudonimie!</p>
+        </div>
+    </div>
+    </div>
+
+    <div>
+        <h1>Zdjęcia</h1>
+        <div th:each="post: ${allPosts}">
+            <div th:if="${post.matchTag(searchValue)==true}">
+                <img th:src="@{${post.getPhoto().getPath()}}" class="album"/>
+                </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

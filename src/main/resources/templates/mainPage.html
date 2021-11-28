@@ -19,7 +19,7 @@
     <p>Opis: <a th:text="${post.getDescription()}"></a></p>
     <p>Tagi: <a th:text="${post.getTags()}"></a></p>
     <p>Id zdjecia: <a th:text="${post.getPhoto().getPhotoId()}"></a></p>
-    <p>Login twórcy: <a th:text="${post.getUser().getLogin()}"></a></p>
+    <p>Login twórcy: <a th:text="${post.getUser().getLogin()}" th:href="@{/test/{login}(login=${post.getUser().getLogin()})}"></a></p>
 </div>
 </div>
 

@@ -1,26 +1,32 @@
 package com.example.RejestracjaLogowanie.Controller;
 
+
 import com.example.RejestracjaLogowanie.User;
 import com.example.RejestracjaLogowanie.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Objects;
 
-@Controller
-public class ProfileController {
-
+@org.springframework.stereotype.Controller
+public class ProfilesController {
 
 
     UserRepository userRepository;
     @Autowired
-    public ProfileController(UserRepository userRepository) {
+    public ProfilesController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -41,31 +47,41 @@ public class ProfileController {
 
     }
 
-    private void userdata(Model model, UserRepository userRepository)
+
+    @GetMapping("/test/{login}")
+    String displayProfile(Model model, @PathVariable(name="login") String login)
     {
+
+        User user = (User) userRepository.findUserByLogin(login);
+        model.addAttribute("user", user);
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String login = auth.getName();
-        User user=userRepository.findUserByLogin(login);
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        User currUser = (User) userRepository.findUserByLogin(userDetails.getUsername());
+
+        System.out.println("login: " + login);
+        System.out.println("curr login: " + currUser.getLogin());
+
+        if(user.getLogin() == currUser.getLogin())
+            return "redirect:/profile";
+
         model.addAttribute("login", user.getLogin());
         model.addAttribute("money", user.getSaldo());
         model.addAttribute("id", user.getId());
-        File directory=new File("src/main/resources/static/images/user"+user.getId());
+        File directory=new File("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user"+user.getId());
         if(directory.list()!=null) {
             String[] imagename = Objects.requireNonNull(directory.list());
             model.addAttribute("photos", imagename);
-            System.out.println(Arrays.toString(imagename));
-            System.out.println(directory);
-
         }
-    }
-    @GetMapping("/profile")
-    public  String display(Model model)
-    {
-        userdata(model, userRepository);
 
         if(!getProfilePic().equals("none"))
             model.addAttribute("profilepic", getProfilePic()); /*nie wiem czy to jest optymalne XD*/
-        return "Photo";
+
+        System.out.println(user.getLogin()+  "posts:" +user.getPosts());
+
+        return "profiles";
     }
+
+
 
 }

@@ -21,8 +21,8 @@ import java.util.List;
 
 @SecondaryTables({
         @SecondaryTable(name  = "danelogowania", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
-        @SecondaryTable(name  = "danekontaktowe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
-
+        @SecondaryTable(name  = "danekontaktowe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
+       // @SecondaryTable(name = "profil", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
 })
 
 public class User implements UserDetails {
@@ -92,9 +92,20 @@ public class User implements UserDetails {
     @Column( name = "nrkontabankowego",table= "danekontaktowe")
     private String nrkontabankowego;
 
+/*
+    //tabela profil
+    @Column(name = "" , table = "profil")
+    private String profileDescription;
 
+    @Column(name = "" , table = "profil")
+    private String profilePicPath;
 
+    @Column(name = "" , table = "profil")
+    private String mapsCenterLongitude;
 
+    @Column(name = "" , table = "profil")
+    private String mapsCenterLatitude;
+*/
 
 
     //gettery i settery są potrzebne do zapisu i odczytu (chyba) z bazy
