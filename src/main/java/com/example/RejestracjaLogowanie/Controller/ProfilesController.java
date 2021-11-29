@@ -30,22 +30,6 @@ public class ProfilesController {
         this.userRepository = userRepository;
     }
 
-    public String getProfilePic() /*w zaleznosci od id usera- finduserbyid i wtedy po folderach patrzymy*/
-    {
-        File picpath=new File("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\profpic.jpg");
-        boolean doespicexists = picpath.exists();
-        if(picpath.isFile())
-        {
-            System.out.println(picpath);
-            File pic= new File("/images/profpic/profpic.jpg");
-            return pic.toString();}
-        else
-        {
-            File picnone=new File("/images/profpic/nopicture.jpg"); /*trzeba brac pod uwage ze cos sie zepsuje i tego tez nie bedzie*/
-            return picnone.toString();
-        }
-
-    }
 
 
     @GetMapping("/test/{login}")
@@ -59,8 +43,6 @@ public class ProfilesController {
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User currUser = (User) userRepository.findUserByLogin(userDetails.getUsername());
 
-        System.out.println("login: " + login);
-        System.out.println("curr login: " + currUser.getLogin());
 
         if(user.getLogin() == currUser.getLogin())
             return "redirect:/profile";
@@ -74,10 +56,13 @@ public class ProfilesController {
             model.addAttribute("photos", imagename);
         }
 
-        if(!getProfilePic().equals("none"))
-            model.addAttribute("profilepic", getProfilePic()); /*nie wiem czy to jest optymalne XD*/
+        if(user.getProfilePicPath()==null)
+            model.addAttribute("profilepic", "/images/profpic/nopicture.jpg");
+        else
+            model.addAttribute("profilepic", user.getProfilePicPath());
 
-        System.out.println(user.getLogin()+  "posts:" +user.getPosts());
+        model.addAttribute("myprofilepic", currUser.getProfilePicPath());
+
 
         return "profiles";
     }

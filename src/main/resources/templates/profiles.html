@@ -46,8 +46,8 @@
         </form>
 
         <h2 style="color: white">Saldo: </h2> <p style="color: white; font-size: 1.4em; margin-top: 1em" id="saldoreturn" th:text="${money}"></p>
-        <img src="navicons/notification.png" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
-        <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+        <img src="/navicons/notification.png" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
+        <img th:src="${myprofilepic}" id="profpicminature" alt="myprofile picture">
 
     </div>
 
@@ -57,9 +57,9 @@
                 <img th:src="${profilepic}" alt="Zdjęcie profilowe" id="profpic">
                 <p style="color: #BFE0EE; margin-left:1em; font-size: 2em; margin-top: 0"  th:text="${login}"></p>
             </div>
-            <h1 id="userdescription">
-                Cześć, jestem Człowiek Dynia.
-            </h1>
+
+                <h1 th:text="${user.getProfileDescription()}"   id="userdescription"></h1>
+
             <button id="settings">Obserwuj</button>
 
         </div>
