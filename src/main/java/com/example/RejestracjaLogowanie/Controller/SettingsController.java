@@ -1,9 +1,7 @@
 package com.example.RejestracjaLogowanie.Controller;
 
 
-import com.example.RejestracjaLogowanie.User;
-import com.example.RejestracjaLogowanie.UserDetailsService;
-import com.example.RejestracjaLogowanie.UserRepository;
+import com.example.RejestracjaLogowanie.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.script.Invocable;
@@ -21,7 +20,12 @@ import javax.script.ScriptEngineManager;
 import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class SettingsController {
@@ -159,6 +163,43 @@ public class SettingsController {
         return "redirect:/profileSettings";
     }
 
+    @PostMapping("/uploadProfilePicture")
+    public String updateProfilePicture (Model model, @RequestParam("profilePicture") MultipartFile image){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+
+        String photoExtension = image.getOriginalFilename().toString();
+        photoExtension = photoExtension.substring(photoExtension.length() - 3);
+
+        StringBuilder builder = new StringBuilder();
+
+        if(Objects.equals(photoExtension,"jpg"))
+            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\user" + user.getId().toString()  + ".jpg");
+        else
+            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\user" + user.getId().toString()  + ".png");
+
+        String path = builder.toString();
+
+        Path fileNameAndPath = Paths.get(path);
+        try{
+            Files.write(fileNameAndPath, image.getBytes());
+        }
+        catch(Exception e){
+            System.out.printf("Problem z zapisem");
+            e.printStackTrace();
+        }
+
+        int index = path.lastIndexOf("images");
+        path = path.substring(index-1);
+
+        user.setProfilePicPath(path);
+        userRepository.save(user);
+        model.addAttribute("user", user);
+
+        return "redirect:/profileSettings";
+    }
 }
 
 

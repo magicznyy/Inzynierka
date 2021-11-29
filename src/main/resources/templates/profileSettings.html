@@ -126,7 +126,15 @@
 
 <div>
     <h1 th:inline="text">Edycja profilu <a th:text="${user.getLogin()}"> </a>  </h1>
-
+    <div>
+        <form th:action=${"/uploadProfilePicture"} method="post" enctype="multipart/form-data">
+            <div>
+                <label>Załącz nowe zdjęcie profilowe z dysku: </label>
+                <input type="file" name="profilePicture" accept="image/png, image/jpeg"/>
+                <input type="submit" value="Dodaj"/>
+            </div>
+        </form>
+    </div>
     <div>
         <form  th:action="@{/updatingProfileDesc}" method="post">
 
@@ -180,3 +188,4 @@
 <script src="js/passwordcheck.js"></script>
 </body>
 </html>
+

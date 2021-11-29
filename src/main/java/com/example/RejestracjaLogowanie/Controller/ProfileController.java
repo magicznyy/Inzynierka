@@ -24,22 +24,6 @@ public class ProfileController {
         this.userRepository = userRepository;
     }
 
-    public String getProfilePic() /*w zaleznosci od id usera- finduserbyid i wtedy po folderach patrzymy*/
-    {
-        File picpath=new File("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\profpic.jpg");
-        boolean doespicexists = picpath.exists();
-        if(picpath.isFile())
-        {
-            System.out.println(picpath);
-            File pic= new File("/images/profpic/profpic.jpg");
-            return pic.toString();}
-        else
-        {
-            File picnone=new File("/images/profpic/nopicture.jpg"); /*trzeba brac pod uwage ze cos sie zepsuje i tego tez nie bedzie*/
-            return picnone.toString();
-        }
-
-    }
 
     private void userdata(Model model, UserRepository userRepository)
     {
@@ -50,7 +34,13 @@ public class ProfileController {
         model.addAttribute("money", user.getSaldo());
         model.addAttribute("id", user.getId());
         model.addAttribute("profileDescription", user.getProfileDescription());
+
+        if(user.getProfilePicPath()==null)
+            model.addAttribute("profilepic", "/images/profpic/nopicture.jpg");
+        else
+            model.addAttribute("profilepic", user.getProfilePicPath());
         File directory=new File("src/main/resources/static/images/user"+user.getId());
+
         if(directory.list()!=null) {
             String[] imagename = Objects.requireNonNull(directory.list());
             model.addAttribute("photos", imagename);
@@ -59,13 +49,11 @@ public class ProfileController {
 
         }
     }
+
     @GetMapping("/profile")
     public  String display(Model model)
     {
         userdata(model, userRepository);
-
-        if(!getProfilePic().equals("none"))
-            model.addAttribute("profilepic", getProfilePic()); /*nie wiem czy to jest optymalne XD*/
         return "profile";
     }
 
