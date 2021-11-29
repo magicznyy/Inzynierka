@@ -11,6 +11,8 @@
 
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+    <link rel="stylesheet" href="/css/mapsstyle.css">
+
     <!--<script src="js/mapscript.js" defer></script> &lt;!&ndash;defer czyli odpali się po załadowaniu zawartości body&ndash;&gt;
     <style>
         .marker {
@@ -34,12 +36,12 @@
 <body>
 <div id='map' style='width: 60vw; height: 60vh;'></div>
 <div class="container">
-    <form th:action="@{/savepin}" id="signupForm">
-        <label for="lat">lat</label>
+    <form th:action="@{/savepin}" th:method="request" id="signupForm">
+        <label for="lat">Szerokość geograficzna</label>
         <input type="text" id="lat" name="lat" placeholder="Szerokosc geograficzna">
-        <label for="lng">lng</label>
+        <label for="lng">Długość geograficzna</label>
         <input type="text" id="lng" name="lng" placeholder="Dlugosc geograficzna">
-        <label for="lng">lng</label>
+        <label for="pindescription">Opis pinezki</label>
         <input type="text" id="pindescription" name="pindescription" placeholder="Opis pinezki">
         <input type="submit" value="Submit" >
     </form>
@@ -59,39 +61,53 @@
         zoom:8
     });
 
-    var mapdata = '[[${pins}]]';
-    mapdata=mapdata.replaceAll("]]", '');
-    mapdata=mapdata.replaceAll("]", '');
-    mapdata=mapdata.replaceAll("[[", '');
-    mapdata=mapdata.replaceAll("[", '');
-    mapdata=mapdata.replaceAll(" ", '');
-    var help = mapdata.split(",");
-    var ile=help.length/6;
-    var user_position=[52.237049, 21.017532];
-    for (var i = 0; i < ile; i++) {
-        var marker = new mapboxgl.Marker({
-            color: "#e74c3c",
-            draggable: false
-        }).setLngLat([help[i * 6 + 1], help[i * 6 + 2]
-        ])
-            .setPopup(new mapboxgl.Popup().setHTML(help[i * 6 + 3]))
-            .addTo(map);
-    }
+    var user_position = [21.017532,52.237049];
+
+
+        var mapdata = '[[${pins}]]';
+        mapdata = mapdata.replaceAll("]]", '');
+        mapdata = mapdata.replaceAll("]", '');
+        mapdata = mapdata.replaceAll("[[", '');
+        mapdata = mapdata.replaceAll("[", '');
+        mapdata = mapdata.replaceAll(" ", '');
+        var help = mapdata.split(",");
+        if(help.length !== 1)
+        {
+        var ile = help.length / 6;
+        for (var i = 0; i < ile; i++) {
+            var marker = new mapboxgl.Marker({
+                color: "#e74c3c",
+                draggable: false
+            }).setLngLat([help[i * 6 + 1], help[i * 6 + 2]
+            ])
+                .setPopup(new mapboxgl.Popup().setHTML(help[i * 6 + 3]+"<img class='pinsimages' src='/images/profpic/nopicture.jpg'/>"))
+                .addTo(map);
+        }
+        }
+
+
+    var geocoder;
 
     // Add the control to the map.
-    map.addControl(
-        new MapboxGeocoder({
+    map.addControl(geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl
+            mapboxgl: mapboxgl,
+            color: "#FFFF00"
         })
     );
+
+    geocoder.on('result', function(e) {
+        document.getElementById("lat").value = e.result.center[1];
+        document.getElementById("lng").value = e.result.center[0];
+    });
+
     /*skrit*/
 
     var markerpom ;
 
-    map.on('click', function (e) {
+    map.on('contextmenu', function (e) {
         markerpom.remove();
-        addMarker(e.lngLat,'click');
+        addMarker(e.lngLat,'contextmenu');
         //console.log(e.lngLat.lat);
         document.getElementById("lat").value = e.lngLat.lat;
         document.getElementById("lng").value = e.lngLat.lng;
@@ -104,7 +120,7 @@
 
     function addMarker(ltlng,event) {
 
-        if(event === 'click'){
+        if(event === 'contextmenu'){
             user_position = ltlng;
         }
         markerpom = new mapboxgl.Marker({draggable: true,color:"#d02922"})
@@ -117,21 +133,19 @@
         var lngLat = markerpom.getLngLat();
         document.getElementById("lat").value = lngLat.lat;
         document.getElementById("lng").value = lngLat.lng;
-        console.log('lng: ' + lngLat.lng + '<br />lat: ' + lngLat.lat);
     }
 
     $('#signupForm').submit(function(event){
         event.preventDefault();
-        var lat = $('#lat').val();
-        var lng = $('#lng').val();
-        var url = 'locations_model.php?add_location&lat=' + lat + '&lng=' + lng;
         $.ajax({
-            url: url,
-            method: 'GET',
-            dataType: 'json',
             success: function(data){
                 alert(data);
                 location.reload();
+
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("Status: " + textStatus);
+                alert("Error: " + errorThrown);
             }
         });
     });

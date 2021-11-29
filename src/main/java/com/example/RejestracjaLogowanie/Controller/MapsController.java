@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -50,8 +52,7 @@ public class MapsController {
             i++;
         }
         System.out.println(Arrays.deepToString(tabela));
-
-        Pin pin1= new Pin(21.031820374563694, 52.263799574655906, "test1", "e74c3c", user);
+       /* Pin pin1= new Pin(21.031820374563694, 52.263799574655906, "test1", "e74c3c", user);
          pinRepository.save(pin1);
         Pin pin2= new Pin(20.463031153467398, 52.44672743296093, "test2", "e74c3c", user);
         pinRepository.save(pin2);
@@ -60,22 +61,23 @@ public class MapsController {
         Pin pin4= new Pin( 20.048117277208547, 52.49694173354993,"test4", "e74c3c", user);
         pinRepository.save(pin4);
         Pin pin5= new Pin( 21.463220894912695,51.96682963967109, "test5", "e74c3c", user);
-        pinRepository.save(pin5);
+        pinRepository.save(pin5);*/
         model.addAttribute("pins", Arrays.deepToString(tabela));
         return "Maps";
 
     }
 
-/*    @PostMapping("/savepin")
-    String PinSave(@Valid Pin pin, BindingResult result) {
-        if (result.hasErrors()) {
-            System.out.println("Sa bledy lmao");
-            return "process_success";
-        }
-        else
-            pinRepository.save(pin);
+    @RequestMapping("/savepin")
+    String PinSave(@RequestParam("lat") Double lat, @RequestParam("lng") Double lng, @RequestParam("pindescription") String pindescription) {
 
-        return "Maps";
-    }*/
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        User user =  userRepository.findUserByLogin(userDetails.getUsername());
+            Pin pineza= new Pin(lng, lat, pindescription, "lol", user);
+
+            pinRepository.save(pineza);
+
+        return "redirect:/maps";
+    }
 
 }
