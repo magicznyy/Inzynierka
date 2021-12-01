@@ -1,13 +1,11 @@
 package com.example.RejestracjaLogowanie.Controller;
 
-import com.example.RejestracjaLogowanie.Pin;
-import com.example.RejestracjaLogowanie.PinRepository;
-import com.example.RejestracjaLogowanie.User;
-import com.example.RejestracjaLogowanie.UserRepository;
+import com.example.RejestracjaLogowanie.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
-public class MapsController {
+public class MapsController extends UserInformation {
 
 
 
@@ -34,12 +33,14 @@ public class MapsController {
     @GetMapping("/maps")
     String Maps(Model model)
     {
+
+        userdata(model, userRepository);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user =  userRepository.findUserByLogin(userDetails.getUsername());
 
         List<Pin> pins= pinRepository.findPinsByUser(user);
-        String[][] tabela = new String[pins.size()][6];
+        String[][] tabela = new String[pins.size()][7];
         int i=0;
         for(Pin pin: pins)
         {
@@ -49,31 +50,24 @@ public class MapsController {
             tabela[i][3]= String.valueOf(pin.getPinDescription());
             tabela[i][4]= String.valueOf(pin.getPinColor());
             tabela[i][5]= String.valueOf(pin.getUser().getId());
+            if(Objects.isNull(pin.getPhoto()))
+                    tabela[i][6]= String.valueOf(-1);
+            else  tabela[i][6]= String.valueOf(pin.getPhoto().getPath()).replace("\\", "/");
             i++;
         }
         System.out.println(Arrays.deepToString(tabela));
-       /* Pin pin1= new Pin(21.031820374563694, 52.263799574655906, "test1", "e74c3c", user);
-         pinRepository.save(pin1);
-        Pin pin2= new Pin(20.463031153467398, 52.44672743296093, "test2", "e74c3c", user);
-        pinRepository.save(pin2);
-        Pin pin3= new Pin( 21.446734250822544, 52.04294773890368,"test3", "e74c3c", user);
-        pinRepository.save(pin3);
-        Pin pin4= new Pin( 20.048117277208547, 52.49694173354993,"test4", "e74c3c", user);
-        pinRepository.save(pin4);
-        Pin pin5= new Pin( 21.463220894912695,51.96682963967109, "test5", "e74c3c", user);
-        pinRepository.save(pin5);*/
         model.addAttribute("pins", Arrays.deepToString(tabela));
         return "Maps";
 
     }
 
     @RequestMapping("/savepin")
-    String PinSave(@RequestParam("lat") Double lat, @RequestParam("lng") Double lng, @RequestParam("pindescription") String pindescription) {
+    String PinSave(@RequestParam("lat") Double lat, @RequestParam("lng") Double lng, @RequestParam("pindescription") String pindescription, @RequestParam("color") String color) {
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user =  userRepository.findUserByLogin(userDetails.getUsername());
-            Pin pineza= new Pin(lng, lat, pindescription, "lol", user);
+            Pin pineza= new Pin(lng, lat, pindescription, color, user, null);
 
             pinRepository.save(pineza);
 

@@ -10,44 +10,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
 </head>
 <body>
-
-
-
-
 <div id="nav">
-
     <a th:href="@{/photoit}">
-        <img src="/navicons/photoit.png" alt="Strona główna">
+        <img src="/navicons/svg/iconLogoNavbar.svg" alt="Strona główna">
     </a> <hr>
-    <a th:href="@{/photoit}">
-        <img src="/navicons/add.png" alt="Dodaj zdjęcie">
+    <a th:href="@{/uploadPhoto}">
+        <img src="/navicons/svg/iconAddPostNavbar.svg" alt="Dodaj zdjęcie">
+    </a><hr>
+    <a th:href="@{/maps}">
+        <img src="/navicons/svg/iconMapNavbar.svg" alt="Mapa">
     </a><hr>
     <a th:href="@{/photoit}">
-        <img th:src="@{/navicons/world.png}" alt="Mapa">
+        <img src="/navicons/svg/iconWeatherNavbar.svg" alt="Pogoda">
     </a><hr>
-    <a>
-        <img src="/navicons/world.png" alt="Zakupione zdjęcia">
-    </a><hr>
-    <a>
-        <img src="/navicons/weather.png" alt="Zakupione zdjęcia">
+    <a th:href="@{/photoit}">
+        <img src="/navicons/svg/iconReportsNavbar.svg" alt="Panel zgłoszeń">
     </a>
-
 </div>
 <div id="centerbox">
 
     <div id="top">
-        <form th:action="@{/search}" method="get">
-            <input type="search" name="search" placeholder="Wyszukaj">
-            <!--<label>
-                <input type="search" name="search" placeholder="Wyszukaj">
-                <img src="/navicons/loupe.png" id="iconinput">
-            </label>--> <!--do usuniecia okej-->
+        <form th:action="@{/searchResults}" method="get" id="searchform">
+            <input type="search" name="searchValue" id="searchValue" placeholder="Wyszukaj">
             <input type="submit" value="Szukaj" id="search"/>
         </form>
-
-        <h2 style="color: white">Saldo: </h2> <p style="color: white; font-size: 1.4em; margin-top: 1em" id="saldoreturn" th:text="${money}"></p>
-        <img src="/navicons/notification.png" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
-        <img th:src="${myprofilepic}" id="profpicminature" alt="myprofile picture">
+        <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
+        <img th:src="${myprofilepic}" id="profpicminature" alt="profile picture">
 
     </div>
 

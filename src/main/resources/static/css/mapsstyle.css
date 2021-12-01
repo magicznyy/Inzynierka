@@ -1,6 +1,33 @@
+
+
+
 .pinsimages
 {
-    width: 3em;
+    width: 12em;
     height: auto;
 
+}
+
+.podgladpinezki
+{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0.5em;
+}
+
+.mapboxgl-popup-content
+{
+    background-color: salmon;
+}
+
+#centerbox
+{
+    width: 100%;
+    padding-left: 13em;
+}
+
+#container
+{
+    width: auto;
 }

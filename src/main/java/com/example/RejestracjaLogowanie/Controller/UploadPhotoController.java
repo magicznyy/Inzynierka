@@ -39,6 +39,9 @@ public class UploadPhotoController {
     @Autowired
     private PhotoRepository photoRepository;
 
+    @Autowired
+    private  PinRepository pinRepository;
+
 
 
     @GetMapping("/uploadPhoto")
@@ -48,7 +51,7 @@ public class UploadPhotoController {
     }
 
     @PostMapping("/upload")
-    public String upload (Model model, @RequestParam("image") MultipartFile image, @RequestParam("description") String description, @RequestParam("tags") String tags)
+    public String upload (Model model, @RequestParam("image") MultipartFile image, @RequestParam("description") String description, @RequestParam("tags") String tags, @RequestParam(value = "lat", required=false) Double lat, @RequestParam(value = "lng", required=false) Double lng, @RequestParam(value = "pindescription", required=false) String pindescription, @RequestParam(value = "color", required=false) String color)
         {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
@@ -85,9 +88,9 @@ public class UploadPhotoController {
         StringBuilder builder = new StringBuilder();
 
         if(Objects.equals(photoExtension,"jpg"))
-            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
+            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
         else
-            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
+            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
 
         String path = builder.toString();
 
@@ -105,6 +108,12 @@ public class UploadPhotoController {
 
             photo.setPath(path);
             photoRepository.save(photo);
+
+            if(!Objects.isNull(lng))
+            {
+                Pin pin = new Pin(lng, lat, pindescription, color, user, photo);
+                pinRepository.save(pin);
+            }
 
 
         return "uploadPhoto";
