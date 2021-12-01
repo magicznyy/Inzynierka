@@ -50,7 +50,7 @@ public class ProfilesController {
         model.addAttribute("login", user.getLogin());
         model.addAttribute("money", user.getSaldo());
         model.addAttribute("id", user.getId());
-        File directory=new File("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user"+user.getId());
+        File directory=new File("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user"+user.getId());
         if(directory.list()!=null) {
             String[] imagename = Objects.requireNonNull(directory.list());
             model.addAttribute("photos", imagename);

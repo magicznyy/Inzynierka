@@ -59,7 +59,7 @@ public class SettingsController {
             ScriptEngine engine = manager.getEngineByName("JavaScript");
 
             try {
-                FileReader reader = new FileReader("C:\\Users\\HardPc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\js\\allPopUps.js");
+                FileReader reader = new FileReader("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\js\\allPopUps.js");
                 engine.eval(reader);
                 reader.close();
             } catch (Exception e) {
@@ -176,9 +176,9 @@ public class SettingsController {
         StringBuilder builder = new StringBuilder();
 
         if(Objects.equals(photoExtension,"jpg"))
-            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\user" + user.getId().toString()  + ".jpg");
+            builder.append("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString()  + ".jpg");
         else
-            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\user" + user.getId().toString()  + ".png");
+            builder.append("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString()  + ".png");
 
         String path = builder.toString();
 
