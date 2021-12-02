@@ -1,8 +1,15 @@
 package com.example.RejestracjaLogowanie;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.ui.Model;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
@@ -20,4 +27,5 @@ public class UserDetailsService implements org.springframework.security.core.use
 
         return new MyUserDetails(user);
     }
+
 }

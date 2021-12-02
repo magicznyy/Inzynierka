@@ -11,7 +11,9 @@
 
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+
     <link rel="stylesheet" href="/css/mapsstyle.css">
+    <link rel="stylesheet" href="/css/navlefttop.css">
 
     <!--<script src="js/mapscript.js" defer></script> &lt;!&ndash;defer czyli odpali się po załadowaniu zawartości body&ndash;&gt;
     <style>
@@ -34,126 +36,78 @@
     </style>-->
 </head>
 <body>
-<div id='map' style='width: 60vw; height: 60vh;'></div>
-<div class="container">
-    <form th:action="@{/savepin}" th:method="request" id="signupForm">
-        <label for="lat">Szerokość geograficzna</label>
-        <input type="text" id="lat" name="lat" placeholder="Szerokosc geograficzna">
-        <label for="lng">Długość geograficzna</label>
-        <input type="text" id="lng" name="lng" placeholder="Dlugosc geograficzna">
-        <label for="pindescription">Opis pinezki</label>
-        <input type="text" id="pindescription" name="pindescription" placeholder="Opis pinezki">
-        <input type="submit" value="Submit" >
-    </form>
-
-    <div class="geocoder">
-        <div id="geocoder" ></div>
-    </div>
+<div id="nav">
+    <a th:href="@{/photoit}">
+        <img src="/navicons/svg/iconLogoNavbar.svg" alt="Strona główna">
+    </a> <hr>
+    <a th:href="@{/uploadPhoto}">
+        <img src="/navicons/svg/iconAddPostNavbar.svg" alt="Dodaj zdjęcie">
+    </a><hr>
+    <a th:href="@{/maps}">
+        <img src="/navicons/svg/iconMapNavbar.svg" alt="Mapa">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/navicons/svg/iconWeatherNavbar.svg" alt="Pogoda">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/navicons/svg/iconReportsNavbar.svg" alt="Panel zgłoszeń">
+    </a>
 </div>
-<script>
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYWRpeHhkIiwiYSI6ImNrdzk5MGRleDAwN3MycG13dzliNTVlZ20ifQ.8a4kA7C251FLFX3aTngyHA';
-    var userposition=[21.017532,52.237049];
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center:userposition,
-        zoom:8
-    });
+<div id="centerbox">
 
-    var user_position = [21.017532,52.237049];
+    <div id="top">
+        <form th:action="@{/searchResults}" method="get" id="searchform">
+            <input type="search" name="searchValue" id="searchValue" placeholder="Wyszukaj">
+            <input type="submit" value="Szukaj" id="search"/>
+        </form>
+        <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
+        <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
 
-
-        var mapdata = '[[${pins}]]';
-        mapdata = mapdata.replaceAll("]]", '');
-        mapdata = mapdata.replaceAll("]", '');
-        mapdata = mapdata.replaceAll("[[", '');
-        mapdata = mapdata.replaceAll("[", '');
-        mapdata = mapdata.replaceAll(" ", '');
-        var help = mapdata.split(",");
-        if(help.length !== 1)
-        {
-        var ile = help.length / 6;
-        for (var i = 0; i < ile; i++) {
-            var marker = new mapboxgl.Marker({
-                color: "#e74c3c",
-                draggable: false
-            }).setLngLat([help[i * 6 + 1], help[i * 6 + 2]
-            ])
-                .setPopup(new mapboxgl.Popup().setHTML(help[i * 6 + 3]+"<img class='pinsimages' src='/images/profpic/nopicture.jpg'/>"))
-                .addTo(map);
-        }
-        }
+    </div>
 
 
-    var geocoder;
 
-    // Add the control to the map.
-    map.addControl(geocoder = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl,
-            color: "#FFFF00"
-        })
-    );
+    <div id="mapcontainer">
+        <div class="buttoncontainer">
+            <script th:inline="javascript" src="js/tab.js" defer></script>
+            <button onclick="f(document.getElementById('pins').value)"> Tab 1</button>
+            <button onclick="f(document.getElementById('pinsy').value)"> Tab 2</button>
+        </div>
+        <script th:inline="javascript" src="js/mapscript.js" defer></script>
 
-    geocoder.on('result', function(e) {
-        document.getElementById("lat").value = e.result.center[1];
-        document.getElementById("lng").value = e.result.center[0];
-    });
+        <div id='map' style='width: 60vw; height: 60vh;'></div>
+        <input type="hidden" id="pins" th:value="${pins}"/>
+        <input type="hidden" id="pinsy" th:value="${pinsall}"/>
+    </div>
 
-    /*skrit*/
+    <div class="container">
+        <form th:action="@{/savepin}" th:method="request" id="signupForm">
+            <label for="lat">Szerokość geograficzna</label>
+            <input type="text" id="lat" name="lat">
+            <label for="lng">Długość geograficzna</label>
+            <input type="text" id="lng" name="lng">
+            <label for="pindescription">Opis pinezki</label>
+            <input type="text" id="pindescription" name="pindescription">
+            <input type="radio" class="pincolor" name="color" value="#ff0000">
+            <label>Czerwony</label>
 
-    var markerpom ;
+            <input type="radio" class="pincolor" name="color" value="#00ff47">
+            <label>Zielony</label>
 
-    map.on('contextmenu', function (e) {
-        markerpom.remove();
-        addMarker(e.lngLat,'contextmenu');
-        //console.log(e.lngLat.lat);
-        document.getElementById("lat").value = e.lngLat.lat;
-        document.getElementById("lng").value = e.lngLat.lng;
+            <input type="radio" class="pincolor" name="color" value="#fAff00">
+            <label>Żółty</label>
 
-    });
+            <input type="radio" class="pincolor" name="color" value="#0047ff">
+            <label>Niebieski</label>
+            <input type="submit" value="Szukaj" >
+        </form>
+    </div>
 
-    map.on('load', function() {
-        addMarker(user_position, 'load');
-    });
 
-    function addMarker(ltlng,event) {
+</div>
 
-        if(event === 'contextmenu'){
-            user_position = ltlng;
-        }
-        markerpom = new mapboxgl.Marker({draggable: true,color:"#d02922"})
-            .setLngLat(user_position)
-            .addTo(map)
-            .on('dragend', onDragEnd);
-    }
-
-    function onDragEnd() {
-        var lngLat = markerpom.getLngLat();
-        document.getElementById("lat").value = lngLat.lat;
-        document.getElementById("lng").value = lngLat.lng;
-    }
-
-    $('#signupForm').submit(function(event){
-        event.preventDefault();
-        $.ajax({
-            success: function(data){
-                alert(data);
-                location.reload();
-
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("Status: " + textStatus);
-                alert("Error: " + errorThrown);
-            }
-        });
-    });
-
-    document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
-</script>
 
 </body>
 </html>
-
 

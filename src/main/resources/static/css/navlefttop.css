@@ -76,39 +76,11 @@ hr /*linia miedzy przyciskami nawigacji*/
 
 }
 
-#centerbox
-{
-    width: 100%;
-    padding-left: 13em;
-}
 
 #top
 {
     display: flex;
     flex-direction: row;
-}
-
-form
-{
-    width: 80%;
-}
-
-label
-{
-    position:relative;
-    padding:0 0 0 20px;
-    margin:0 20px;
-}
-input
-{
-    /*border-radius: 0.5em;*/
-    height: 2.8em;
-    width: 30em;
-    border: 0.4em solid #84D9EC;
-    border-radius: 10px;
-
-    text-indent: 1em; /*odstep dla placeholdera*/
-
 }
 
 /*#iconinput
@@ -136,6 +108,18 @@ input
     color: rgba(0, 0, 0, 0.7);
     margin-left: auto;
     margin-right: auto;
+    border-radius: 10px;
+
+}
+
+#searchValue
+{
+    /*border-radius: 0.5em;*/
+    height: 2.8em;
+    width: 30em;
+    border: 0.4em solid #84D9EC;
+    border-radius: 10px;
+    text-indent: 1em; /*odstep dla placeholdera*/
 
 }
 
@@ -143,13 +127,6 @@ input
 {
     width: 2em;
     margin: auto 1em;
-}
-
-#saldoreturn /*informacja o saldzie*/
-{
-    margin-block-start: 1.6em;
-    margin-left: 0.4em;
-    margin-right: 0.4em;
 }
 
 #profpicminature
@@ -163,4 +140,16 @@ input
     box-sizing: border-box;
     border-radius: 10px;
 
+}
+
+#searchform
+{
+    width: 90%;
+}
+
+label
+{
+    position:relative;
+    padding:0 0 0 20px;
+    margin:0 20px;
 }

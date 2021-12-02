@@ -8,12 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="/js/buttonFollowValue.js">
+
+    </script>
+
 </head>
 <body>
-
-
-
-
 <div id="nav">
     <a th:href="@{/mainPage}">
         <img src="/icons/Navbar/iconLogoNavbar.svg" alt="Strona główna">
@@ -40,18 +40,12 @@
 <div id="centerbox">
 
     <div id="top">
-        <form th:action="@{/search}" method="get">
-            <input type="search" name="search" placeholder="Wyszukaj">
-            <!--<label>
-                <input type="search" name="search" placeholder="Wyszukaj">
-                <img src="/navicons/loupe.png" id="iconinput">
-            </label>--> <!--do usuniecia okej-->
+        <form th:action="@{/searchResults}" method="get" id="searchform">
+            <input type="search" name="searchValue" id="searchValue" placeholder="Wyszukaj">
             <input type="submit" value="Szukaj" id="search"/>
         </form>
-
-        <h2 style="color: white">Saldo: </h2> <p style="color: white; font-size: 1.4em; margin-top: 1em" id="saldoreturn" th:text="${money}"></p>
-        <img src="/navicons/notification.png" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
-        <img th:src="${myprofilepic}" id="profpicminature" alt="myprofile picture">
+        <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
+        <img th:src="${myprofilepic}" id="profpicminature" alt="profile picture">
 
     </div>
 
@@ -64,9 +58,14 @@
 
                 <h1 th:text="${user.getProfileDescription()}"   id="userdescription"></h1>
 
-            <button id="settings">Obserwuj</button>
+            <form id="followForm" th:action="@{/test}"  method="get">
+                <input type="hidden" id="login" name="login" th:value="${login}">
+            <input type="submit" name="follow" value="Obserwuj" id="settings"/>
+
+            </form>
 
         </div>
+
         <div id="photobox">
             <div th:each="photo: ${photos}">
                 <img th:src="@{${'/images/user' + id +'/' + photo}}" class="album"/>

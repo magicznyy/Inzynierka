@@ -12,12 +12,13 @@ public class Pin {
     public Pin() {
     }
 
-    public Pin(Double latitude, Double longitude, String pinDescription, String pinColor, User user) {
+    public Pin(Double latitude, Double longitude, String pinDescription, String pinColor, User user, Photo photo) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.pinDescription = pinDescription;
         this.pinColor = pinColor;
         this.user = user;
+        this.photo = photo;
     }
 
 
@@ -44,6 +45,17 @@ public class Pin {
     @JoinColumn(name = "uzytkownik_iduzytkownik", referencedColumnName = "iduzytkownik")
     private User user;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "zdjecie_idzdjecie", referencedColumnName = "idzdjecie")
+    private Photo photo;
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
 
     public User getUser() {
         return user;
