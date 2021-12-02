@@ -1,6 +1,8 @@
 package com.example.RejestracjaLogowanie;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -29,7 +31,7 @@ public class Photo {
     @Column(name = "czynasprzedaz")
     private byte isForSale;
 
-
+    @JsonIgnore
     @OneToOne(mappedBy = "photo", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private Post post;
 

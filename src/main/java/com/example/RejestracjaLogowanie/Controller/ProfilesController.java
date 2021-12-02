@@ -51,7 +51,9 @@ public class ProfilesController {
 
         model.addAttribute("login", user.getLogin());
         model.addAttribute("id", user.getId());
+
         File directory=new File("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user"+user.getId());
+
         if(directory.list()!=null) {
             String[] imagename = Objects.requireNonNull(directory.list());
             model.addAttribute("photos", imagename);

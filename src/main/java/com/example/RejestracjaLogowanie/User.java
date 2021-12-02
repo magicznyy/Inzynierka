@@ -2,6 +2,8 @@ package com.example.RejestracjaLogowanie;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +26,8 @@ import java.util.List;
         @SecondaryTable(name  = "danekontaktowe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
         @SecondaryTable(name = "profil", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
 })
-
+@Getter
+@Setter
 public class User implements UserDetails {
 
     public User(){
@@ -121,133 +124,26 @@ public class User implements UserDetails {
 
 
     //gettery i settery są potrzebne do zapisu i odczytu (chyba) z bazy
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public Float getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(Float saldo) {
-        this.saldo = saldo;
-    }
 
     public byte isAktywnosc() {
         return aktywnosc;
     }
 
-    public void setAktywnosc(byte aktywnosc) {
-        this.aktywnosc = aktywnosc;
-    }
 
     public byte isPrywatnoscKonta() {
         return prywatnosckonta;
     }
 
-    public void setPrywatnoscKonta(byte prywatnoscKonta) {
-        this.prywatnosckonta = prywatnoscKonta;
-    }
 
     public byte isCzyZbanowany() {
         return czyzbanowany;
     }
 
-    public void setCzyZbanowany(byte czyZbanowany) {
-        this.czyzbanowany = czyZbanowany;
-    }
 
     public byte isRola() {
         return rola;
     }
 
-    public void setRola(byte rola) {
-        this.rola = rola;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getHashhasla() {
-        return hashhasla;
-    }
-
-    public void setHashhasla(String hashhasla) {
-        this.hashhasla = hashhasla;
-    }
-
-    public String getImie() {
-        return imie;
-    }
-
-    public void setImie(String imie) {
-        this.imie = imie;
-    }
-
-    public String getNazwisko() {
-        return nazwisko;
-    }
-
-    public void setNazwisko(String nazwisko) {
-        this.nazwisko = nazwisko;
-    }
-
-    public String getNrkontabankowego() {
-        return nrkontabankowego;
-    }
-
-    public void setNrkontabankowego(String nrkontabankowego) {
-        this.nrkontabankowego = nrkontabankowego;
-    }
-
-    public String getProfileDescription() {
-        return profileDescription;
-    }
-
-    public void setProfileDescription(String profileDescription) {
-        this.profileDescription = profileDescription;
-    }
-
-    public String getProfilePicPath() {
-        return profilePicPath;
-    }
-
-    public void setProfilePicPath(String profilePicPath) {
-        this.profilePicPath = profilePicPath;
-    }
-
-    public Double getMapsCenterLongitude() {
-        return mapsCenterLongitude;
-    }
-
-    public void setMapsCenterLongitude(Double mapsCenterLongitude) {
-        this.mapsCenterLongitude = mapsCenterLongitude;
-    }
-
-    public Double getMapsCenterLatitude() {
-        return mapsCenterLatitude;
-    }
-
-    public void setMapsCenterLatitude(Double mapsCenterLatitude) {
-        this.mapsCenterLatitude = mapsCenterLatitude;
-    }
 
     @Override
     public String toString() {

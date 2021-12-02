@@ -19,7 +19,7 @@ public class Post {
     public Post() {
     }
 
-    public  Post(String tags, String description, LocalDateTime date, User user, Photo photo){
+    public  Post(String tags, String description, Date date, User user, Photo photo){
 
        this.tags = tags;
        this.description = description;
@@ -41,7 +41,7 @@ public class Post {
     private String description;
 
     @Column(name="datazamieszczenia", table="post")
-    private LocalDateTime date;
+    private Date date;
 
     @Override
     public String toString() {
@@ -104,11 +104,11 @@ public class Post {
         this.description = description;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

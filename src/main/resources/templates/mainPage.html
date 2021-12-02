@@ -2,25 +2,79 @@
 <html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Strona główna</title>
+    <link rel="stylesheet" href="/css/navlefttop.css">
+    <link rel="stylesheet" href="/css/profilestyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
+    <script src="/js/fetcher.js" type="text/javascript"></script>
 </head>
 <body>
 
-<h1 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]] </h1>
-
-
-<div><form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" />
-</form></div>
-
-<div>
-<div th:each="post: ${posts}">
-    <p>Id postu:<a th:text="${post.getIdPost()}" ></a></p>
-    <p>Opis: <a th:text="${post.getDescription()}"></a></p>
-    <p>Tagi: <a th:text="${post.getTags()}"></a></p>
-    <p>Id zdjecia: <a th:text="${post.getPhoto().getPhotoId()}"></a></p>
-    <p>Login twórcy: <a th:text="${post.getUser().getLogin()}" th:href="@{/test/{login}(login=${post.getUser().getLogin()})}"></a></p>
+<div id="nav">
+    <a th:href="@{/mainPage}">
+        <img src="/icons/Navbar/iconLogoNavbar.svg" alt="Strona główna">
+    </a> <hr>
+    <a th:href="@{/uploadPhoto}">
+        <img src="/icons/Navbar/iconAddPostNavbar.svg" alt="Dodaj zdjęcie">
+    </a><hr>
+    <a th:href="@{/maps}">
+        <img src="/icons/Navbar/iconMapNavbar.svg" alt="Mapa">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/icons/Navbar/iconWeatherNavbar.svg" alt="Pogoda">
+    </a><hr>
+    <a th:href="@{/profile}">
+        <img src="/icons/Navbar/iconPhotosNavbar.svg" alt="Zakupione zdjęcia">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/icons/Navbar/iconReportsNavbar.svg" alt="Panel zgłoszeń">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/icons/Navbar/iconSalesNavbar.svg" alt="Panel zakupów zdjęcia">
+    </a>
 </div>
+
+<div id="centerbox">
+
+    <div id="top">
+        <form th:action="@{/search}" method="get">
+            <input type="search" name="search" placeholder="Wyszukaj">
+            <!--<label>
+                <input type="search" name="search" placeholder="Wyszukaj">
+                <img src="/navicons/loupe.png" id="iconinput">
+            </label>--> <!--do usuniecia okej-->
+            <input type="submit" value="Szukaj" id="search"/>
+        </form>
+
+        <h2 style="color: white">Saldo: </h2> <p style="color: white; font-size: 1.4em; margin-top: 1em" id="saldoreturn" th:text="${money}"></p>
+        <img src="/icons/Navbar/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
+
+
+        <a th:href="@{/profile}">
+            <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+        </a>
+    </div>
+
+    <div id="mainbox">
+
+        <div id="userbox">
+            <div th:each="post: ${posts}">
+                <img src="${post.getPhoto().getPath()}" alt="zdjęcie id1">
+                <p>Id postu:<a th:text="${post.getIdPost()}" ></a></p>
+                <p>Opis: <a th:text="${post.getDescription()}"></a></p>
+                <p>Tagi: <a th:text="${post.getTags()}"></a></p>
+                <p>Id zdjecia: <a th:text="${post.getPhoto().getPhotoId()}"></a></p>
+                <p>Login twórcy: <a th:text="${post.getUser().getLogin()}"></a></p>
+                <div id="podmien"></div>
+                <button onclick="photoFetcher()">Dej zdjęcie</button>
+                <div id="photoDiv"></div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
 </body>

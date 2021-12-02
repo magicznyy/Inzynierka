@@ -53,12 +53,12 @@ body
 position: fixed;
 margin-left: 4em;
 margin-right: 4em;
-width: 7em;
+width: 4em;
 
 }
 img
 {
-    width: 7em;
+    width: 4em;
     background: transparent;
 
 }
@@ -131,7 +131,6 @@ hr /*linia miedzy przyciskami nawigacji*/
 
 #profpicminature
 {
-
     width: 4.2em;
     height:4.2em;
     object-fit:cover; /*aby bylo kwadratowe*/
