@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="/js/buttonFollowValue.js">
+
+    </script>
+
 </head>
 <body>
 
@@ -60,9 +64,14 @@
 
                 <h1 th:text="${user.getProfileDescription()}"   id="userdescription"></h1>
 
-            <button id="settings">Obserwuj</button>
+            <form id="followForm" th:action="@{/test}"  method="get">
+                <input type="hidden" id="login" name="login" th:value="${login}">
+            <input type="submit" name="follow" value="Obserwuj" id="settings"/>
+
+            </form>
 
         </div>
+
         <div id="photobox">
             <div th:each="photo: ${photos}">
                 <img th:src="@{${'/images/user' + id +'/' + photo}}" class="album"/>
