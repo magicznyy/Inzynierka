@@ -2,20 +2,92 @@
 <html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Dodanie zdjęcia</title>
+    <link rel="stylesheet" href="/css/navlefttop.css">
+    <link rel="stylesheet" href="/css/profilestyle.css">
+    <link rel="stylesheet" href="/css/addphotostyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
+<div id="nav">
+    <a th:href="@{/mainPage}">
+        <img src="/icons/Navbar/iconLogoNavbar.svg" alt="Strona główna">
+    </a> <hr>
+    <a th:href="@{/uploadPhoto}">
+        <img src="/icons/Navbar/iconAddPostNavbar.svg" alt="Dodaj zdjęcie">
+    </a><hr>
+    <a th:href="@{/maps}">
+        <img src="/icons/Navbar/iconMapNavbar.svg" alt="Mapa">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/icons/Navbar/iconWeatherNavbar.svg" alt="Pogoda">
+    </a><hr>
+    <a th:href="@{/profile}">
+        <img src="/icons/Navbar/iconPhotosNavbar.svg" alt="Zakupione zdjęcia">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/icons/Navbar/iconReportsNavbar.svg" alt="Panel zgłoszeń">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/icons/Navbar/iconSalesNavbar.svg" alt="Panel zakupów zdjęcia">
+    </a>
+</div>
 
-<form th:action=${"/upload"} method="post" enctype="multipart/form-data">
-    <div>
-        <label>Załącz zdjęcie z dysku: </label>
-        <input type="file" name="image" accept="image/png, image/jpeg"/>
-        <label>Dodaj opis: </label>
-        <input type="text" name="description"/>
-        <label>Dodaj tagi: </label>
-        <input type="text" name="tags" />
-        <input type="submit" value=" Opublikuj"/>
+
+<div id="centerbox">
+
+    <div id="top">
+        <form th:action="@{/search}" method="get">
+            <input type="search" name="search" placeholder="Wyszukaj">
+            <!--<label>
+                <input type="search" name="search" placeholder="Wyszukaj">
+                <img src="/navicons/loupe.png" id="iconinput">
+            </label>--> <!--do usuniecia okej-->
+            <input type="submit" value="Szukaj" id="search"/>
+        </form>
+
+        <h2 style="color: white">Saldo: </h2> <p style="color: white; font-size: 1.4em; margin-top: 1em" id="saldoreturn" th:text="${money}"></p>
+        <img src="/icons/Navbar/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
+
+
+        <a th:href="@{/profile}">
+            <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+        </a>
+    </div>
+
+    <div id="mainbox">
+
+        <div id="userbox" >
+                <div id="photobox" style="color: #DBE9EF">
+                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse eveniet, rerum maxime, asperiores eaque soluta id accusantium dolore neque error harum dignissimos molestias natus eius deleniti hic impedit ipsa laboriosam sint? Hic iure, cupiditate veniam saepe facilis dolor, voluptate iste exercitationem, voluptates animi aspernatur rem nulla incidunt itaque veritatis. Vero.
+                </div>
+                <form th:action=${"/upload"} method="post" enctype="multipart/form-data" id="addphoto">
+                    <div id="addphotobox">
+                        <label>Załącz zdjęcie z dysku: </label>
+                        <input type="file" name="image" accept="image/png, image/jpeg"/>
+                    </div>
+                    <div id="addphotoinformationbox">
+                        <div id="descriptionbox">
+                            <label>Dodaj opis: </label>
+                            <input type="text" name="description"/>
+                        </div>
+                        <div id="tagbox">
+                            <label>Dodaj tagi: </label>
+                            <input type="text" name="tags" />
+                        </div>
+                        <div id="mapbox">
+
+                        </div>
+                        <div id="submitbox">
+                            <input type="submit" value=" Opublikuj"/>
+                        </div>
+                    </div>
+                </form>
+        </div>
     </div>
 </form>
 

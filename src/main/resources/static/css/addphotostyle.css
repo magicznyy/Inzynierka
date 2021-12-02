@@ -1,0 +1,61 @@
+head, body{
+    height: 100vh;
+}
+
+#userbox {
+    height: 99%;
+}
+#mainbox {
+    height: 80%;
+}
+#centerbox {
+    height: 100%;
+}
+
+
+/* cały formularz wprowadzania zdjęcia */
+#addphoto {
+    display: flex;
+}
+
+/* pierwsza kolumna formularza / przycisk dodaj zdjecie */
+#addphotobox{
+    align-self: flex-end;
+}
+#addphotobox > input {
+    width: 10em;
+}
+
+
+
+/* druga kolumna / główna część formularza  */
+#addphotoinformationbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#descriptionbox {
+    flex-grow: 1;
+}
+
+#tagbox {
+    flex-grow: 0.7;
+}
+
+#mapbox {
+    flex-grow: 3;
+    background: darkgoldenrod;
+    border-radius: 20px;
+    margin: 1% 0;
+}
+
+#submitbox {
+    flex-grow: 0.2;
+    margin: auto;
+}
+
+
+
+
+
