@@ -68,12 +68,23 @@ public class User implements UserDetails {
     @OneToMany(targetEntity=Post.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Post> posts = new ArrayList<>();
 
+    @OneToMany(targetEntity=FollowedUser.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List <FollowedUser> followedUsers= new ArrayList<>();
+
     public List<Post> getPosts() {
         return posts;
     }
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    public List<FollowedUser> getFollowedUsers() {
+        return followedUsers;
+    }
+
+    public void setFollowedUsers(List<FollowedUser> followedUsers) {
+        this.followedUsers = followedUsers;
     }
 
     //tabela danelogowania

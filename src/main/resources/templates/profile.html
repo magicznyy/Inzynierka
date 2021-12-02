@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
+
+    <!--lightbox -->
+    <link rel="stylesheet" type="text/css" href="/css/lightbox.min.css">
+    <script src="/js/lightbox-plus-jquery.min.js"></script>
 </head>
 <body>
 <div id="nav">
@@ -53,7 +57,9 @@
         </div>
         <div id="photobox">
             <div th:each="photo: ${photos}">
+                <a th:href="@{${'/images/user' + id +'/' + photo}}" data-lightbox="mygallery">
                 <img th:src="@{${'/images/user' + id +'/' + photo}}" class="album"/>
+                </a>
             </div>
 
         </div>
