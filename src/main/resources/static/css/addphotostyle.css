@@ -1,9 +1,10 @@
+/* nadpisanie dotychczasowych wartości */
 head, body{
     height: 100vh;
 }
-
 #userbox {
     height: 99%;
+    color: #DBE9EF;
 }
 #mainbox {
     height: 80%;
@@ -11,22 +12,75 @@ head, body{
 #centerbox {
     height: 100%;
 }
+input {
+    width: 20em;   
+    text-indent: 0;
+}
+label {
+    padding: 0;
+}
+#infobox {
+    
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    flex-grow: 3;
+    justify-content: space-evenly;
+}
 
+#infobox > div {
+    display: flex;
+}
 
 /* cały formularz wprowadzania zdjęcia */
 #addphoto {
     display: flex;
+    flex-grow: 2;
+    justify-content: flex-end;
+    align-items: stretch;
 }
+
+
+
+
+/* tytuł podglądu zdjęcia */
+#titlebox {
+    font-size: 2.2rem;
+    margin-left: 1.5rem;
+}
+#titlebox > div{
+    display: flex;
+}
+#photodetailsbox {
+    flex-grow: 1;
+}
+#photoprevievbox {
+    flex-grow: 2;
+    margin: 0.8em;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#photoprevievbox img {
+    width: 100%;
+    height: clamp(20vh,40em,60vh);
+}
+
+#photodetailsbox > div, #photodetailsbox > hr {
+    margin: 0.8em 1em 1em 1.5em;
+}
+
 
 /* pierwsza kolumna formularza / przycisk dodaj zdjecie */
 #addphotobox{
     align-self: flex-end;
+    margin-bottom: 0.3em;
 }
 #addphotobox > input {
     width: 10em;
 }
-
-
+#addphotobox img {
+    width: 2.2em;
+}
 
 /* druga kolumna / główna część formularza  */
 #addphotoinformationbox {
@@ -55,7 +109,22 @@ head, body{
     margin: auto;
 }
 
+#submitbox > input {
+    width: 10em;
+}
 
 
 
 
+/* style do przycisku */
+
+#addphotobox > input {
+    display: none;
+}
+#addphotobox img {
+    cursor: pointer;
+}
+
+#addphotobox img:hover {
+    opacity: 80%;
+}
