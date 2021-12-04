@@ -1,10 +1,7 @@
 package com.example.RejestracjaLogowanie.Controller;
 
 
-import com.example.RejestracjaLogowanie.Post;
-import com.example.RejestracjaLogowanie.PostRepository;
-import com.example.RejestracjaLogowanie.User;
-import com.example.RejestracjaLogowanie.UserRepository;
+import com.example.RejestracjaLogowanie.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class SearchResultsController {
+public class SearchResultsController extends PostService {
 
-    @Autowired
+
+
+
+     @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -26,10 +26,11 @@ public class SearchResultsController {
     @GetMapping("/searchResults")
     public String  displayResults(Model model, @RequestParam(name="searchValue") String searchValue)
     {
+
         User user =  userRepository.findUserByLogin(searchValue);
         List<Post> allPosts = new ArrayList();
         allPosts = postRepository.findAll();
-        System.out.println(allPosts);
+
 
         try{
             if(Character.toString(searchValue.charAt(0)).matches("#"))
@@ -39,11 +40,11 @@ public class SearchResultsController {
              System.out.println("Pusto");
         }
 
-
         if(user!=null)
         model.addAttribute("user", user);
-        model.addAttribute("allPosts", allPosts);
+        model.addAttribute("matchingPosts", postsMatchTags(searchValue, allPosts));
         model.addAttribute("searchValue", searchValue);
+
         return "searchResults";
     }
 

@@ -7,25 +7,6 @@
 <body>
 <div>
 
-    <div>
-        <h1>Użytkownicy</h1>
-        <div th:if="${user != null}">
-            <p>Znaleziony użytkownik: <a th:text="${user.getLogin()}" th:href="@{/test/{login}(login=${user.getLogin()})}"></a></p>
-        </div>
-        <div th:if="${user == null}">
-            <p>Brak uzytkownika o takim pseudonimie!</p>
-        </div>
-    </div>
-    </div>
-
-    <div>
-        <h1>Zdjęcia</h1>
-        <div th:each="post: ${allPosts}">
-            <div th:if="${post.matchTag(searchValue)==true}">
-                <img th:src="@{${post.getPhoto().getPath()}}" class="album"/>
-                </div>
-        </div>
-    </div>
 
 </div>
 
@@ -33,3 +14,89 @@
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>zdjecia</title>
+    <link rel="stylesheet" href="/css/navlefttop.css">
+    <link rel="stylesheet" href="/css/searchResultsStyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="/js/buttonFollowValue.js">
+
+    </script>
+
+</head>
+<body>
+<div id="nav">
+    <a th:href="@{/mainPage}">
+        <img src="/icons/Navbar/iconLogoNavbar.svg" alt="Strona główna" id="logo">
+    </a>
+    <a th:href="@{/uploadPhoto}">
+        <img src="/icons/Navbar/iconAddPostNavbar.svg" alt="Dodaj zdjęcie">
+    </a><hr>
+    <a th:href="@{/maps}">
+        <img src="/icons/Navbar/iconMapNavbar.svg" alt="Mapa">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/icons/Navbar/iconWeatherNavbar.svg" alt="Pogoda">
+    </a><hr>
+    <a th:href="@{/profile}">
+        <img src="/icons/Navbar/iconPhotosNavbar.svg" alt="Zakupione zdjęcia">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/icons/Navbar/iconReportsNavbar.svg" alt="Panel zgłoszeń">
+    </a>
+</div>
+<div id="centerbox">
+
+    <div id="top">
+        <form th:action="@{/searchResults}" method="get" id="searchform">
+            <input type="search" name="searchValue" id="searchValue" placeholder="Wyszukaj">
+            <input type="submit" value="Szukaj" id="search"/>
+        </form>
+        <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
+        <img th:src="${myprofilepic}" id="profpicminature" alt="profile picture">
+
+    </div>
+
+    <div id="mainbox">
+
+        <div>
+            <h1>Użytkownicy</h1>
+            <div th:if="${user != null}">
+                <p> <img th:src="@{${user.getProfilePicPath()}}" id="profpicminiatureBigger"/> <a id="username" th:text="${user.getLogin()}" th:href="@{/test/{login}(login=${user.getLogin()})}"></a></p>
+            </div>
+
+            <div th:if="${user == null}">
+                <p>Brak uzytkownika o podanym pseudonimie!</p>
+            </div>
+        </div>
+
+
+    <div >
+        <h1>Zdjęcia</h1>
+        <div id = "matchedPhotos" th:if="${matchingPosts.isEmpty() == false}">
+            <div th:each="post: ${matchingPosts}" >
+                <img th:src="@{${post.getPhoto().getPath()}}" class="album"/>
+            </div>
+        </div>
+
+        <div th:if="${matchingPosts.isEmpty() == true}">
+            <p>Brak zdjęć z podanym tagiem!</p>
+        </div>
+    </div>
+
+</div>
+
+
+
+</div>
+
+
+</body>
+</html>
+

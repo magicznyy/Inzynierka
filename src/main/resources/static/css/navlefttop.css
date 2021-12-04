@@ -51,15 +51,26 @@ body
 #nav
 {
 position: fixed;
-margin-left: 4em;
+margin-left: 2em;
 margin-right: 4em;
 width: 4em;
 
 }
+
+#logo
+{
+    width: 6em;
+    height: 6em;
+    background: transparent;
+    margin-left:-0.6em;
+    margin-bottom: 1em;
+}
+
 img
 {
     width: 4em;
     background: transparent;
+    margin-top: 0.5em;
 
 }
 a

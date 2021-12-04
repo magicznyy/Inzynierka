@@ -1,7 +1,6 @@
 package com.example.RejestracjaLogowanie;
 
 import com.sun.istack.NotNull;
-import com.sun.istack.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,9 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.lang.annotation.Documented;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -74,6 +70,14 @@ public class User implements UserDetails {
     @OneToMany(targetEntity=FollowedUser.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <FollowedUser> followedUsers= new ArrayList<>();
 
+    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List <Comment> comments = new ArrayList<>();
+
+    @OneToMany(targetEntity = Reaction.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List <Reaction> reactions = new ArrayList<>();
+
+
+
     public List<Post> getPosts() {
         return posts;
     }
@@ -114,6 +118,22 @@ public class User implements UserDetails {
 
     @Column(name = "sciezkazdjecieprofilowe" , table = "profil")
     private String profilePicPath;
+
+    public String getProfileDescription() {
+        return profileDescription;
+    }
+
+    public void setProfileDescription(String profileDescription) {
+        this.profileDescription = profileDescription;
+    }
+
+    public String getProfilePicPath() {
+        return profilePicPath;
+    }
+
+    public void setProfilePicPath(String profilePicPath) {
+        this.profilePicPath = profilePicPath;
+    }
 
     @Column(name = "szerokoscgeograficzna" , table = "profil")
     private Double mapsCenterLongitude;

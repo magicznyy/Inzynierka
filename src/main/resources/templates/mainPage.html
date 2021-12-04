@@ -59,7 +59,7 @@
 
     <div id="mainbox">
 
-        <div id="userbox">
+        <div id="postbox">
             <div th:each="post: ${posts}">
                 <img src="${post.getPhoto().getPath()}" alt="zdjęcie id1">
                 <p>Id postu:<a th:text="${post.getIdPost()}" ></a></p>
@@ -70,6 +70,11 @@
                 <div id="podmien"></div>
                 <button onclick="photoFetcher()">Dej zdjęcie</button>
                 <div id="photoDiv"></div>
+                <form>
+                    <label>Dodaj komentarz:</label>
+                    <input type="text" name="comment" id="comment"/>
+                    <input type="submit" value="Wyślij" name="sendComment" id="sendComment"/>
+                </form>
             </div>
         </div>
 
