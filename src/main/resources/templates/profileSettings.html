@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile Settings</title>
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+
+
 </head>
 <body>
 <div>
@@ -104,24 +114,6 @@
         </form>
     </div>
 
-    <div>
-        <form  th:action="@{/updatingBankAccountNumber}" method="post">
-
-            <div th:if="${user.Nrkontabankowego==null}" class="alert alert-error">
-                <label for="username">Dodaj numer konta bankowego: </label>
-            </div>
-
-            <div th:if="${user.Nrkontabankowego!=null}" class="alert alert-error">
-                <label for="username">Edytuj numer konta bankowego: </label>
-            </div>
-
-            <input type="text" id="bankaccnumb" name="bankaccnumb"/>
-            <div class="form-actions">
-                <button type="submit" class="btn">Zapisz</button>
-            </div>
-        </form>
-    </div>
-
 </div>
 
 <div>
@@ -147,14 +139,19 @@
     </div>
 
     <div>
-        <form  th:action="@{/updatingStarterPoint}" method="post">
+        <form  th:action="@{/uploadUserPosition}" method="post">
+            <input type="hidden" id="latUser" th:value="${lat}"/>
+            <input type="hidden" id="lngUser" th:value="${lng}"/>
 
-            <label for="username">Ustaw punkt startowy mapy:</label>
-            <input type="text" id="start" name="start"/>
+            <input type="text" id="lat" name="lat" th:value="${user.getMapsCenterLatitude()}"> <!--jest widać-->
+            <input type="text" id="lng" name="lng" th:value="${user.getMapsCenterLongitude()}"> <!--jest widać-->
             <div class="form-actions">
                 <button type="submit" class="btn">Zapisz</button>
             </div>
         </form>
+        <div id='map' style='width: 60vw; height: 60vh;'></div>
+
+        <script th:inline="javascript" src="js/mapUploadPhoto.js" defer></script>
     </div>
 
     <div>

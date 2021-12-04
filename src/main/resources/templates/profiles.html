@@ -45,7 +45,9 @@
             <input type="submit" value="Szukaj" id="search"/>
         </form>
         <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
-        <img th:src="${myprofilepic}" id="profpicminature" alt="profile picture">
+        <a th:href="@{/profile}">
+            <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+        </a>
 
     </div>
 
@@ -56,11 +58,11 @@
                 <p style="color: #BFE0EE; margin-left:1em; font-size: 2em; margin-top: 0"  th:text="${login}"></p>
             </div>
 
-                <h1 th:text="${user.getProfileDescription()}"   id="userdescription"></h1>
+            <h1 th:text="${user.getProfileDescription()}"   id="userdescription"></h1>
 
             <form id="followForm" th:action="@{/test}"  method="get">
                 <input type="hidden" id="login" name="login" th:value="${login}">
-            <input type="submit" name="follow" value="Obserwuj" id="settings"/>
+                <input type="submit" name="follow" value="Obserwuj" id="settings"/>
 
             </form>
 

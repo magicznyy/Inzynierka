@@ -36,8 +36,8 @@ public class User implements UserDetails {
         this.aktywnosc =  0;
         this.prywatnosckonta = 0;
         this.czyzbanowany = 0;
-        this.mapsCenterLatitude = 0d;
-        this.mapsCenterLongitude = 0d;
+        this.mapsCenterLatitude = 52.237049;
+        this.mapsCenterLongitude = 21.017532;
     }
 
     @Id
@@ -116,10 +116,10 @@ public class User implements UserDetails {
     private String profilePicPath;
 
     @Column(name = "szerokoscgeograficzna" , table = "profil")
-    private Double mapsCenterLongitude;
+    private Double mapsCenterLatitude;
 
     @Column(name = "dlugoscgeograficzna" , table = "profil")
-    private Double mapsCenterLatitude;
+    private Double mapsCenterLongitude;
 
 
 

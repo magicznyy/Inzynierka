@@ -27,36 +27,33 @@
     <a th:href="@{/photoit}">
         <img src="/icons/Navbar/iconWeatherNavbar.svg" alt="Pogoda">
     </a><hr>
-    <a th:href="@{/profile}">
-        <img src="/icons/Navbar/iconPhotosNavbar.svg" alt="Zakupione zdjęcia">
-    </a><hr>
     <a th:href="@{/photoit}">
         <img src="/icons/Navbar/iconReportsNavbar.svg" alt="Panel zgłoszeń">
-    </a><hr>
-    <a th:href="@{/photoit}">
-        <img src="/icons/Navbar/iconSalesNavbar.svg" alt="Panel zakupów zdjęcia">
     </a>
 </div>
 <div id="centerbox">
 
     <div id="top">
-    <form th:action="@{/searchResults}" method="get" id="searchform">
-    <input type="search" name="searchValue" id="searchValue" placeholder="Wyszukaj">
-        <input type="submit" value="Szukaj" id="search"/>
-    </form>
+        <form th:action="@{/searchResults}" method="get" id="searchform">
+            <input type="search" name="searchValue" id="searchValue" placeholder="Wyszukaj">
+            <input type="submit" value="Szukaj" id="search"/>
+        </form>
         <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
-        <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+        <a th:href="@{/profile}">
+            <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+        </a>
+
 
     </div>
 
     <div id="mainbox">
         <div id="userbox">
-        <div id="user">
-            <img th:src="${profilepic}" alt="Zdjęcie profilowe" id="profpic">
-            <p style="color: #BFE0EE; margin-left:1em; font-size: 2em; margin-top: 0"  th:text="${login}"></p>
-        </div>
+            <div id="user">
+                <img th:src="${profilepic}" alt="Zdjęcie profilowe" id="profpic">
+                <p style="color: #BFE0EE; margin-left:1em; font-size: 2em; margin-top: 0"  th:text="${login}"></p>
+            </div>
 
-        <h1 th:text="${profileDescription}"   id="userdescription"></h1>
+            <h1 th:text="${profileDescription}"   id="userdescription"></h1>
 
             <button id="settings">Ustawienia profilu</button>
 
@@ -64,7 +61,7 @@
         <div id="photobox">
             <div th:each="photo: ${photos}">
                 <a th:href="@{${'/images/user' + id +'/' + photo}}" data-lightbox="mygallery">
-                <img th:src="@{${'/images/user' + id +'/' + photo}}" class="album"/>
+                    <img th:src="@{${'/images/user' + id +'/' + photo}}" class="album"/>
                 </a>
             </div>
 

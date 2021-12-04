@@ -42,6 +42,8 @@ public class SettingsController {
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
         model.addAttribute("user", user);
+        model.addAttribute("lat", user.getMapsCenterLatitude());
+        model.addAttribute("lng", user.getMapsCenterLongitude());
         return "profileSettings";
     }
 
@@ -59,7 +61,7 @@ public class SettingsController {
             ScriptEngine engine = manager.getEngineByName("JavaScript");
 
             try {
-                FileReader reader = new FileReader("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\js\\allPopUps.js");
+                FileReader reader = new FileReader("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\js\\allPopUps.js");
                 engine.eval(reader);
                 reader.close();
             } catch (Exception e) {
@@ -176,9 +178,9 @@ public class SettingsController {
         StringBuilder builder = new StringBuilder();
 
         if(Objects.equals(photoExtension,"jpg"))
-            builder.append("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString()  + ".jpg");
+            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\user" + user.getId().toString()  + ".jpg");
         else
-            builder.append("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString()  + ".png");
+            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\user" + user.getId().toString()  + ".png");
 
         String path = builder.toString();
 
@@ -197,6 +199,27 @@ public class SettingsController {
         user.setProfilePicPath(path);
         userRepository.save(user);
         model.addAttribute("user", user);
+
+        return "redirect:/profileSettings";
+    }
+
+
+    @PostMapping("/uploadUserPosition")
+    String userPosition(Model model, @RequestParam(value = "lat") Double lat, @RequestParam(value = "lng") Double lng)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        if(Objects.isNull(lat) || Objects.isNull(lng))
+        {
+            model.addAttribute("lat", 21.017532);
+            model.addAttribute("lng", 52.237049);
+        }
+
+        user.setMapsCenterLatitude(lat);
+        user.setMapsCenterLongitude(lng);
+        userRepository.save(user);
+
 
         return "redirect:/profileSettings";
     }

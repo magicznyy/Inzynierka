@@ -21,6 +21,10 @@ public class UserInformation {
         model.addAttribute("login", user.getLogin());
         model.addAttribute("id", user.getId());
         model.addAttribute("profileDescription", user.getProfileDescription());
+        model.addAttribute("lat", user.getMapsCenterLatitude());
+        model.addAttribute("lng", user.getMapsCenterLongitude());
+
+
 
         if(user.getProfilePicPath()==null)
             model.addAttribute("profilepic", "/images/profpic/nopicture.jpg");

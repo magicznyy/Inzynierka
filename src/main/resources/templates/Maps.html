@@ -37,20 +37,20 @@
 </head>
 <body>
 <div id="nav">
-    <a th:href="@{/photoit}">
-        <img src="/navicons/svg/iconLogoNavbar.svg" alt="Strona główna">
+    <a th:href="@{/mainPage}">
+        <img src="/icons/Navbar/iconLogoNavbar.svg" alt="Strona główna">
     </a> <hr>
     <a th:href="@{/uploadPhoto}">
-        <img src="/navicons/svg/iconAddPostNavbar.svg" alt="Dodaj zdjęcie">
+        <img src="/icons/Navbar/iconAddPostNavbar.svg" alt="Dodaj zdjęcie">
     </a><hr>
     <a th:href="@{/maps}">
-        <img src="/navicons/svg/iconMapNavbar.svg" alt="Mapa">
+        <img src="/icons/Navbar/iconMapNavbar.svg" alt="Mapa">
     </a><hr>
     <a th:href="@{/photoit}">
-        <img src="/navicons/svg/iconWeatherNavbar.svg" alt="Pogoda">
+        <img src="/icons/Navbar/iconWeatherNavbar.svg" alt="Pogoda">
     </a><hr>
     <a th:href="@{/photoit}">
-        <img src="/navicons/svg/iconReportsNavbar.svg" alt="Panel zgłoszeń">
+        <img src="/icons/Navbar/iconReportsNavbar.svg" alt="Panel zgłoszeń">
     </a>
 </div>
 
@@ -62,48 +62,58 @@
             <input type="submit" value="Szukaj" id="search"/>
         </form>
         <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
-        <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
-
+        <a th:href="@{/profile}">
+            <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+        </a>
     </div>
 
 
+    <div id="mainbox">
+        <div id="mapcontainer">
+            <div class="buttoncontainer">
+                <button class="buttonviewmap" id="buttonviewmap1" onclick="showPanel(0)"> LOKALNA</button>
+                <button class="buttonviewmap" id="buttonviewmap2" onclick="showPanel(1)"> GLOBALNA</button>
+            </div>
 
-    <div id="mapcontainer">
-        <div class="buttoncontainer">
-            <script th:inline="javascript" src="js/tab.js" defer></script>
-            <button onclick="f(document.getElementById('pins').value)"> Tab 1</button>
-            <button onclick="f(document.getElementById('pinsy').value)"> Tab 2</button>
+            <div id='map'></div>
+            <input type="hidden" id="pins" th:value="${pins}"/>
+            <input type="hidden" id="pinsy" th:value="${pinsall}"/>
+
+            <input type="hidden" id="latUser" th:value="${lat}"/>
+            <input type="hidden" id="lngUser" th:value="${lng}"/>
         </div>
+
         <script th:inline="javascript" src="js/mapscript.js" defer></script>
+        <script th:inline="javascript" src="js/tab.js" defer></script>
 
-        <div id='map' style='width: 60vw; height: 60vh;'></div>
-        <input type="hidden" id="pins" th:value="${pins}"/>
-        <input type="hidden" id="pinsy" th:value="${pinsall}"/>
+        <div id="addpinbox">
+            <h1>Dodaj pinezkę</h1>
+            <form th:action="@{/savepin}" th:method="request" id="signupForm">
+                <label for="lat">Szerokość geograficzna</label>
+                <input type="text" id="lat" name="lat">
+                <label for="lng">Długość geograficzna</label>
+                <input type="text" id="lng" name="lng">
+                <label for="pindescription">Opis pinezki</label>
+                <input type="text" id="pindescription" name="pindescription">
+
+                <input type="radio" class="pincolor" name="color" value="#ff0000" id="one">
+                <label for="one">Czerwony</label>
+
+                <input type="radio" class="pincolor" name="color" value="#00ff47" id="two">
+                <label for="two">Zielony</label>
+
+                <input type="radio" class="pincolor" name="color" value="#fAff00" id="three">
+                <label for="three">Żółty</label>
+
+                <input type="radio" class="pincolor" name="color" value="#0047ff" id="four">
+                <label for="four">Niebieski</label>
+                <input type="submit" value="Dodaj" id="submitpin">
+            </form>
+
+
+        </div>
+
     </div>
-
-    <div class="container">
-        <form th:action="@{/savepin}" th:method="request" id="signupForm">
-            <label for="lat">Szerokość geograficzna</label>
-            <input type="text" id="lat" name="lat">
-            <label for="lng">Długość geograficzna</label>
-            <input type="text" id="lng" name="lng">
-            <label for="pindescription">Opis pinezki</label>
-            <input type="text" id="pindescription" name="pindescription">
-            <input type="radio" class="pincolor" name="color" value="#ff0000">
-            <label>Czerwony</label>
-
-            <input type="radio" class="pincolor" name="color" value="#00ff47">
-            <label>Zielony</label>
-
-            <input type="radio" class="pincolor" name="color" value="#fAff00">
-            <label>Żółty</label>
-
-            <input type="radio" class="pincolor" name="color" value="#0047ff">
-            <label>Niebieski</label>
-            <input type="submit" value="Szukaj" >
-        </form>
-    </div>
-
 
 </div>
 

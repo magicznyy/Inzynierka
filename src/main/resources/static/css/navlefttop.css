@@ -50,10 +50,10 @@ body
 
 #nav
 {
-position: fixed;
-margin-left: 4em;
-margin-right: 4em;
-width: 4em;
+    position: fixed;
+    margin-left: 4em;
+    margin-right: 4em;
+    width: 4em;
 
 }
 img
@@ -147,9 +147,11 @@ hr /*linia miedzy przyciskami nawigacji*/
     width: 90%;
 }
 
-label
+
+
+/*label wywalilem to bo chyba niepotrzebne a psuje
 {
     position:relative;
     padding:0 0 0 20px;
     margin:0 20px;
-}
+}*/
