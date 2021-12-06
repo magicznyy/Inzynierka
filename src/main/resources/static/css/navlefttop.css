@@ -54,8 +54,17 @@ body
     margin-left: 2em;
     margin-right: 4em;
     width: 4em;
-
 }
+
+#logo
+{
+    width: 6em;
+    height: 6em;
+    background: transparent;
+    margin-left:-0.6em;
+    margin-bottom: 1em;
+}
+
 img
 {
     width: 4em;

@@ -47,18 +47,18 @@ public class RegistrationController{
 
     }
 
-    private void createDirectory(Long id)
-    {
-        String path = "C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\";
-        File directory = new File(path+"user"+id);
-        if (!directory.exists()) {
-            if (directory.mkdir()) {
-                System.out.println("Directory is created.");
-            } else {
-                System.out.println("Failed to create directory.");
-            }
-        }
-    }
+   private void createDirectory(Long id)
+   {
+       String path = "C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\";
+       File directory = new File(path+"user"+id);
+       if (!directory.exists()) {
+           if (directory.mkdir()) {
+               System.out.println("Directory is created.");
+           } else {
+               System.out.println("Failed to create directory.");
+           }
+       }
+   }
 
     @PostMapping("/process_register")
     public String send(@Valid User user, BindingResult result) {

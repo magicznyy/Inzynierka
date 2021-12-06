@@ -58,14 +58,11 @@ public class UploadPhotoController {
 
     @PostMapping("/upload")
     public String upload (Model model, @RequestParam("image") MultipartFile image, @RequestParam("description") String description, @RequestParam("tags") String tags, @RequestParam(value = "lat", required=false) Double lat, @RequestParam(value = "lng", required=false) Double lng, @RequestParam(value = "pindescription", required=false) String pindescription, @RequestParam(value = "color", required=false) String color)
-    {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
 
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails = (UserDetails) auth.getPrincipal();
+          User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
 
         System.out.println("id: " + user.getId());
 
@@ -95,9 +92,9 @@ public class UploadPhotoController {
 
         if(Objects.equals(photoExtension,"jpg"))
 
-            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
+            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
         else
-            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
+            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
 
         String path = builder.toString();
 
