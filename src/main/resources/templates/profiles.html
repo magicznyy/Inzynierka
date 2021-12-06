@@ -45,7 +45,9 @@
             <input type="submit" value="Szukaj" id="search"/>
         </form>
         <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
-        <img th:src="${myprofilepic}" id="profpicminature" alt="profile picture">
+        <a th:href="@{/profile}">
+            <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+        </a>
 
     </div>
 
@@ -56,7 +58,7 @@
                 <p style="color: #BFE0EE; margin-left:1em; font-size: 2em; margin-top: 0"  th:text="${login}"></p>
             </div>
 
-                <h1 th:text="${user.getProfileDescription()}"   id="userdescription"></h1>
+            <h1 th:text="${user.getProfileDescription()}"   id="userdescription"></h1>
 
             <form id="followForm" th:action="@{/follow}"  method="post">
                 <input type="hidden" id="login" name="followedUserLogin" th:value="${login}">
@@ -66,10 +68,14 @@
 
         </div>
 
-        <div id="photobox">
-            <div th:each="photo: ${photos}">
-                <img th:src="@{${'/images/user' + id +'/' + photo}}" class="album"/>
+        <div class="photobox" th:switch="${user.getPrywatnosckonta()}">
+            <div th:case="null" class="photobox">
+                <div th:each="photo: ${photos}">
+                    <img th:src="@{${'/images/user' + id +'/' + photo}}" class="album"/>
+                </div>
             </div>
+            <div th:case="on"><h2>Profil prywatny</h2></div>
+
 
         </div>
 

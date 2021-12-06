@@ -1,7 +1,7 @@
 function f(pins)
 {
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWRpeHhkIiwiYSI6ImNrdzk5MGRleDAwN3MycG13dzliNTVlZ20ifQ.8a4kA7C251FLFX3aTngyHA';
-    var userposition = [21.017532, 52.237049];
+    var userposition=[document.getElementById("lngUser").value, document.getElementById("latUser").value];
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
@@ -9,14 +9,14 @@ function f(pins)
         zoom: 8
     });
 
+    map.dragRotate.disable();
+
     var mapdata = pins;
-    console.log(mapdata);
     mapdata = mapdata.replaceAll("]]", '');
     mapdata = mapdata.replaceAll("]", '');
     mapdata = mapdata.replaceAll("[[", '');
     mapdata = mapdata.replaceAll("[", '');
     var help = mapdata.split(",");
-    console.log(help);
     var photo;
     if (help.length !== 1) {
         var ile = help.length / 7;
@@ -56,7 +56,7 @@ function f(pins)
     map.on('contextmenu', function (e) {
         markerpom.remove();
         addMarker(e.lngLat, 'contextmenu');
-        //console.log(e.lngLat.lat);
+
         document.getElementById("lat").value = e.lngLat.lat;
         document.getElementById("lng").value = e.lngLat.lng;
 
@@ -71,7 +71,7 @@ function f(pins)
         if (event === 'contextmenu') {
             userposition = ltlng;
         }
-        markerpom = new mapboxgl.Marker({draggable: true, color: "#c8c6d0"})
+        markerpom = new mapboxgl.Marker({draggable: true, color: "black"})
             .setLngLat(userposition)
             .addTo(map)
             .on('dragend', onDragEnd);

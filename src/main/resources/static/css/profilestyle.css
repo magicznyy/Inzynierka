@@ -1,8 +1,8 @@
 
 #mainbox
 {
-width: auto;
-background: linear-gradient(180deg, #0C2C4C 0%, rgba(0, 36, 67, 0.38) 5.21%, rgba(219, 233, 239, 0.78) 100%);
+    width: auto;
+    background: linear-gradient(180deg, #0C2C4C 0%, rgba(0, 36, 67, 0.38) 5.21%, rgba(219, 233, 239, 0.78) 100%);
 }
 
 #centerbox
@@ -13,12 +13,12 @@ background: linear-gradient(180deg, #0C2C4C 0%, rgba(0, 36, 67, 0.38) 5.21%, rgb
 #userbox
 {
 
-width: auto;
-margin-left: 2em;
-margin-right: 2em;
-margin-top: 5%;
-background-color: #0C2C4C;
-display: flex;
+    width: auto;
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 5%;
+    background-color: #0C2C4C;
+    display: flex;
     border-radius: 20px;
 
 }
@@ -56,7 +56,7 @@ display: flex;
     margin: auto 5% 5% 1%;
 }
 
-#photobox
+.photobox
 {
     display: flex;
     flex-direction: row;
@@ -74,3 +74,9 @@ display: flex;
 
 }
 
+h2
+{
+    color: #0C2C4C;
+    letter-spacing: 2px;
+    font-size: 170%;
+}

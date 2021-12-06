@@ -3,185 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile Settings</title>
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+
+    <link rel="stylesheet" href="/css/navlefttop.css">
+    <link rel="stylesheet" href="/css/profileSettingsstyle.css">
+
+
 </head>
 <body>
-<div>
-<div>
+<div id="nav">
+    <a th:href="@{/mainPage}">
+        <img src="/icons/Navbar/iconLogoNavbar.svg" alt="Strona główna">
+    </a> <hr>
+    <a th:href="@{/uploadPhoto}">
+        <img src="/icons/Navbar/iconAddPostNavbar.svg" alt="Dodaj zdjęcie">
+    </a><hr>
+    <a th:href="@{/maps}">
+        <img src="/icons/Navbar/iconMapNavbar.svg" alt="Mapa">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/icons/Navbar/iconWeatherNavbar.svg" alt="Pogoda">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/icons/Navbar/iconReportsNavbar.svg" alt="Panel zgłoszeń">
+    </a>
+</div>
+
+<div id="centerbox">
+
+    <div id="top">
+        <form th:action="@{/searchResults}" method="get" id="searchform">
+            <input type="search" name="searchValue" id="searchValue" placeholder="Wyszukaj">
+            <input type="submit" value="Szukaj" id="search"/>
+        </form>
+        <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
+        <a th:href="@{/profile}">
+            <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+        </a>
+    </div>
+
+<!--<div>
     <h1 th:inline="text">Aktualne dane użytkownika  <a th:text="${user.getLogin()}"> </a>  </h1>
     <div>
         <p>Pseudonim: <a th:text="${user.getLogin()}"> </a> </p>
         <p>Imie: <a th:text="${user.getImie()}"> </a> </p>
         <p>Nazwisko: <a th:text="${user.getNazwisko()}"> </a> </p>
         <p>Adres e-mail: <a th:text="${user.getEmail()}"> </a> </p>
-        <div th:if="${user.Nrkontabankowego==null}" class="alert alert-error">
-            Numer konta bankowego: brak
-        </div>
-        <div th:if="${user.Nrkontabankowego!=null}" class="alert alert-error">
-           <p> Numer konta bankowego: <a th:text="${user.getNrkontabankowego()}"> </a> </p>
-        </div>
 
     </div>
+</div>--><!-- aktualne dane uzytkownika-->
+
+<div id="gradientbox">
+
+<div id="alleditboxes">
+
+
+<div id="editbox1">
+    <form th:action="@{/uploadProfilePicture}" id="editbox1form1" method="post" enctype="multipart/form-data">
+            <div id="addphotobox">
+
+                <img th:src="${profilepic}" alt="Zdjęcie profilowe" id="profpic">
+
+                <label for="filebutton">
+                    <img src="/icons/Navbar/iconAddPostNavbar.svg" id="iconAddPhoto" alt="ikona dodaj zdjecie" />
+                </label>
+
+                <input id="filebutton" type="file" name="profilePicture" accept="image/png, image/jpeg"/>
+            </div>
+
+            <input type="submit" id="submitPhoto" value="Dodaj"/>
+    </form>
+
+        <form  th:action="@{/updatingProfileDesc}" id="editbox1form2" method="post">
+
+           <textarea id="profileDescription" name="profileDescription" th:inline="text">[[${user.getProfileDescription()}]]</textarea>
+            <div class="form-actions">
+                <button type="submit" id="submitprofileDescription" class="btn">Edytuj opis</button>
+            </div>
+        </form>
+
+
 </div>
 
+<hr class="sectionseparator">
 
-<div>
-    <h1 th:inline="text">Edycja danych użytkownika </h1>
-    <div>
-    <form th:action="@{/updatingLogin}" method="post">
+<div id="editbox2and3">
 
-            <label for="username">Edytuj pseudonim</label>
-             <input type="text" name="username" id="username" required pattern="[A-Za-z0-9]{4,30}"/>
-            <div class="form-actions">
-                <button type="submit" class="btn">Zapisz</button>
-            </div>
-    </form>
-    </div>
-
-    <div>
-        <form  th:action="@{/updatingPasswd}" method="post">
-
-            <label for="username">Podaj aktualne hasło:</label>
-            <input type="password" id="currpassword" name="currpassword"/>
-
-            <label for="username">Podaj nowe hasło:</label>
-            <input type="password" name="password"  id="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"  />
-
-            <label for="username">Powtórz nowe hasło:</label>
-            <input type="password" id="repeatpassword" name="repeatpassword"/>
+    <div id="editbox2">
+        <h1 th:inline="text">Edycja podstawowych danych </h1>
+        <form th:action="@{/updatingLogin}" method="post">
+            <label for="username">Edytuj login:</label>
+            <main>
+                <input class="inputsUpdate" type="text" name="username" id="username" required pattern="[A-Za-z0-9]{4,30}"/>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Zapisz</button>
+                </div>
+            </main>
 
 
-            <div class="form-actions">
-                <button type="submit" class="btn">Zapisz</button>
-            </div>
         </form>
-    </div>
 
-    <div>
         <form  th:action="@{/updatingEmail}" method="post">
+            <label for="username">Edytuj adres e-mail:</label>
+            <main>
+                <input class="inputsUpdate" type="text" name="email"  id="email" required pattern="[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@+[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,350})$"/>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Zapisz</button>
+                </div>
+            </main>
 
-            <label for="username">Edytuj adres e-mail</label>
-            <input type="text" name="email"  id="email" required pattern="[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@+[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,350})$"/>
-            <div class="form-actions">
-                <button type="submit" class="btn">Zapisz</button>
-            </div>
+
         </form>
-    </div>
 
-    <div>
         <form  th:action="@{/updatingName}" method="post">
 
             <label for="username">Edytuj imię:</label>
-            <input type="text" name="name"  id="name" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,85}$"/>
-            <div class="form-actions">
-                <button type="submit" class="btn">Zapisz</button>
-            </div>
-        </form>
-    </div>
-
-    <div>
-        <form  th:action="@{/updatingLastName}" method="post">
-
-            <label for="username">Edytuj nazwisko:</label>
-            <input type="text" name="lastName"  id="lastName" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,100}$" />
-            <div class="form-actions">
-                <button onclick="myFunction2()" type="submit" class="btn">Zapisz</button>
-                <script>
-
-</script>
-                <script>
-                function myFunction2() {
-                var txt;
-                if (confirm("Na pewno chcesz całkowicie usunąć konto?")) {
-                txt = "You pressed OK!";
-                } else {
-                txt = "You pressed Cancel!";
-                }
-                document.getElementById("demo").innerHTML = txt;
-                }
-                </script>
-
-            </div>
-        </form>
-    </div>
-
-    <div>
-        <form  th:action="@{/updatingBankAccountNumber}" method="post">
-
-            <div th:if="${user.Nrkontabankowego==null}" class="alert alert-error">
-                <label for="username">Dodaj numer konta bankowego: </label>
-            </div>
-
-            <div th:if="${user.Nrkontabankowego!=null}" class="alert alert-error">
-                <label for="username">Edytuj numer konta bankowego: </label>
-            </div>
-
-            <input type="text" id="bankaccnumb" name="bankaccnumb"/>
-            <div class="form-actions">
-                <button type="submit" class="btn">Zapisz</button>
-            </div>
-        </form>
-    </div>
-
-</div>
-
-<div>
-    <h1 th:inline="text">Edycja profilu <a th:text="${user.getLogin()}"> </a>  </h1>
-    <div>
-        <form th:action=${"/uploadProfilePicture"} method="post" enctype="multipart/form-data">
-            <div>
-                <label>Załącz nowe zdjęcie profilowe z dysku: </label>
-                <input type="file" name="profilePicture" accept="image/png, image/jpeg"/>
-                <input type="submit" value="Dodaj"/>
-            </div>
-        </form>
-    </div>
-    <div>
-        <form  th:action="@{/updatingProfileDesc}" method="post">
-
-            <label for="username">Zmień opis profilu:</label>
-            <input type="text" id="profileDescription" name="profileDescription" th:value="${user.getProfileDescription()}"/>
-            <div class="form-actions">
-                <button type="submit" class="btn">Zapisz</button>
-            </div>
-        </form>
-    </div>
-
-    <div>
-        <form  th:action="@{/updatingStarterPoint}" method="post">
-
-            <label for="username">Ustaw punkt startowy mapy:</label>
-            <input type="text" id="start" name="start"/>
-            <div class="form-actions">
-                <button type="submit" class="btn">Zapisz</button>
-            </div>
-        </form>
-    </div>
-
-    <div>
-        <form  th:action="@{/updatingProfilePrivacy}" method="post">
-
-            <label for="username">Prywatność profilu:</label>
-            <input type="text" id="privacy" name="privacy"/>
-            <div class="form-actions">
-                <button type="submit" class="btn">Zapisz</button>
-            </div>
-        </form>
-    </div>
-
-</div>
-        <div>
-        <div>
-            <form  th:action="@{/deleteAccount}" method="post">
-
-                <label for="username">Usuń konto:</label>
-
+            <main>
+                <input class="inputsUpdate" type="text" name="name"  id="name" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,85}$"/>
                 <div class="form-actions">
-                    <button type="submit" class="btn">Usuń konto</button>
+                    <button type="submit" class="btn">Zapisz</button>
                 </div>
-            </form>
-        </div>
+            </main>
+
+
+        </form>
+
+        <form  th:action="@{/updatingLastName}" method="post">
+            <label for="username">Edytuj nazwisko:</label>
+            <main>
+                <input class="inputsUpdate" type="text" name="lastName"  id="lastName" pattern="^[A-Z]{1}[a-ząęłńśćźżó-]{1,100}$" />
+                <div class="form-actions">
+                    <button type="submit" class="btn">Zapisz</button>
+                </div>
+            </main>
+
+        </form>
+
     </div>
 
+    <div id="editbox3">
+        <h1 th:inline="text">Zmień hasło</h1>
+        <form  th:action="@{/updatingPasswd}" id="editbox3form1" method="post">
+
+            <label for="username">Stare hasło:</label>
+            <input class="inputsUpdate" type="password" id="currpassword" name="currpassword"/>
+
+            <label for="username">Nowe hasło:</label>
+            <input class="inputsUpdate" type="password" name="password"  id="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"  />
+
+            <label for="username">Powtórz nowe hasło:</label>
+            <input class="inputsUpdate" type="password" id="repeatpassword" name="repeatpassword"/>
+
+            <div class="form-actions">
+                <button type="submit" class="btn" id="submitPassword" >Zapisz</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<hr class="sectionseparator">
+
+<div id="editbox4and5">
+    <div id="editbox4">
+        <h1 th:inline="text">Prywatność</h1>
+        <form  th:action="@{/updatingProfilePrivacy}" id="editbox4form1" method="post">
+            <label>Profil prywatny</label>
+
+            <main id="togglemain">
+                <label class="switch">
+                    <input type="checkbox" id="priviet" name="priviet" th:checked="${userpriviet}">
+                    <span class="slider round"></span>
+                </label>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Zapisz</button>
+                </div>
+            </main>
+
+
+        </form>
+
+    </div>
+
+    <div id="editbox5">
+        <div id='map'></div>
+        <form  th:action="@{/uploadUserPosition}" method="post">
+            <input type="hidden" id="latUser" th:value="${lat}"/>
+            <input type="hidden" id="lngUser" th:value="${lng}"/>
+
+            <header>
+                <section>
+                    <label for="lat">Szerokość geograficzna</label>
+                    <input class="inputsUpdate" type="text" id="lat" name="lat" th:value="${user.getMapsCenterLatitude()}"> <!--jest widać-->
+                </section>
+                <section>
+                    <label for="lng">Długość geograficzna</label>
+                    <input class="inputsUpdate" type="text" id="lng" name="lng" th:value="${user.getMapsCenterLongitude()}"> <!--jest widać-->
+                </section>
+            </header>
+
+
+            <div class="form-actions">
+                <button type="submit" class="btn">Zapisz</button>
+            </div>
+        </form>
+
+
+        <script th:inline="javascript" src="js/mapUploadPhoto.js" defer></script>
+    </div>
+</div>
+    <hr>
+
+
+
+    <div id="editbox6">
+        <form  th:action="@{/deleteAccount}" method="post">
+
+            <label for="username">Usuń konto: </label>
+            <button onclick="myFunction2()" type="submit" class="btn">Usuń</button>
+            <script>
+                function myFunction2() {
+                    var txt;
+                    if (confirm("Na pewno chcesz całkowicie usunąć konto?")) {
+                        txt = "You pressed OK!";
+                    } else {
+                        txt = "You pressed Cancel!";
+                    }
+                    document.getElementById("demo").innerHTML = txt;
+                }
+            </script>
+        </form>
+    </div>
+
+</div>
+
+</div>
 </div>
 
 

@@ -81,7 +81,7 @@ public class RegistrationController{
 
 
     public void hashPasswd(User user){
-       user.setHashhasla(passwordEncoder.encode(user.getHashhasla()));
+        user.setHashhasla(passwordEncoder.encode(user.getHashhasla()));
 
     }
 

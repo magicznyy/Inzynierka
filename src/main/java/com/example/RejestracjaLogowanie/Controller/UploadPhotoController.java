@@ -32,7 +32,7 @@ public class UploadPhotoController {
     public static String uploadDir = System.getProperty("user.dir") + "/uploads";
 
     @Autowired
-   private  UserRepository userRepository;
+    private  UserRepository userRepository;
 
     @Autowired
     private PostRepository postRepository;
@@ -46,33 +46,39 @@ public class UploadPhotoController {
 
 
     @GetMapping("/uploadPhoto")
-    public String uploadPhoto(){
+    public String uploadPhoto(Model model){
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        model.addAttribute("lat", user.getMapsCenterLatitude());
+        model.addAttribute("lng", user.getMapsCenterLongitude());
         return "uploadPhoto" ;
     }
 
     @PostMapping("/upload")
     public String upload (Model model, @RequestParam("image") MultipartFile image, @RequestParam("description") String description, @RequestParam("tags") String tags, @RequestParam(value = "lat", required=false) Double lat, @RequestParam(value = "lng", required=false) Double lng, @RequestParam(value = "pindescription", required=false) String pindescription, @RequestParam(value = "color", required=false) String color)
+
         {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserDetails userDetails = (UserDetails) auth.getPrincipal();
           User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
 
-          System.out.println("id: " + user.getId());
+        System.out.println("id: " + user.getId());
 
-            Photo photo = new Photo("sciezka");
-            photoRepository.save(photo);
+        Photo photo = new Photo("sciezka");
+        photoRepository.save(photo);
 
-            Post post = new Post(tags, description, new Date(), user, photo);
-           postRepository.save(post);
+        Post post = new Post(tags, description, new Date(), user, photo);
+        postRepository.save(post);
 
 
 
-            List<User> photos =  userRepository.findAll();
-            for (User user1 :photos) {
-                System.out.println( "Przed:" + user1.getLogin());
+        List<User> photos =  userRepository.findAll();
+        for (User user1 :photos) {
+            System.out.println( "Przed:" + user1.getLogin());
 
-            }
+        }
 
 
 
@@ -99,19 +105,19 @@ public class UploadPhotoController {
         catch(Exception e){
             System.out.printf("Problem z zapisem");
             e.printStackTrace();
-    }
+        }
 
-            int index = path.lastIndexOf("images");
-            path = path.substring(index-1);
+        int index = path.lastIndexOf("images");
+        path = path.substring(index-1);
 
-            photo.setPath(path);
-            photoRepository.save(photo);
+        photo.setPath(path);
+        photoRepository.save(photo);
 
-            if(!Objects.isNull(lng))
-            {
-                Pin pin = new Pin(lng, lat, pindescription, color, user, photo);
-                pinRepository.save(pin);
-            }
+        if(!Objects.isNull(lng))
+        {
+            Pin pin = new Pin(lng, lat, pindescription, color, user, photo);
+            pinRepository.save(pin);
+        }
 
 
         return "uploadPhoto";
