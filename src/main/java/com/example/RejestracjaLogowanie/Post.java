@@ -72,6 +72,11 @@ public class Post {
     @JoinColumn(name="zdjecie_idzdjecie",referencedColumnName = "idzdjecie")
     private Photo photo;
 
+    @OneToMany(targetEntity= Comment.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List <Comment> comments = new ArrayList<>();
+
+    @OneToMany(targetEntity = Reaction.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List <Reaction> reactions = new ArrayList<>();
     public Photo getPhoto() {
         return photo;
     }

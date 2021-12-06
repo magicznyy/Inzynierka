@@ -36,8 +36,8 @@ public class User implements UserDetails {
         this.aktywnosc =  0;
         this.prywatnosckonta = 0;
         this.czyzbanowany = 0;
-        this.mapsCenterLatitude = 0d;
-        this.mapsCenterLongitude = 0d;
+        this.mapsCenterLatitude = 52d;
+        this.mapsCenterLongitude = 21d;
     }
 
     @Id
@@ -70,6 +70,13 @@ public class User implements UserDetails {
 
     @OneToMany(targetEntity=Post.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Post> posts = new ArrayList<>();
+
+    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List <Comment> comments = new ArrayList<>();
+
+    @OneToMany(targetEntity = Reaction.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List <Reaction> reactions = new ArrayList<>();
+
 
     @OneToMany(targetEntity=FollowedUser.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <FollowedUser> followedUsers= new ArrayList<>();
@@ -112,14 +119,30 @@ public class User implements UserDetails {
     @Column(name = "opisprofilu" , table = "profil")
     private String profileDescription;
 
+    public String getProfileDescription() {
+        return profileDescription;
+    }
+
+    public void setProfileDescription(String profileDescription) {
+        this.profileDescription = profileDescription;
+    }
+
+    public String getProfilePicPath() {
+        return profilePicPath;
+    }
+
+    public void setProfilePicPath(String profilePicPath) {
+        this.profilePicPath = profilePicPath;
+    }
+
     @Column(name = "sciezkazdjecieprofilowe" , table = "profil")
     private String profilePicPath;
 
     @Column(name = "szerokoscgeograficzna" , table = "profil")
-    private Double mapsCenterLongitude;
+    private Double mapsCenterLatitude;
 
     @Column(name = "dlugoscgeograficzna" , table = "profil")
-    private Double mapsCenterLatitude;
+    private Double mapsCenterLongitude;
 
 
 
@@ -156,6 +179,7 @@ public class User implements UserDetails {
                 ", czyZbanowany='" + czyzbanowany + '\'' +
                 ", rola='" + rola + '\'' +
                 ", hash='" + hashhasla + '\'' +
+                ", posty='" + getPosts() + '\'' +
                 '}';
     }
 

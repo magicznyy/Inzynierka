@@ -1,5 +1,4 @@
 function fetcher() {
-  console.log("DUPA");
   fetch("/mainPage/data")
     .then((res) => {
       if (res.ok) console.log("OK");
@@ -38,4 +37,35 @@ function photoFetcher() {
     document.querySelector("#photoDiv").innerHTML = `<img src='${url}' alt='zdjecie użytkownika 1' style="    height: 200px; width: 100%;" />`;
     fetcher();
 });
+}
+
+
+
+function fetchPosts() {
+  fetch("/mainPage/data/getPosts")
+    .then((res) => {
+      if (res.ok) console.log("OK");
+      else console.log("Nope");
+      return res.text();
+    })
+    .then((data) => {
+
+        console.log(data);
+        let end = JSON.parse(data);
+        console.log(end);
+        if(end.length == 0){
+          document.querySelector("#mainpageuserbox").innerHTML =`brak postów do wyświetlenia`;
+          return;
+        }
+
+        let i=1;
+
+        end.forEach(element => {
+          document.querySelector("#mainpageuserbox").innerHTML += `<div id="post${i}" class="post"><p>login: ${element.user.login} </p>
+          <p>opis: ${element.description} </p>
+          <p>tagi: ${element.tags} </p>
+          <p>ścieżka: ${element.photo.path} </p>`
+        });
+
+  });
 }

@@ -21,10 +21,12 @@ function showPhoto() {
 }
 
 
-function getExif(varPhoto){
+export function getExif(varPhoto){
     EXIF.getData(varPhoto, function(){
         console.log("pobieram dane");
         console.log(EXIF.getAllTags(this));
+
+
         var allMetaData = [EXIF.getTag(this, "PixelXDimension"),
                             EXIF.getTag(this, "PixelYDimension"),
                             EXIF.getTag(this, "ExposureTime"),
@@ -49,4 +51,4 @@ function getExif(varPhoto){
         tmpDiv[3].innerHTML = `ISO: ${allMetaData[5]}`;
         tmpDiv[4].innerHTML = `Urządzenie: ${allMetaData[6]}`;
     })
-}
+};

@@ -99,7 +99,7 @@ label
     padding:0 0 0 20px;
     margin:0 20px;
 }
-input
+#top form input:first-child
 {
     /*border-radius: 0.5em;*/
     height: 2.8em;
