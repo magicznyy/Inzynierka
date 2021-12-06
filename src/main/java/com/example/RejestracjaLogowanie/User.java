@@ -1,7 +1,6 @@
 package com.example.RejestracjaLogowanie;
 
 import com.sun.istack.NotNull;
-import com.sun.istack.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,9 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.lang.annotation.Documented;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -34,10 +30,11 @@ public class User implements UserDetails {
         this.rola = 0;
         this.saldo = 0f;
         this.aktywnosc =  0;
-        this.prywatnosckonta = 0;
+        this.prywatnosckonta = null;
         this.czyzbanowany = 0;
-        this.mapsCenterLatitude = 52d;
-        this.mapsCenterLongitude = 21d;
+
+        this.mapsCenterLatitude = 52.237049;
+        this.mapsCenterLongitude = 21.017532;
     }
 
     @Id
@@ -49,7 +46,6 @@ public class User implements UserDetails {
     //tabela uzytkownik
     @NotNull
     @Pattern(regexp = "[A-Za-z0-9]{4,30}")
-
     @Column(name = "login")
     private String login;
 
@@ -60,7 +56,7 @@ public class User implements UserDetails {
     private byte aktywnosc;
 
     @Column(name = "prywatnosckonta")
-    private byte prywatnosckonta;
+    private String prywatnosckonta;
 
     @Column(name = "czyzbanowany")// do inzynierki: roznica pomiedzy prytwatnosckonta a prywatnoscKonta
     private byte czyzbanowany;
@@ -81,6 +77,33 @@ public class User implements UserDetails {
     @OneToMany(targetEntity=FollowedUser.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <FollowedUser> followedUsers= new ArrayList<>();
 
+    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List <Comment> comments = new ArrayList<>();
+
+    @OneToMany(targetEntity = Reaction.class, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List <Reaction> reactions = new ArrayList<>();
+
+    public void addReaction(Reaction reaction)
+    {
+        this.reactions.add(reaction);
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Reaction> getReactions() {
+        return reactions;
+    }
+
+    public void setReactions(List<Reaction> reactions) {
+        this.reactions = reactions;
+    }
+
     public List<Post> getPosts() {
         return posts;
     }
@@ -91,6 +114,20 @@ public class User implements UserDetails {
 
     public List<FollowedUser> getFollowedUsers() {
         return followedUsers;
+    }
+
+    public void addFollowedUser(FollowedUser followedUser){
+        this.followedUsers.add(followedUser);
+
+    }
+
+    public boolean isAlreadyFollowed(String login){
+
+        for (FollowedUser user: followedUsers) {
+           if(user.getFollowedUser().getLogin() == login)
+            return true;
+        }
+        return false;
     }
 
     public void setFollowedUsers(List<FollowedUser> followedUsers) {
@@ -138,6 +175,22 @@ public class User implements UserDetails {
     @Column(name = "sciezkazdjecieprofilowe" , table = "profil")
     private String profilePicPath;
 
+    public String getProfileDescription() {
+        return profileDescription;
+    }
+
+    public void setProfileDescription(String profileDescription) {
+        this.profileDescription = profileDescription;
+    }
+
+    public String getProfilePicPath() {
+        return profilePicPath;
+    }
+
+    public void setProfilePicPath(String profilePicPath) {
+        this.profilePicPath = profilePicPath;
+    }
+
     @Column(name = "szerokoscgeograficzna" , table = "profil")
     private Double mapsCenterLatitude;
 
@@ -153,9 +206,14 @@ public class User implements UserDetails {
     }
 
 
-    public byte isPrywatnoscKonta() {
+    public String getPrywatnosckonta() {
         return prywatnosckonta;
     }
+
+    public void setPrywatnosckonta(String prywatnosckonta) {
+        this.prywatnosckonta = prywatnosckonta;
+    }
+
 
 
     public byte isCzyZbanowany() {

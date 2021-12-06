@@ -7,6 +7,15 @@ import javax.persistence.*;
 @Table(name="Reakcja")
 public class Reaction {
 
+
+    public Reaction() {
+    }
+
+    public Reaction(Post post, User user) {
+
+        this.post = post;
+        this.user = user;
+    }
     @Id
     @GeneratedValue
     @Column(name="idReakcja")
@@ -18,7 +27,8 @@ public class Reaction {
 
     @ManyToOne(targetEntity = Post.class)
     @JoinColumn(name="post_idpost")
-    private Post post;
+
+    private Post  post;
 
 
     public Long getIdReaction() {

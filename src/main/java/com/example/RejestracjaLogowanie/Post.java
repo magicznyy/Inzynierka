@@ -69,14 +69,15 @@ public class Post {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="zdjecie_idzdjecie",referencedColumnName = "idzdjecie")
+    @JoinColumn(name="zdjecie_idzdjecie", referencedColumnName = "idzdjecie")
     private Photo photo;
 
     @OneToMany(targetEntity= Comment.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Comment> comments = new ArrayList<>();
 
-    @OneToMany(targetEntity = Reaction.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Reaction.class, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Reaction> reactions = new ArrayList<>();
+
     public Photo getPhoto() {
         return photo;
     }
@@ -117,26 +118,17 @@ public class Post {
         this.date = date;
     }
 
+    public void addComment(Comment comment){
 
-    public List<String> extractTags() {
-        Pattern pattern = Pattern.compile("#(\\S+)");
-        Matcher matcher = pattern.matcher(this.getTags());
-        List<String> tags = new ArrayList<String>();
-        while (matcher.find()) {
-            tags.add(matcher.group(1));
-        }
-        return tags;
+        this.comments.add(comment);
+
     }
 
-    public boolean matchTag(String value){
-            List<String> tags = this.extractTags();
-            for (String tag:tags) {
-                if(tag.equals(value))
-                    return true;
-            }
-        return false;
-        }
+    public List<Comment> getComments() {
+        return comments;
+    }
 
-
-
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 }

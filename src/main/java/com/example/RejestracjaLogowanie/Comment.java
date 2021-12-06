@@ -8,14 +8,21 @@ import java.util.Date;
 @Table(name="Komentarz")
 public class Comment {
 
-    public Comment(String tresc) {
+
+    public Comment() {
+    }
+
+    public Comment(String tresc, User user, Post post) {
         this.data = new Date();
         this.tresc = tresc;
+        this.post = post;
+        this.user = user;
     }
 
     @Id
     @GeneratedValue
-    @Column(name="idPost")
+  
+    @Column(name="idkomentarz")
     private Long idComment;
 
     @Column(name="datazamieszczenia")
@@ -71,4 +78,5 @@ public class Comment {
     public void setPost(Post post) {
         this.post = post;
     }
+
 }

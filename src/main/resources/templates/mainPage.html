@@ -99,6 +99,7 @@
                 </div>
                 <script src="/js/modal.js" type="text/javascript"></script>
 
+
                 <div id="postinfobox">
                         <div id="leftinfobox">
                             <div id="descriptionbox">
@@ -122,6 +123,36 @@
                 <div id="comments">
                     
                 </div>
+
+          <!--
+        <div id="postbox">
+            <div th:each="post: ${posts}">
+                <img src="${post.getPhoto().getPath()}" alt="zdjęcie id1">
+                <p>Id postu:<a th:text="${post.getIdPost()}" ></a></p>
+                <p>Opis: <a th:text="${post.getDescription()}"></a></p>
+                <p>Tagi: <a th:text="${post.getTags()}"></a></p>
+                <p>Id zdjecia: <a th:text="${post.getPhoto().getPhotoId()}"></a></p>
+                <p>Login twórcy: <a th:text="${post.getUser().getLogin()}"></a></p>
+                <div id="podmien"></div>
+                <button onclick="photoFetcher()">Dej zdjęcie</button>
+                <div id="photoDiv"></div>
+                <div id="commentBox">
+                    <form th:action="@{/addComment}" method="post">
+                        <label>Dodaj komentarz:</label>
+                        <input type="text" name="comment" id="comment"/>
+                        <input type="hidden" name="idPost" id="idPost" th:value="${post.getIdPost()}"/>
+                        <input type="submit" value="Wyślij" name="sendComment" id="sendComment"/>
+                    </form>
+                </div>
+
+                <div id="reactionBox">
+                    <form th:action="@{/addReaction}" method="post">
+                        <label>Reakcja:</label>
+                        <input type="hidden" name="idPostReakcja" id="idPostReakcja" th:value="${post.getIdPost()}"/>
+                        <input type="submit" value="Lubie to!" name="reaction" id="reaction"/>
+                    </form>
+                </div>
+              -->
             </div>
         </div>
     </div>
