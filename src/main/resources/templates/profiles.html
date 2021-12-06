@@ -68,10 +68,14 @@
 
         </div>
 
-        <div id="photobox">
-            <div th:each="photo: ${photos}">
-                <img th:src="@{${'/images/user' + id +'/' + photo}}" class="album"/>
+        <div class="photobox" th:switch="${user.getPrywatnosckonta()}">
+            <div th:case="null" class="photobox">
+                <div th:each="photo: ${photos}">
+                    <img th:src="@{${'/images/user' + id +'/' + photo}}" class="album"/>
+                </div>
             </div>
+            <div th:case="on"><h2>Profil prywatny</h2></div>
+
 
         </div>
 

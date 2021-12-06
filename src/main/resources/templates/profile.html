@@ -58,7 +58,7 @@
             <button id="settings">Ustawienia profilu</button>
 
         </div>
-        <div id="photobox">
+        <div class="photobox">
             <div th:each="photo: ${photos}">
                 <a th:href="@{${'/images/user' + id +'/' + photo}}" data-lightbox="mygallery">
                     <img th:src="@{${'/images/user' + id +'/' + photo}}" class="album"/>

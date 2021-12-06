@@ -24,7 +24,7 @@
 #centerbox
 {
     width: 100%;
-    padding-left: 13em;
+    padding-left: 9em;
 }
 
 
@@ -69,6 +69,19 @@
     color: #005E86;
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
+
+}
+
+#buttonviewmap1
+{
+    background: #005E86;
+    color: #BFE0EE;
+
+}
+#buttonviewmap2
+{
+    background: #BFE0EE;
+    color: #005E86;
 
 }
 

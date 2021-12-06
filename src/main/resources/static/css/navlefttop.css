@@ -51,7 +51,7 @@ body
 #nav
 {
     position: fixed;
-    margin-left: 4em;
+    margin-left: 2em;
     margin-right: 4em;
     width: 4em;
 
@@ -60,8 +60,18 @@ img
 {
     width: 4em;
     background: transparent;
+    margin-top: 0.5em;
 
 }
+#logo
+{
+    width: 6em;
+    height: 6em;
+    background: transparent;
+    margin-left:-0.6em;
+    margin-bottom: 1em;
+}
+
 a
 {
     text-decoration: none;
@@ -71,7 +81,7 @@ hr /*linia miedzy przyciskami nawigacji*/
 {
     display: block;
     border-style: solid;
-    border-width: 0.1em;
+    border-width: 0.01em;
     color: #BFE0EE;
 
 }

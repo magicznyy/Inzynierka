@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-public class SettingsController {
+public class SettingsController extends UserInformation {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -38,20 +38,14 @@ public class SettingsController {
 
     @RequestMapping(value = "profileSettings", method = RequestMethod.GET)
     public String profileSettings(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
-        model.addAttribute("user", user);
-        model.addAttribute("lat", user.getMapsCenterLatitude());
-        model.addAttribute("lng", user.getMapsCenterLongitude());
+        userdata(model, userRepository);
+
         return "profileSettings";
     }
 
     @PostMapping("/updatingLogin")
     public String updateLogin (Model model,@RequestParam("username") String userName){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        User user = userCurr(model, userRepository);
         model.addAttribute("user", user);
 
         if(userRepository.findUserByLogin(userName)!=null)
@@ -78,9 +72,7 @@ public class SettingsController {
 
     @PostMapping("/updatingPasswd")
     public String updatePasswd (Model model, @RequestParam("currpassword") String currpassword, @RequestParam("password") String password, @RequestParam("repeatpassword") String password1 ){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        User user = userCurr(model, userRepository);
         model.addAttribute("user", user);
 
         if(passwordEncoder.matches(currpassword,user.getHashhasla()))
@@ -99,9 +91,7 @@ public class SettingsController {
 
     @PostMapping("/updatingEmail")
     public String updateEmail (Model model, @RequestParam("email") String email){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        User user = userCurr(model, userRepository);
         model.addAttribute("user", user);
         user.setEmail(email);
         userRepository.save(user);
@@ -110,9 +100,7 @@ public class SettingsController {
 
     @PostMapping("/updatingName")
     public String updateName (Model model, @RequestParam("name") String name){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        User user = userCurr(model, userRepository);
         model.addAttribute("user", user);
         user.setImie(name);
         userRepository.save(user);
@@ -121,9 +109,7 @@ public class SettingsController {
 
     @PostMapping("/updatingLastName")
     public String updateLastName (Model model, @RequestParam("lastName") String lastName){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        User user = userCurr(model, userRepository);
         model.addAttribute("user", user);
         user.setNazwisko(lastName);
         userRepository.save(user);
@@ -132,9 +118,7 @@ public class SettingsController {
 
     @PostMapping("/updatingBankAccountNumber")
     public String updateBankAccountNumber(Model model, @RequestParam("bankaccnumb") String bankAccNumb){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        User user = userCurr(model, userRepository);
         model.addAttribute("user", user);
         user.setNrkontabankowego(bankAccNumb);
         userRepository.save(user);
@@ -144,9 +128,7 @@ public class SettingsController {
     //@RequestMapping(value = "deleteAccount", method = RequestMethod.DELETE)
     @PostMapping("/deleteAccount")
     public String deleteAccount (Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        User user = userCurr(model, userRepository);
         model.addAttribute("user", user);
         userRepository.delete(user);
         SecurityContextHolder.clearContext();
@@ -156,9 +138,7 @@ public class SettingsController {
 
     @PostMapping("/updatingProfileDesc")
     public String updateProfileDescription (Model model, @RequestParam("profileDescription") String description){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        User user = userCurr(model, userRepository);
         model.addAttribute("user", user);
         user.setProfileDescription(description);
         userRepository.save(user);
@@ -168,9 +148,7 @@ public class SettingsController {
     @PostMapping("/uploadProfilePicture")
     public String updateProfilePicture (Model model, @RequestParam("profilePicture") MultipartFile image){
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        User user = userCurr(model, userRepository);
 
         String photoExtension = image.getOriginalFilename().toString();
         photoExtension = photoExtension.substring(photoExtension.length() - 3);
@@ -204,12 +182,23 @@ public class SettingsController {
     }
 
 
+    @RequestMapping("/updatingProfilePrivacy")
+    String userPrivacy(Model model,  @RequestParam(value = "priviet", required = false) String priviet)
+    {
+
+        User user = userCurr(model, userRepository);
+        model.addAttribute("user", user);
+        System.out.println(user);
+        user.setPrywatnosckonta(priviet);
+        userRepository.save(user);
+        return "redirect:/profileSettings";
+    }
+
+
     @PostMapping("/uploadUserPosition")
     String userPosition(Model model, @RequestParam(value = "lat") Double lat, @RequestParam(value = "lng") Double lng)
     {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        User user = userCurr(model, userRepository);
         if(Objects.isNull(lat) || Objects.isNull(lng))
         {
             model.addAttribute("lat", 21.017532);

@@ -1,0 +1,267 @@
+
+#centerbox
+{
+    width: 100%;
+    padding-left: 9em;
+}
+
+#gradientbox
+{
+    background: linear-gradient(180deg, #0C2C4C 0%, rgba(0, 36, 67, 0.38) 5.21%, rgba(219, 233, 239, 0.78) 100%);
+}
+
+#alleditboxes
+{
+    background-color: #0C2C4C;
+    margin-left: 3%;
+    margin-right: 3%;
+    padding: 2em;
+}
+
+#editbox1
+{
+    display: flex;
+    flex-direction: row;
+}
+
+#editbox1form1
+{
+margin-right: 3%;
+    position: relative;
+}
+
+#profpic
+{
+    object-fit:cover; /*aby bylo kwadratowe*/
+    width: 9.5em;
+    height: 9.5em;
+    border: 3px solid #84D9EC;
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: block;
+}
+
+#addphotobox > input {
+    display: none;
+}
+
+#iconAddPhoto {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0.3em;
+    width: 2.5em;
+    left: 6.7em;
+}
+
+#addphotobox img#iconAddPhoto:hover {
+    opacity: 80%;
+}
+
+#addphotobox
+{
+    position: relative;
+}
+
+#submitPhoto, button[type="submit"]
+{
+    background: #C4C4C4;
+    border-radius: 10px;
+    border: 1px solid #7FD8EB;
+
+    font-family: 'Baloo Thambi 2', cursive;
+
+}
+
+#submitPhoto:hover
+{
+    background: #BFBFBF;
+}
+
+
+#editbox1form2
+{
+    position: relative;
+    width: 100%;
+}
+#profileDescription
+{
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    resize: none;
+    -webkit-border-radius: 10px;
+    background-color: #DBE9EF;
+    font-family: 'Baloo Thambi 2', cursive;
+
+}
+
+#submitprofileDescription
+{
+    background: #C4C4C4;
+    border: 1px solid #7FD8EB;
+    font-family: 'Baloo Thambi 2', cursive;
+
+    position: absolute;
+    width: 10.5em;
+    bottom: 0.1em;
+    right: 0;
+}
+
+
+
+#editbox2and3, #editbox4and5
+{
+    display: flex;
+    flex-grow: 1;
+}
+
+#editbox2, #editbox3, #editbox4, #editbox5
+{
+    width: 50%;
+}
+main
+{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1%;
+}
+
+#togglemain
+{
+    align-items: center;
+}
+
+#editbox3form1
+{
+    display: flex;
+    flex-direction: column;
+}
+
+#editbox5
+{
+    height: 320px;
+}
+#map
+{
+    border-radius: 30px;
+    width: 100%;
+    height: 80%;
+}
+
+header
+{
+    display: flex;
+}
+
+header section .inputsUpdate
+{
+    width: 90%;
+}
+
+button[type="submit"]:hover, input[type="submit"]:hover
+{
+    background: #BFBFBF;
+}
+
+
+.sectionseparator
+{
+    margin-top: 3%;
+    display: block;
+    border-style: solid;
+    border-width: 0.01em;
+    color: #BFE0EE;
+    width: 100%;
+}
+
+.inputsUpdate
+{
+
+    background: #DBE9EF;
+    border: 1px solid #8FD0EC;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin-right: 2%;
+    width: 35%;
+
+}
+
+#submitPassword
+{
+    margin-top: 2%;
+}
+
+h1, label
+{
+    color: #FFFFFF;
+}
+
+h3
+{
+    color: #FFFFFF;
+    margin: 0;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    margin-right: 2%;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}

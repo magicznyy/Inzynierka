@@ -34,7 +34,7 @@ public class User implements UserDetails {
         this.rola = 0;
         this.saldo = 0f;
         this.aktywnosc =  0;
-        this.prywatnosckonta = 0;
+        this.prywatnosckonta = null;
         this.czyzbanowany = 0;
         this.mapsCenterLatitude = 52.237049;
         this.mapsCenterLongitude = 21.017532;
@@ -60,7 +60,7 @@ public class User implements UserDetails {
     private byte aktywnosc;
 
     @Column(name = "prywatnosckonta")
-    private byte prywatnosckonta;
+    private String prywatnosckonta;
 
     @Column(name = "czyzbanowany")// do inzynierki: roznica pomiedzy prytwatnosckonta a prywatnoscKonta
     private byte czyzbanowany;
@@ -130,9 +130,14 @@ public class User implements UserDetails {
     }
 
 
-    public byte isPrywatnoscKonta() {
+    public String getPrywatnosckonta() {
         return prywatnosckonta;
     }
+
+    public void setPrywatnosckonta(String prywatnosckonta) {
+        this.prywatnosckonta = prywatnosckonta;
+    }
+
 
 
     public byte isCzyZbanowany() {
