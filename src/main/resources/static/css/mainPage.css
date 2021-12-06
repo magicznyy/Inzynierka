@@ -1,0 +1,124 @@
+#mainpageuserbox {
+    background-color: #0C2C4C;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    color: white;
+}
+
+/* zdjęcie profilowe, nick, przyciski obserwuj i opcji posta */
+#postheader {        
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+}
+
+#leftheader, #rightheader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+#leftheader{
+    justify-content: flex-start;
+}
+#rightheader {
+    justify-content: flex-end;
+}
+
+#profpicture > img {
+    width: 4.2em;
+    height: 4.2em;
+    object-fit: cover;
+    margin: auto 1em;
+    border: 3px solid #84D9EC;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+
+/* wyświetlanie głównego boxa ze zdjeciem */
+
+#postphoto {
+    margin: 0 auto;
+    height: 50vh;
+    width: 90%;
+    overflow: hidden;
+    max-width: initial;
+}
+
+#postphoto > img:first-child {
+    width: 100%;
+    margin: 0% 0;
+    height: 60vh;
+    object-fit: cover;
+    
+    /* do modala */
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+#postphoto > img:first-child:hover {
+    opacity: 0.7;
+}
+
+.modal {
+    display: none; 
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 6%; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    height: auto;
+    max-width: 80vw;
+    max-height: 80vh;
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+/* opsi, tagi, przyciski reakcji i komentarzy */
+#postinfobox {
+    display: flex;
+    border-top: ridge;
+    border-bottom: ridge;
+    border-color: #BFE0EE;
+}
+
+#rightinfobox {
+    text-align: center;
+}

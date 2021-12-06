@@ -65,7 +65,7 @@ body
     margin-bottom: 1em;
 }
 
-img
+#nav a img
 {
     width: 4em;
     background: transparent;
@@ -95,11 +95,39 @@ hr /*linia miedzy przyciskami nawigacji*/
 
 }
 
+#centerbox
+{
+    width: 100%;
+    padding-left: 13em;
+}
 
 #top
 {
     display: flex;
     flex-direction: row;
+}
+
+#centerbox > #top > form
+{
+    width: 80%;
+}
+
+label
+{
+    position:relative;
+    padding:0 0 0 20px;
+    margin:0 20px;
+}
+#top form input:first-child
+{
+    /*border-radius: 0.5em;*/
+    height: 2.8em;
+    width: 30em;
+    border: 0.4em solid #84D9EC;
+    border-radius: 10px;
+
+    text-indent: 1em; /*odstep dla placeholdera*/
+
 }
 
 /*#iconinput
@@ -127,18 +155,6 @@ hr /*linia miedzy przyciskami nawigacji*/
     color: rgba(0, 0, 0, 0.7);
     margin-left: auto;
     margin-right: auto;
-    border-radius: 10px;
-
-}
-
-#searchValue
-{
-    /*border-radius: 0.5em;*/
-    height: 2.8em;
-    width: 30em;
-    border: 0.4em solid #84D9EC;
-    border-radius: 10px;
-    text-indent: 1em; /*odstep dla placeholdera*/
 
 }
 
@@ -146,6 +162,13 @@ hr /*linia miedzy przyciskami nawigacji*/
 {
     width: 2em;
     margin: auto 1em;
+}
+
+#saldoreturn /*informacja o saldzie*/
+{
+    margin-block-start: 1.6em;
+    margin-left: 0.4em;
+    margin-right: 0.4em;
 }
 
 #profpicminature
@@ -160,6 +183,7 @@ hr /*linia miedzy przyciskami nawigacji*/
     border-radius: 10px;
 
 }
+
 
 #searchform
 {

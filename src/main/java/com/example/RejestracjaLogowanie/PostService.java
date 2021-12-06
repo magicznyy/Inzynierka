@@ -1,7 +1,7 @@
 package com.example.RejestracjaLogowanie;
 
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
