@@ -25,9 +25,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="/js/buttonFollowValue.js">
+    <script type="text/javascript" src="/js/buttonFollowValue.js"></script>
 
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+    <script src="/js/photoPreview.js"></script>;
 
 </head>
 <body>
@@ -81,16 +85,42 @@
         <h1>Zdjęcia</h1>
         <div id = "matchedPhotos" th:if="${matchingPosts.isEmpty() == false}">
             <div th:each="post: ${matchingPosts}" >
-                <img th:src="@{${post.getPhoto().getPath()}}" class="album"/>
+
+                <input type="image"  th:id=${post.getIdPost()} th:src="@{${post.getPhoto().getPath()}}" class="album" data-toggle="modal" data-target="#exampleModal" th:onclick="setId(this.id)"/>
+
+
+
             </div>
         </div>
+    </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body1">
+                        <iframe id="photoPreview" src="http://localhost:8080/maps"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div th:if="${matchingPosts.isEmpty() == true}">
             <p>Brak zdjęć z podanym tagiem!</p>
         </div>
     </div>
 
-</div>
+
 
 
 

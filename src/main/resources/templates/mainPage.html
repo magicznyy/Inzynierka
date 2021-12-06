@@ -70,11 +70,23 @@
                 <div id="podmien"></div>
                 <button onclick="photoFetcher()">Dej zdjęcie</button>
                 <div id="photoDiv"></div>
-                <form>
-                    <label>Dodaj komentarz:</label>
-                    <input type="text" name="comment" id="comment"/>
-                    <input type="submit" value="Wyślij" name="sendComment" id="sendComment"/>
-                </form>
+                <div id="commentBox">
+                    <form th:action="@{/addComment}" method="post">
+                        <label>Dodaj komentarz:</label>
+                        <input type="text" name="comment" id="comment"/>
+                        <input type="hidden" name="idPost" id="idPost" th:value="${post.getIdPost()}"/>
+                        <input type="submit" value="Wyślij" name="sendComment" id="sendComment"/>
+                    </form>
+                </div>
+
+                <div id="reactionBox">
+                    <form th:action="@{/addReaction}" method="post">
+                        <label>Reakcja:</label>
+                        <input type="hidden" name="idPostReakcja" id="idPostReakcja" th:value="${post.getIdPost()}"/>
+                        <input type="submit" value="Lubie to!" name="reaction" id="reaction"/>
+                    </form>
+                </div>
+
             </div>
         </div>
 

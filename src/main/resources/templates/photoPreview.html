@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+    <title tiles:fragment="title">Messages : Create</title>
+    <link rel="stylesheet" href="/css/photoPreview.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
+
+
+
+</head>
+<body>
+<div id="main">
+    <div id="content">
+        <div id="EXIFinfo">
+        <h1>Dane EXIF:</h1>
+        </div>
+        <div id="photoBox">
+            <img id="photo" th:src="@{${post.getPhoto().getPath()}}">
+        </div>
+    <div id="commentBox">
+        <h1>Komentarze:</h1>
+    </div>
+    </div>
+</div>
+
+</body>
+</html>

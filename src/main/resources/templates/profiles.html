@@ -58,8 +58,8 @@
 
                 <h1 th:text="${user.getProfileDescription()}"   id="userdescription"></h1>
 
-            <form id="followForm" th:action="@{/test}"  method="get">
-                <input type="hidden" id="login" name="login" th:value="${login}">
+            <form id="followForm" th:action="@{/follow}"  method="post">
+                <input type="hidden" id="login" name="followedUserLogin" th:value="${login}">
             <input type="submit" name="follow" value="Obserwuj" id="settings"/>
 
             </form>

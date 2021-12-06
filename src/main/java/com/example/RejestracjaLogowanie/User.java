@@ -45,7 +45,6 @@ public class User implements UserDetails {
     //tabela uzytkownik
     @NotNull
     @Pattern(regexp = "[A-Za-z0-9]{4,30}")
-
     @Column(name = "login")
     private String login;
 
@@ -73,10 +72,29 @@ public class User implements UserDetails {
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Comment> comments = new ArrayList<>();
 
-    @OneToMany(targetEntity = Reaction.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Reaction.class, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Reaction> reactions = new ArrayList<>();
 
+    public void addReaction(Reaction reaction)
+    {
+        this.reactions.add(reaction);
+    }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Reaction> getReactions() {
+        return reactions;
+    }
+
+    public void setReactions(List<Reaction> reactions) {
+        this.reactions = reactions;
+    }
 
     public List<Post> getPosts() {
         return posts;
@@ -88,6 +106,20 @@ public class User implements UserDetails {
 
     public List<FollowedUser> getFollowedUsers() {
         return followedUsers;
+    }
+
+    public void addFollowedUser(FollowedUser followedUser){
+        this.followedUsers.add(followedUser);
+
+    }
+
+    public boolean isAlreadyFollowed(String login){
+
+        for (FollowedUser user: followedUsers) {
+           if(user.getFollowedUser().getLogin() == login)
+            return true;
+        }
+        return false;
     }
 
     public void setFollowedUsers(List<FollowedUser> followedUsers) {

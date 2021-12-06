@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post, Long>  {
 
 
+    Post findPostByidPost(Long id);
+
     @Override
     List<Post> findAll();
 }

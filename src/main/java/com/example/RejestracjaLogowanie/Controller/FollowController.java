@@ -1,51 +1,56 @@
 package com.example.RejestracjaLogowanie.Controller;
 
+
 import com.example.RejestracjaLogowanie.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 
 @Controller
-public class CommentController {
+public class FollowController {
 
 
     @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private CommentRepository commentRepository;
+    private FollowedUserRepository followedUserRepository;
 
     @Autowired
     private UserRepository userRepository;
 
 
-    //to jest upośledzone dodawanie z przeładowaniem i przekierowaniem spowrotem na strone główną
-    @RequestMapping("/addComment")
-    public String addComment(@RequestParam(name="comment") String content, @RequestParam(name="idPost") Long idPost){
+    @RequestMapping("/follow")
+    public String follow(@RequestParam(name= "followedUserLogin") String followedUserLogin)
+    {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
 
-        Post post = postRepository.findPostByidPost(idPost);
-        Comment comment = new Comment(content, user, post);
+        if(user.isAlreadyFollowed(followedUserLogin)==false)
+        {
+            FollowedUser followedUser= new FollowedUser(user, userRepository.findUserByLogin(followedUserLogin));
+            user.addFollowedUser(followedUser);
+            followedUserRepository.save(followedUser);
+        }
 
-        //w poscie jest lista komentarzy do tego posta
-        post.addComment(comment);
 
-        commentRepository.save(comment);
 
-        System.out.println("Komentarze: " + post.getComments() );
-        return "redirect:/mainPage";
+        return "redirect:/test/$followedUser";
     }
+/*
+    @RequestMapping("/unfollow")
+    public String follow(@RequestParam(name= "followedUser") String followedUser)
+    {
 
+
+
+
+        return "redirect:/"
+    }*/
 
 
 }
