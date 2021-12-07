@@ -27,7 +27,7 @@ public class PhotoPreviewController {
         Post post = postRepository.findPostByidPost(idPost);
         model.addAttribute("post", post);
 
-        File directory=new File("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user1");
+        File directory=new File("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user1");
 
         if(directory.list()!=null) {
             String[] imagename = Objects.requireNonNull(directory.list());
