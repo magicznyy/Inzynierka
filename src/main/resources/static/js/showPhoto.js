@@ -21,7 +21,7 @@ function showPhoto() {
 }
 
 
-export function getExif(varPhoto){
+function getExif(varPhoto){
     EXIF.getData(varPhoto, function(){
         console.log("pobieram dane");
         console.log(EXIF.getAllTags(this));

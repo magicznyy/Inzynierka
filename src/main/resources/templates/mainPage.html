@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Strona główna</title>
@@ -62,7 +63,9 @@
 
     <div id="mainbox" >
         <div id="mainpageuserbox"> <!-- set maxheight 80%-->
-            <div class="post" id="post"> <!-- flex column -->
+
+            <!--
+           <div class="post" id="post"> flex column
                 <div id="postheader">
                     <div id="leftheader">
                         <div id="profpicture"><img src="/images/profpic/nopicture.jpg" alt="zdjęcie profilowe"></div>
@@ -123,8 +126,8 @@
                 <div id="comments">
                     
                 </div>
+                -->
 
-          <!--
         <div id="postbox">
             <div th:each="post: ${posts}">
                 <img src="${post.getPhoto().getPath()}" alt="zdjęcie id1">
@@ -152,7 +155,7 @@
                         <input type="submit" value="Lubie to!" name="reaction" id="reaction"/>
                     </form>
                 </div>
-              -->
+
             </div>
         </div>
     </div>
