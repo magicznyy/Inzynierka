@@ -34,10 +34,25 @@ public class MainPageController {
     @GetMapping("/mainPage")
     public String mainPage(Model model){
 
-        List<Post> posts =  postRepository.findAll();
-        model.addAttribute("posts", posts);
+        model.addAttribute("posts", getFollowedUsersPosts());
 
         return "mainPage";
+    }
+
+    //to jest straszne, ale dziala na razie
+    public List<Post> getFollowedUsersPosts(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+
+        List<Post> posts = postRepository.findAll();
+        List<Post> followedUsersPosts = new ArrayList<>();
+        for (Post post : posts) {
+            if(user.isAlreadyFollowed(post.getUser().getLogin()) == true){
+                followedUsersPosts.add(post);
+            }
+        }
+        return followedUsersPosts;
     }
 
 

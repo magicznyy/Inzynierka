@@ -1,3 +1,4 @@
+/*
 function fetcher() {
   fetch("/mainPage/data")
     .then((res) => {
@@ -68,4 +69,4 @@ function fetchPosts() {
         });
 
   });
-}
+}*/

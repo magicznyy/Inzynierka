@@ -4,7 +4,6 @@ package com.example.RejestracjaLogowanie;
 import javax.persistence.*;
 
 @Entity
-@IdClass(FollowedUserId.class)
 @Table(name="obserwowanyuzytkownik")
 public class FollowedUser {
 
@@ -18,21 +17,26 @@ public class FollowedUser {
     }
 
     @Id
+    @GeneratedValue
+    @Column(name="idobserwowanyuzytkownik")
+    private Long idFollowedUser;
+
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "uzytkownik_iduzytkownik")
     private User user;
 
-    @Id
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "uzytkownik_iduzytkownikobserwowany")
     private User followedUser;
 
 
-    private Long userId;
+    public Long getIdFollowedUser() {
+        return idFollowedUser;
+    }
 
-
-    private Long followedUserId;
-
+    public void setIdFollowedUser(Long idFollowedUser) {
+        this.idFollowedUser = idFollowedUser;
+    }
 
     public User getUser() {
         return user;

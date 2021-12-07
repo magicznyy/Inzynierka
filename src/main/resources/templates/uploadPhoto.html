@@ -31,7 +31,7 @@
 
 
 </head>
-            <!--
+
 <body onload="showPhoto()">
 
 <div id="nav">
@@ -57,42 +57,42 @@
         <img src="/icons/Navbar/iconSalesNavbar.svg" alt="Panel zakupów zdjęcia">
     </a>
 </div>
-
+<!--
 <body>
 
 <div id="container">
 
 <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
-    <div>
-        <input type="hidden" id="latUser" th:value="${lat}"/>
-        <input type="hidden" id="lngUser" th:value="${lng}"/>
+   <div>
+       <input type="hidden" id="latUser" th:value="${lat}"/>
+       <input type="hidden" id="lngUser" th:value="${lng}"/>
 
 
-        <label>Załącz zdjęcie z dysku: </label>
-        <input type="file" name="image" accept="image/png, image/jpeg"/>
-        <label>Dodaj opis: </label>
-        <input type="text" name="description"/>
-        <label>Dodaj tagi: </label>
-        <input type="text" name="tags" />
+       <label>Załącz zdjęcie z dysku: </label>
+       <input type="file" name="image" accept="image/png, image/jpeg"/>
+       <label>Dodaj opis: </label>
+       <input type="text" name="description"/>
+       <label>Dodaj tagi: </label>
+       <input type="text" name="tags" />
 
-        <label for="lat">Szerokość geograficzna</label>
-        <input type="text" id="lat" name="lat" th:value="${lat}"> 
-        <label for="lng">Długość geograficzna</label>
-        <input type="text" id="lng" name="lng" th:value="${lng}"> 
-        <label for="pindescription">Opis pinezki</label>
-        <input type="text" id="pindescription" name="pindescription" placeholder="Opis pinezki">
+       <label for="lat">Szerokość geograficzna</label>
+       <input type="text" id="lat" name="lat" th:value="${lat}">
+       <label for="lng">Długość geograficzna</label>
+       <input type="text" id="lng" name="lng" th:value="${lng}">
+       <label for="pindescription">Opis pinezki</label>
+       <input type="text" id="pindescription" name="pindescription" placeholder="Opis pinezki">
 
-        <input type="radio" class="pincolor" name="color" value="#ff0000">
-        <label>Czerwony</label>
-        <input type="radio" class="pincolor" name="color" value="#00ff47">
-        <label>Zielony</label>
-        <input type="radio" class="pincolor" name="color" value="#fAff00">
-        <label>Żółty</label>
-        <input type="radio" class="pincolor" name="color" value="#0047ff">
-        <label>Niebieski</label>
+       <input type="radio" class="pincolor" name="color" value="#ff0000">
+       <label>Czerwony</label>
+       <input type="radio" class="pincolor" name="color" value="#00ff47">
+       <label>Zielony</label>
+       <input type="radio" class="pincolor" name="color" value="#fAff00">
+       <label>Żółty</label>
+       <input type="radio" class="pincolor" name="color" value="#0047ff">
+       <label>Niebieski</label>
 
-        <input type="submit" value=" Opublikuj"/>
-    </div>
+       <input type="submit" value=" Opublikuj"/>
+   </div>
 </form>
 -->
 

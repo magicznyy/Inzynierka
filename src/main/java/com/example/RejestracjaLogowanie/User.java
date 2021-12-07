@@ -32,6 +32,7 @@ public class User implements UserDetails {
         this.aktywnosc =  0;
         this.prywatnosckonta = null;
         this.czyzbanowany = 0;
+        this.prywatnosckonta = "null";
 
         this.mapsCenterLatitude = 52.237049;
         this.mapsCenterLongitude = 21.017532;
@@ -67,21 +68,19 @@ public class User implements UserDetails {
     @OneToMany(targetEntity=Post.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Post> posts = new ArrayList<>();
 
-    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    private List <Comment> comments = new ArrayList<>();
 
-    @OneToMany(targetEntity = Reaction.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    private List <Reaction> reactions = new ArrayList<>();
-
-
-    @OneToMany(targetEntity=FollowedUser.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity=FollowedUser.class , orphanRemoval = true,fetch = FetchType.LAZY)
     private List <FollowedUser> followedUsers= new ArrayList<>();
 
+
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Comment> comments = new ArrayList<>();
+
 
     @OneToMany(targetEntity = Reaction.class, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Reaction> reactions = new ArrayList<>();
+
+
 
     public void addReaction(Reaction reaction)
     {
@@ -121,14 +120,34 @@ public class User implements UserDetails {
 
     }
 
+    public void removeFollowedUser(String login){
+        FollowedUser followedUser = findFollowedUser(login);
+        followedUsers.remove(followedUser);
+    }
+
     public boolean isAlreadyFollowed(String login){
 
         for (FollowedUser user: followedUsers) {
-           if(user.getFollowedUser().getLogin() == login)
-            return true;
+
+           if(user.getFollowedUser().getLogin().equals(login)){
+               return true;
+           }
+
         }
         return false;
     }
+
+    public FollowedUser findFollowedUser(String login){
+        FollowedUser followedUser = null;
+        for (FollowedUser user: followedUsers) {
+
+            if(user.getFollowedUser().getLogin().equals(login))
+            followedUser = user;
+        }
+        return followedUser;
+    }
+
+
 
     public void setFollowedUsers(List<FollowedUser> followedUsers) {
         this.followedUsers = followedUsers;
@@ -156,21 +175,9 @@ public class User implements UserDetails {
     @Column(name = "opisprofilu" , table = "profil")
     private String profileDescription;
 
-    public String getProfileDescription() {
-        return profileDescription;
-    }
 
-    public void setProfileDescription(String profileDescription) {
-        this.profileDescription = profileDescription;
-    }
 
-    public String getProfilePicPath() {
-        return profilePicPath;
-    }
 
-    public void setProfilePicPath(String profilePicPath) {
-        this.profilePicPath = profilePicPath;
-    }
 
     @Column(name = "sciezkazdjecieprofilowe" , table = "profil")
     private String profilePicPath;
