@@ -7,22 +7,82 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
 
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <script th:inline="javascript" src="/js/photoLocation.js" defer></script>
 
 
 </head>
 <body>
 <div id="main">
     <div id="content">
-        <div id="EXIFinfo">
-        <h1>Dane EXIF:</h1>
-        </div>
         <div id="photoBox">
             <img id="photo" th:src="@{${post.getPhoto().getPath()}}">
         </div>
-    <div id="commentBox">
-        <h1>Komentarze:</h1>
+        <div id="commentatingBox">
+            <div id="commentBox">
+                <h1>Komentarze:</h1>
+                <div th:each="photo: ${photos}" class="comments">
+                    <div class="singleComment">
+                        <div class="userInfoComment">
+                            <img th:src="@{${'/images/user1/' +  photo}}" width="30px" height="30px" class="album"/> <h3> Andrzej </h3>
+                        </div>
+                        <div class="commentContent">
+                            Raz dwa trzy cztery pięć piękne kwiatki cho do domu zimno juz.
+                        </div><hr>
+                    </div>
+                </div>
+            </div>
+
+            <form  th:action="@{/addComment}" id="addComment" method="post">
+
+                <label for="commentTextArea"></label><textarea id="commentTextArea" name="commentTextArea" cols="2"></textarea>
+                <div class="form-actions">
+                    <button type="submit" class="btn" id="submitPassword" >Dodaj</button>
+                </div>
+
+            </form>
+        </div>
+
+
+        </div>
+    <div id="DescriptionAndLikesBox">
+        <div id="photoDescpription">
+            <div id="userDescription"> To jest zdjęcie i jego opis. Dobry wieczór.</div>
+            <div id="userTags"> #znaczniki #tagi #do #zdjęcia</div><!-- wypisane w pętli i pewnie css jako display inline -->
+        </div>
+        <div id="photoLikes">
+
+            <img id="like" src="/icons/Post/iconLikePost.svg" alt="">
+            <h3>123</h3>
+        </div>
+
+
     </div>
+    <div id="photoDetailsAndMap">
+        <div id="photodetailsbox">
+            <h1> Informacje o zdjęciu:</h1><hr>
+            <div class="photoInfo">Rozmiar:
+            </div><hr>
+            <div class="photoInfo">Wymiary:
+            </div><hr>
+            <div class="photoInfo">Ujęcie:
+            </div><hr>
+            <div class="photoInfo">ISO:
+            </div><hr>
+            <div class="photoInfo">
+                Urządzenie:
+            </div>
+        </div>
+        <div id="map"></div>
+        <input type="hidden" id="lngPhoto" th:value="21.017532"/>
+        <input type="hidden" id="latPhoto" th:value="52.237049"/>
+
+
+
     </div>
+
+
 </div>
 
 </body>

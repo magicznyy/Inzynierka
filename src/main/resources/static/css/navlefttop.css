@@ -112,12 +112,6 @@ hr /*linia miedzy przyciskami nawigacji*/
     width: 80%;
 }
 
-label
-{
-    position:relative;
-    padding:0 0 0 20px;
-    margin:0 20px;
-}
 #top form input:first-child
 {
     /*border-radius: 0.5em;*/

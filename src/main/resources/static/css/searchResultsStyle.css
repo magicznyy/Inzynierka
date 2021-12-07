@@ -109,10 +109,14 @@ display: flex;
 
 }
 
+.modal.fade.show
+{
+background-color: rgba(12, 44, 76, 0.87);
+}
+
 .modal-header {
 
-    padding-left: 4rem !important;
-        border-bottom: 0px solid #e9ecef !important;
+        border-bottom: 0 solid #e9ecef !important;
         border-top-left-radius: 0rem !important;
         border-top-right-radius: 0rem !important;
 }
@@ -125,11 +129,19 @@ display: flex;
 
 
 .modal-body1 {
+    border: 0.2em solid #84D9EC;
     position: relative;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
 
-
-
 }
 
+.modal-dialog .modal-content .modal-header .close {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    color: #84D9EC;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}

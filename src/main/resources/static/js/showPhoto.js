@@ -20,8 +20,7 @@ function showPhoto() {
   });
 }
 
-
-export function getExif(varPhoto){
+ function getExif(varPhoto){
     EXIF.getData(varPhoto, function(){
         console.log("pobieram dane");
         console.log(EXIF.getAllTags(this));
@@ -33,7 +32,7 @@ export function getExif(varPhoto){
                             EXIF.getTag(this, "FNumber"),
                             EXIF.getTag(this, "FocalLength"),
                             EXIF.getTag(this, "ISOSpeedRatings"),
-                            EXIF.getTag(this, "Model")]
+                            EXIF.getTag(this, "Model")];
 
 
         console.log(allMetaData);
@@ -46,7 +45,7 @@ export function getExif(varPhoto){
         console.log(FocalLenght);
 
         var tmpDiv = document.querySelectorAll(".photoInfo");
-        tmpDiv[1].innerHTML = `Rozmiar: ${allMetaData[0]}x${allMetaData[1]}px`;
+        tmpDiv[1].innerHTML = `Wymiary: ${allMetaData[0]}x${allMetaData[1]}px`;
         tmpDiv[2].innerHTML = `Ujęcie: ${allMetaData[2].numerator}/${allMetaData[2].denominator} f/${Fnumber} ${FocalLenght}mm`;
         tmpDiv[3].innerHTML = `ISO: ${allMetaData[5]}`;
         tmpDiv[4].innerHTML = `Urządzenie: ${allMetaData[6]}`;
