@@ -33,7 +33,7 @@ public class User implements UserDetails {
         this.prywatnosckonta = null;
         this.czyzbanowany = 0;
         this.prywatnosckonta = "null";
-
+        this.profilePicPath = "/images/profpic/nopicture.jpg";
         this.mapsCenterLatitude = 52.237049;
         this.mapsCenterLongitude = 21.017532;
     }

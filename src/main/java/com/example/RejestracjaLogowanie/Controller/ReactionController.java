@@ -45,6 +45,7 @@ public class ReactionController {
             Post post = postRepository.findPostByidPost(idPost);
             Reaction reaction = new Reaction(post, user);
             user.addReaction(reaction);
+            post.addReaction(reaction);
             reactionRepository.save(reaction);
         }
 
@@ -63,10 +64,60 @@ public class ReactionController {
 
         for (Reaction tempReaction : usersReactions) {
             if(tempReaction.getPost().getIdPost() == idPost)
+            {
+                    usersReactions.remove(tempReaction);
+                    tempReaction.getPost().getReactions().remove(tempReaction);
                 reactionRepository.delete(tempReaction);
+                break;
+            }
+
         }
 
         return "redirect:/mainPage";
+    }
+
+
+    @RequestMapping("/addReaction1")
+    public String addReaction1(@RequestParam(name="idPostReakcja") Long idPost)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+
+
+        if(isReactionSet(user,idPost)== false) {
+            Post post = postRepository.findPostByidPost(idPost);
+            Reaction reaction = new Reaction(post, user);
+            user.addReaction(reaction);
+            post.addReaction(reaction);
+            reactionRepository.save(reaction);
+        }
+
+        else{
+            removeReaction(idPost, user);
+        }
+        return "redirect:/photoPreview/post/" + idPost;
+
+    }
+
+
+    @RequestMapping("/removeReaction1")
+    public String removeReaction1(Long idPost, User user)
+    {
+        List<Reaction> usersReactions = user.getReactions();
+
+        for (Reaction tempReaction : usersReactions) {
+            if(tempReaction.getPost().getIdPost() == idPost)
+            {
+                usersReactions.remove(tempReaction);
+                tempReaction.getPost().getReactions().remove(tempReaction);
+                reactionRepository.delete(tempReaction);
+                break;
+            }
+
+        }
+
+        return "redirect:/photoPreview/post/" + idPost;
     }
 
 

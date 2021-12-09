@@ -124,6 +124,14 @@ public class Post {
 
     }
 
+    public List<Reaction> getReactions() {
+        return reactions;
+    }
+
+    public void setReactions(List<Reaction> reactions) {
+        this.reactions = reactions;
+    }
+
     public List<Comment> getComments() {
         return comments;
     }
@@ -131,4 +139,23 @@ public class Post {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+    public void addReaction(Reaction reaction)
+    {
+        this.reactions.add(reaction);
+    }
+
+    public Integer countReactions(){
+
+        Integer reactionsNuber = 0;
+
+        for (Reaction reaction : this.reactions
+             ) {
+            reactionsNuber ++ ;
+        }
+
+        return reactionsNuber;
+    }
+
+
 }

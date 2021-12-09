@@ -60,15 +60,8 @@ public class ProfilesController {
             model.addAttribute("photos", imagename);
         }
 
-        if(user.getProfilePicPath()==null)
-            model.addAttribute("profilepic", "/images/profpic/nopicture.jpg");
-        else
+
             model.addAttribute("profilepic", user.getProfilePicPath());
-
-
-        if(currUser.getProfilePicPath()==null)
-            model.addAttribute("myprofilepic", "/images/profpic/nopicture.jpg");
-        else
             model.addAttribute("myprofilepic", user.getProfilePicPath());
 
 

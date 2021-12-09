@@ -14,7 +14,7 @@ public class Comment {
 
     public Comment(String tresc, User user, Post post) {
         this.data = new Date();
-        this.tresc = tresc;
+        this.content = tresc;
         this.post = post;
         this.user = user;
     }
@@ -29,7 +29,7 @@ public class Comment {
     private Date data;
 
     @Column(name = "tresc")
-    private String tresc;
+    private String content;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name="uzytkownik_iduzytkownik")
@@ -55,12 +55,12 @@ public class Comment {
         this.data = data;
     }
 
-    public String getTresc() {
-        return tresc;
+    public String getContent() {
+        return content;
     }
 
-    public void setTresc(String tresc) {
-        this.tresc = tresc;
+    public void setContent(String tresc) {
+        this.content = tresc;
     }
 
     public User getUser() {
@@ -78,5 +78,9 @@ public class Comment {
     public void setPost(Post post) {
         this.post = post;
     }
+
+
+
+
 
 }

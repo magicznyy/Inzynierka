@@ -114,6 +114,7 @@ public class UploadPhotoController {
         {
             Pin pin = new Pin(lng, lat, pindescription, color, user, photo);
             pinRepository.save(pin);
+            photo.setPin(pin);
         }
 
 
