@@ -65,7 +65,7 @@
             <div id="userTags"> <a th:text="${post.getTags()}"></a></div><!-- wypisane w pętli i pewnie css jako display inline -->
         </div>
         <div id="photoLikes">
-<<<<<<< HEAD
+
             <form th:action="@{/addReaction1}" method="post">
                 <label>Reakcja:</label>
                 <input type="hidden" name="idPostReakcja" id="idPostReakcja" th:value="${post.getIdPost()}"/>
@@ -73,13 +73,7 @@
             </form>
 
             <h3 th:text="${reactionCounter}"></h3>
-=======
-            <div id="likesCounter">
-                <img id="like" src="/icons/Post/iconLikePost.svg" alt="">
-                <h3>123</h3>
-            </div>
 
->>>>>>> origin/jasiek
         </div>
 
 
