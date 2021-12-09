@@ -65,7 +65,7 @@ body
     margin-bottom: 1em;
 }
 
-#nav a img
+#nav a img:not(#logo)
 {
     width: 4em;
     background: transparent;
@@ -86,7 +86,7 @@ a
     text-decoration: none;
     text-align: center;
 }
-hr /*linia miedzy przyciskami nawigacji*/
+hr, .navline
 {
     display: block;
     border-style: solid;
@@ -95,11 +95,6 @@ hr /*linia miedzy przyciskami nawigacji*/
 
 }
 
-#centerbox
-{
-    width: 100%;
-    padding-left: 13em;
-}
 
 #top
 {
@@ -109,7 +104,7 @@ hr /*linia miedzy przyciskami nawigacji*/
 
 #centerbox > #top > form
 {
-    width: 80%;
+    width: 90%;
 }
 
 #top form input:first-child
@@ -143,6 +138,7 @@ hr /*linia miedzy przyciskami nawigacji*/
     margin-top: 2%;
     background: #BFE0EE;
     border: 0.25em solid #84D9EC;
+    border-radius: 10px;
     font-size: 0.9em;
     font-weight: bold;
     text-indent: 0;
@@ -158,12 +154,6 @@ hr /*linia miedzy przyciskami nawigacji*/
     margin: auto 1em;
 }
 
-#saldoreturn /*informacja o saldzie*/
-{
-    margin-block-start: 1.6em;
-    margin-left: 0.4em;
-    margin-right: 0.4em;
-}
 
 #profpicminature
 {
