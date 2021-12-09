@@ -11,13 +11,21 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
     <script th:inline="javascript" src="/js/photoLocation.js" defer></script>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/js/jquery.pan.js"></script>
+    <script type="text/javascript">
+    $(function(){
+    $(".pan").pan();
+    })
+    </script>
+    <link rel="stylesheet" href="/css/css_jquery/jquery.pan.css">
 
 </head>
 <body>
 <div id="main">
     <div id="content">
         <div id="photoBox">
-            <img id="photo" th:src="@{${post.getPhoto().getPath()}}">
+            <img class="pan"  th:src="@{${post.getPhoto().getPath()}}"/>
         </div>
         <div id="commentatingBox">
             <div id="commentBox">
