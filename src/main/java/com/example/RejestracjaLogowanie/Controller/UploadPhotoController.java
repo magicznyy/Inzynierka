@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-public class UploadPhotoController extends UserInformation {
+public class UploadPhotoController {
     public static String uploadDir = System.getProperty("user.dir") + "/uploads";
 
     @Autowired
@@ -48,7 +48,6 @@ public class UploadPhotoController extends UserInformation {
     @GetMapping("/uploadPhoto")
     public String uploadPhoto(Model model){
 
-        userdata(model, userRepository);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
@@ -90,9 +89,9 @@ public class UploadPhotoController extends UserInformation {
         if(Objects.equals(photoExtension,"jpg"))
 
 
-            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
+            builder.append("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
         else
-            builder.append("C:\\Users\\User\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
+            builder.append("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
 
         String path = builder.toString();
 
@@ -115,7 +114,6 @@ public class UploadPhotoController extends UserInformation {
         {
             Pin pin = new Pin(lng, lat, pindescription, color, user, photo);
             pinRepository.save(pin);
-            photo.setPin(pin);
         }
 
 

@@ -48,14 +48,6 @@
     flex-direction: column;
 }
 
-#signupForm h3
-{
-    color: white;
-    font-weight: 100;
-    font-size: 0.88em;
-    margin-top: 0;
-    margin-bottom: 0;
-}
 
 .buttonviewmap
 {
@@ -98,7 +90,7 @@
 #mainbox
 {
     display: flex;
-    margin-top: 2%;
+    margin-top: 4%;
     width: auto;
     background: linear-gradient(180deg, #0C2C4C 0%, rgba(0, 36, 67, 0.38) 5.21%, rgba(219, 233, 239, 0.78) 100%);
 }
@@ -135,34 +127,17 @@ h1
 
 }
 
-#addpinbox form input:not([type=submit])
+#addpinbox form input
 {
     border-radius: 5px;
 }
 
 #submitpin
 {
-    width: 36%;
-    height: 2em;
-    text-align: center;
-    margin: 2% auto 5%;
-    background: #BFE0EE;
-    opacity: 100%;
-    border: 0.25em solid #84D9EC;
-    font-size: 0.9em;
-    font-weight: bold;
-    text-indent: 0;
-    border-radius: 10px;
+    width: 30%;
+    margin-top:3px;
 }
 
-#pincolorbox {
-    margin-top: 2%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-    align-items: stretch;
-}
 
 /* COMMON RADIO AND CHECKBOX STYLES  */
 input[type=radio],

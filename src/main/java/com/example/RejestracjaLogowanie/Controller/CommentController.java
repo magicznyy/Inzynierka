@@ -46,28 +46,6 @@ public class CommentController {
         return "redirect:/mainPage";
     }
 
-    @RequestMapping("/addComment1")
-    public String addComment1(@RequestParam(name="comment") String content, @RequestParam(name="idPost") Long idPost){
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
-
-        Post post = postRepository.findPostByidPost(idPost);
-        Comment comment = new Comment(content, user, post);
-
-        //w poscie jest lista komentarzy do tego posta
-        post.addComment(comment);
-
-        commentRepository.save(comment);
-
-        System.out.println("Komentarze: " + post.getComments() );
-        return "redirect:/photoPreview/post/" + post.getIdPost();
-    }
-
-
-
-
 
 
 }

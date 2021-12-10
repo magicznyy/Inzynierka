@@ -1,7 +1,15 @@
+.opacityonhover:hover{
+    opacity: 0.8;
+}
+#nav img:hover {
+    opacity: 0.8;
+}
+
 #mainpageuserbox {
-    background-color: #0C2C4C;
-    width: 90%;
+    /*background-color: #0C2C4C;*/
+    width: 95%;
     margin: 0 auto;
+    border-radius: 2.5%;
 }
 
 .post {
@@ -10,6 +18,8 @@
     flex-wrap: nowrap;
     justify-content: space-evenly;
     color: white;
+    background-color: #0C2C4C;
+    margin: 2em 0;
 }
 
 /* zdjęcie profilowe, nick, przyciski obserwuj i opcji posta */
@@ -18,7 +28,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-
+    margin: 1em 0;
 }
 
 #leftheader, #rightheader {
@@ -34,6 +44,203 @@
     justify-content: flex-end;
 }
 
+/* przycisk obserwuj */
+#followbutton {
+    border-radius: 0.6em;
+    padding: 0 1.5em;
+    height: 2.3em;
+    border: 0.4em solid #84D9EC;
+}
+
+/* wyświetlanie paska opcji posta */
+#settingsbutton {
+    background: none;
+    border: none;
+    margin: 0 1em;
+    margin-top: 0.4em;
+}
+#settingsbutton img {
+    height: 3.5em;
+}
+
+#descriptionbox {
+    text-align: justify;
+    margin: 1em;
+    overflow-y: auto;
+    height: 5em;
+    padding-right: 0.8rem;
+    color: #BFE0EE;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* tagi, przyciski od polubienia i komentarzy */
+#bottominfobox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    border-top: ridge;
+    border-bottom: ridge;
+    border-color: #BFE0EE;
+}
+
+#tagsbox{
+    align-self: center;
+}
+
+
+/* stylizacja przycisków polubienia i komentarzy */
+#reactionbox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-top: 0.4em;
+    margin-right: 1em;
+}
+
+#reactionform, #commentsform{
+    display: flex;
+    flex-direction:column;
+    text-align: center;
+    margin-left: 0.5rem;
+}
+
+#reactionbox form {
+    overflow: hidden;
+    position: relative;
+    height: 3em;
+}
+#reactionbox label {
+    padding: 0;
+    margin: 0;
+}
+
+#reaction, #showComment {
+    overflow: hidden;
+    opacity: 0;
+    position: absolute;
+    display: block;
+    z-index: -1;
+    cursor: pointer;
+    padding: 0;
+}
+
+#reaction {
+    top: 0;
+    width: 100%;
+    border: none;
+    height: 100%;
+}
+
+#showComment {
+    top: 0.1em;
+    width: 100%;
+    right: 0;
+    height: 100%;
+}
+
+#reactionbox label >img {
+    height: 3em;
+}
+
+.commentbody{
+    margin: 0.5em 1em 0.5em 0;
+    flex: 95%;
+}
+
+/* komentarze */
+#commentsbox {
+    overflow-y: auto;
+    /*max-height: 25vh;*/
+    max-height: 12em;
+    margin-bottom: 1em;
+    min-height: 10em;
+}
+
+
+#addComment {
+    /*position: absolute;*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /*left: 18.2vw;*/
+     left: 15.2em; 
+    right: 4vw;
+    height: 3.7em;
+    align-items: center;
+    background-color: #476279;
+
+    border: 0.15em solid #84D9EC;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#addComment > * {
+    margin: 0 1em;
+}
+
+#addComment > label {
+    flex: 10%;
+
+}
+
+#commentinput {
+    flex: 60%;
+    resize: none;
+    overflow-y: auto;
+    border: 0.3em solid #84D9EC;
+    border-radius: 10px;
+}
+
+#addComment > input[type="submit"]{
+    flex: 4%;
+    border-radius: 0.6em;
+    padding: 0 1.5em;
+    height: 3em;
+    border: 0.4em solid #84D9EC;
+}
+
+
+.comment {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0.5em 2.5em;
+    background-color: #1B3D5F;
+    border-radius: 0.5rem;
+}
+
+.commentnavbar {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.commenteravatar > img {
+    width: 3.2em;
+    height: 3.2em;
+    object-fit: cover;
+    margin: 0.9em 1em;
+    border: 3px solid #84D9EC;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+.commenttext {
+    text-align: justify;
+}
+
+.commentdate {
+    font: small-caption;
+}
+.commentnickname {
+    font-weight: bold;
+}
+/* wyświetlenie zdjęcia profilowego autora postu*/
+
 #profpicture > img {
     width: 4.2em;
     height: 4.2em;
@@ -48,26 +255,43 @@
 /* wyświetlanie głównego boxa ze zdjeciem */
 
 #postphoto {
+    /*
     margin: 0 auto;
     height: 50vh;
-    width: 90%;
+    width: 100%;
     overflow: hidden;
     max-width: initial;
+    */
+
+    margin: 0 auto;
+    /* height: 50vh; */
+    /* width: 100%; */
+    /* overflow: hidden; */
+    max-width: initial;
+    text-align-last: center;
 }
 
 #postphoto > img:first-child {
+    /*
     width: 100%;
     margin: 0% 0;
     height: 60vh;
     object-fit: cover;
-    
+    */
     /* do modala */
-  cursor: pointer;
-  transition: 0.5s;
-}
+    /*
+    cursor: pointer;
+    transition: 0.5s;
+    */
 
-#postphoto > img:first-child:hover {
-    opacity: 0.7;
+    width: 100%; 
+    margin: 0% 0;
+    max-height: 80vh;
+    max-width: 60vw;
+    /* height: 60vh; */
+    /* object-fit: cover; */
+    cursor: pointer;
+    transition: 0.5s;
 }
 
 .modal {
@@ -111,9 +335,10 @@
   }
 
 
-/* opsi, tagi, przyciski reakcji i komentarzy */
+/* opis, tagi, przyciski reakcji i komentarzy */
 #postinfobox {
     display: flex;
+    flex-direction: row;
     border-top: ridge;
     border-bottom: ridge;
     border-color: #BFE0EE;
@@ -121,4 +346,8 @@
 
 #rightinfobox {
     text-align: center;
+}
+
+#topinfobox {
+    flex: 90%;
 }

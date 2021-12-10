@@ -35,9 +35,6 @@ public class Photo {
     @OneToOne(mappedBy = "photo", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private Post post;
 
-   @OneToOne(mappedBy = "photo", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    private Pin pin;
-
     public Long getPhotoId() {
         return photoId;
     }
@@ -70,11 +67,4 @@ public class Photo {
         this.post = post;
     }
 
-    public Pin getPin() {
-        return pin;
-    }
-
-    public void setPin(Pin pin) {
-        this.pin = pin;
-    }
 }

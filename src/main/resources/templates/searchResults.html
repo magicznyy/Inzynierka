@@ -2,10 +2,26 @@
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <title>Searching Results</title>
+</head>
+<body>
+<div>
+
+
+</div>
+
+
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
     <title>zdjecia</title>
     <link rel="stylesheet" href="/css/navlefttop.css">
     <link rel="stylesheet" href="/css/searchResultsStyle.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
@@ -15,23 +31,26 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
-    <script src="/js/photoPreview.js"></script>
+    <script src="/js/photoPreview.js"></script>;
 
 </head>
-<body style="margin: 8px">
+<body>
 <div id="nav">
     <a th:href="@{/mainPage}">
         <img src="/icons/Navbar/iconLogoNavbar.svg" alt="Strona główna" id="logo">
     </a>
     <a th:href="@{/uploadPhoto}">
         <img src="/icons/Navbar/iconAddPostNavbar.svg" alt="Dodaj zdjęcie">
-    </a><hr class="navline">
+    </a><hr>
     <a th:href="@{/maps}">
         <img src="/icons/Navbar/iconMapNavbar.svg" alt="Mapa">
-    </a><hr class="navline">
+    </a><hr>
     <a th:href="@{/photoit}">
         <img src="/icons/Navbar/iconWeatherNavbar.svg" alt="Pogoda">
-    </a><hr class="navline">
+    </a><hr>
+    <a th:href="@{/profile}">
+        <img src="/icons/Navbar/iconPhotosNavbar.svg" alt="Zakupione zdjęcia">
+    </a><hr>
     <a th:href="@{/photoit}">
         <img src="/icons/Navbar/iconReportsNavbar.svg" alt="Panel zgłoszeń">
     </a>
@@ -44,9 +63,8 @@
             <input type="submit" value="Szukaj" id="search"/>
         </form>
         <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
-        <a th:href="@{/profile}">
-            <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
-        </a>
+        <img th:src="${myprofilepic}" id="profpicminature" alt="profile picture">
+
     </div>
 
     <div id="mainbox">
@@ -69,7 +87,7 @@
             <div th:each="post: ${matchingPosts}" >
 
                 <input type="image"  th:id=${post.getIdPost()} th:src="@{${post.getPhoto().getPath()}}" class="album" data-toggle="modal" data-target="#exampleModal" th:onclick="setId(this.id)"/>
-                 <div th:class="yo" th:value="${post.getUser().getImie()}" hidden>
+
 
             </div>
         </div>
@@ -79,11 +97,13 @@
             <div class="modal-dialog" id="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Nazwa użytkownika</h5>
-                            <span class="close" data-dismiss="modal" aria-label="Close">&times;</span>
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body1">
-                        <iframe style="border: none" id="photoPreview" src="http://localhost:8080/maps"/>
+                        <iframe id="photoPreview" src="http://localhost:8080/maps"/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -101,11 +121,6 @@
 
 
 
-
-
-</div>
-
-</div>
 
 
 </div>
