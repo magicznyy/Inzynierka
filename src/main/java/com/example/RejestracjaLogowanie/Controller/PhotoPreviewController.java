@@ -39,7 +39,7 @@ public class PhotoPreviewController {
         else
             model.addAttribute("long", "empty");
 
-        File directory = new File("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user1");
+        File directory = new File("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user1");
 
         if (directory.list() != null) {
             String[] imagename = Objects.requireNonNull(directory.list());

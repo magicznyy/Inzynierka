@@ -53,7 +53,7 @@ public class WebSecurityConfiguration  extends WebSecurityConfigurerAdapter {
 
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/profileSettings", true)
+                .defaultSuccessUrl("/mainPage", true)
                 .permitAll()
                 .and()
                 .csrf().disable().cors();
