@@ -1,5 +1,6 @@
 package com.example.RejestracjaLogowanie;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -65,22 +66,48 @@ public class User implements UserDetails {
     @Column(name = "rola")
     private byte rola;
 
+    @Column(name = "iloscpowiadomien")
+    private int notificationsCounter;
+
+
+    @JsonIgnore
     @OneToMany(targetEntity=Post.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Post> posts = new ArrayList<>();
 
-
+    @JsonIgnore
     @OneToMany(targetEntity=FollowedUser.class , orphanRemoval = true,fetch = FetchType.LAZY)
     private List <FollowedUser> followedUsers= new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(targetEntity=Notification.class , orphanRemoval = true,fetch = FetchType.LAZY)
+    private List <Notification> notifications= new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Comment> comments = new ArrayList<>();
 
-
+    @JsonIgnore
     @OneToMany(targetEntity = Reaction.class, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Reaction> reactions = new ArrayList<>();
 
 
+    public int getNotificationsCounter() {
+        return notificationsCounter;
+    }
+
+    public void setNotificationsCounter(int notificationsCounter) {
+        this.notificationsCounter = notificationsCounter;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public void addNotification(Notification notification){ this.notifications.add(notification);}
 
     public void addReaction(Reaction reaction)
     {
@@ -174,9 +201,6 @@ public class User implements UserDetails {
     //tabela profil
     @Column(name = "opisprofilu" , table = "profil")
     private String profileDescription;
-
-
-
 
 
     @Column(name = "sciezkazdjecieprofilowe" , table = "profil")

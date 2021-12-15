@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +32,12 @@ public class ReactionController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private NotificationRepository notificationRepository;
 
 
     @RequestMapping("/addReaction")
-    public String addReaction(@RequestParam(name="idPostReakcja") Long idPost)
+    public String addReaction(@RequestParam(name="idPostReakcja") Long idPost, HttpServletRequest httpServletRequest)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
@@ -47,6 +50,12 @@ public class ReactionController {
             user.addReaction(reaction);
             post.addReaction(reaction);
             reactionRepository.save(reaction);
+
+            String link = httpServletRequest.getRequestURL().toString();
+            Notification notification = new Notification(link,user,post.getUser(),reaction);
+            notificationRepository.save(notification);
+            user.addNotification(notification);
+
         }
 
         else{
@@ -78,7 +87,7 @@ public class ReactionController {
 
 
     @RequestMapping("/addReaction1")
-    public String addReaction1(@RequestParam(name="idPostReakcja") Long idPost)
+    public String addReaction1(@RequestParam(name="idPostReakcja") Long idPost, HttpServletRequest httpServletRequest)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
@@ -91,6 +100,11 @@ public class ReactionController {
             user.addReaction(reaction);
             post.addReaction(reaction);
             reactionRepository.save(reaction);
+
+            String link = httpServletRequest.getRequestURL().toString();
+            Notification notification = new Notification(link,user,post.getUser(),reaction);
+            notificationRepository.save(notification);
+            user.addNotification(notification);
         }
 
         else{

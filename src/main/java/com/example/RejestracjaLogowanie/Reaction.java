@@ -18,7 +18,7 @@ public class Reaction {
     }
     @Id
     @GeneratedValue
-    @Column(name="idReakcja")
+    @Column(name="idreakcja")
     private Long idReaction;
 
     @ManyToOne(targetEntity = User.class)
@@ -27,8 +27,12 @@ public class Reaction {
 
     @ManyToOne(targetEntity = Post.class)
     @JoinColumn(name="post_idpost")
-
     private Post  post;
+
+    @OneToOne(mappedBy = "reaction", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private Notification notification;
+
+
 
 
     public Long getIdReaction() {
@@ -53,5 +57,13 @@ public class Reaction {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public Notification getNotification() {
+        return notification;
+    }
+
+    public void setNotification(Notification notification) {
+        this.notification = notification;
     }
 }

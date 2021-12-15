@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @Controller
 public class FollowController {
@@ -22,9 +24,12 @@ public class FollowController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private NotificationRepository notificationRepository;
+
 
     @RequestMapping("/follow")
-    public String follow(Model model, @RequestParam(name= "followedUserLogin") String followedUserLogin)
+    public String follow(Model model, @RequestParam(name= "followedUserLogin") String followedUserLogin, HttpServletRequest httpServletRequest)
     {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -36,6 +41,11 @@ public class FollowController {
             FollowedUser followedUser= new FollowedUser(user, userRepository.findUserByLogin(followedUserLogin));
             user.addFollowedUser(followedUser);
             followedUserRepository.save(followedUser);
+
+            String link = httpServletRequest.getRequestURL().toString();
+            Notification notification = new Notification(link,user,userRepository.findUserByLogin(followedUserLogin));
+            notificationRepository.save(notification);
+            user.addNotification(notification);
         }
         else
         {

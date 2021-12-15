@@ -39,6 +39,10 @@ public class Comment {
     @JoinColumn(name="post_idpost")
     private Post post;
 
+    @OneToOne(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private Notification notification;
+
+
     public Long getIdComment() {
         return idComment;
     }
@@ -80,7 +84,11 @@ public class Comment {
     }
 
 
+    public Notification getNotification() {
+        return notification;
+    }
 
-
-
+    public void setNotification(Notification notification) {
+        this.notification = notification;
+    }
 }
