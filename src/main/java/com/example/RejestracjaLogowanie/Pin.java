@@ -1,6 +1,8 @@
 package com.example.RejestracjaLogowanie;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
@@ -40,11 +42,12 @@ public class Pin {
     @Column(name = "kolorpinezki")
     private String pinColor;
 
-
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "uzytkownik_iduzytkownik", referencedColumnName = "iduzytkownik")
     private User user;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "zdjecie_idzdjecie", referencedColumnName = "idzdjecie")
     private Photo photo;

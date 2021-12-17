@@ -1,6 +1,7 @@
 package com.example.RejestracjaLogowanie;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -72,11 +73,15 @@ public class Post {
     @JoinColumn(name="zdjecie_idzdjecie", referencedColumnName = "idzdjecie")
     private Photo photo;
 
+    @JsonIgnore
     @OneToMany(targetEntity= Comment.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Comment> comments = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(targetEntity = Reaction.class, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Reaction> reactions = new ArrayList<>();
+
+
 
     public Photo getPhoto() {
         return photo;
@@ -144,6 +149,7 @@ public class Post {
     {
         this.reactions.add(reaction);
     }
+
 
     public Integer countReactions(){
 
