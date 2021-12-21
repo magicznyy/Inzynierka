@@ -33,7 +33,7 @@ public class User implements UserDetails {
         this.prywatnosckonta = null;
         this.czyzbanowany = 0;
         this.prywatnosckonta = "null";
-        this.notificationsCounter = 0;
+
         this.mapsCenterLatitude = 52.237049;
         this.mapsCenterLongitude = 21.017532;
     }
@@ -65,10 +65,6 @@ public class User implements UserDetails {
     @Column(name = "rola")
     private byte rola;
 
-    @Column(name = "iloscpowiadomien")
-    private int notificationsCounter;
-
-
     @OneToMany(targetEntity=Post.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Post> posts = new ArrayList<>();
 
@@ -90,7 +86,6 @@ public class User implements UserDetails {
     {
         this.reactions.add(reaction);
     }
-
 
     public List<Comment> getComments() {
         return comments;

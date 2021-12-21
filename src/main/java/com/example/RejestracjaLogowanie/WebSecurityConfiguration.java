@@ -53,13 +53,13 @@ public class WebSecurityConfiguration  extends WebSecurityConfigurerAdapter {
 
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/maps", true)
+                .defaultSuccessUrl("/profileSettings", true)
                 .permitAll()
                 .and()
-                .csrf().disable().cors()
+                .csrf().disable().cors();
 
-                .and()
-                .logout().permitAll();
+               // .and()
+                //.logout().permitAll();
         http.headers().frameOptions().sameOrigin();
     }
 

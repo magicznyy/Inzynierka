@@ -53,7 +53,6 @@ public class ProfilesController {
         model.addAttribute("id", user.getId());
 
 
-
         File directory=new File("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user"+user.getId());
 
         if(directory.list()!=null) {

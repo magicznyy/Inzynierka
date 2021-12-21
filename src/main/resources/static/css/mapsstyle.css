@@ -11,26 +11,11 @@
     display: flex;
     flex-direction: column;
     margin: 0.5em;
-    min-width: 30px;
-}
-
-.podgladpinezki form
-{
-
-}
-
-.podgladpinezki form .iconBin
-{
-    width: 20px;
-    position: absolute;
-    top: 1px;
-    left: -2px;
-    filter: invert(16%) sepia(54%) saturate(7457%) hue-rotate(2deg) brightness(97%) contrast(127%);
 }
 
 .mapboxgl-popup-content
 {
-    padding: 16px 6px 6px 6px;
+    /*zmiana koloru popupu*/
 }
 
 #centerbox
@@ -45,7 +30,7 @@
     width: 70%;
     margin-right: 5%;
     margin-left: 5%;
-    margin-bottom: 2%;
+    margin-bottom: 5%;
 }
 
 #map
@@ -56,7 +41,7 @@
     box-shadow: 0 0 0 22px rgba(0, 0, 0, 0.25);
 }
 
-#signupForma
+#signupForm
 {
     width: auto;
     display: flex;
@@ -101,55 +86,13 @@
     margin-right: 16px;
 }
 
-#moremainbox
-{
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(180deg, #0C2C4C 0%, rgba(0, 36, 67, 0.38) 5.21%, rgba(219, 233, 239, 0.78) 100%);
-    margin-bottom: 3%;
-    border-radius: 14px;
-}
 
 #mainbox
 {
     display: flex;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top: 4%;
     width: auto;
-}
-
-#PITA
-{
-    display: flex;
-    flex-direction: column;
-    margin-left: 4%;
-    margin-right: 4%;
-
-}
-.Photosh1
-{
-    font-family: 'Baloo Thambi 2', cursive;
-    text-align: left;
-    margin-left: 0.4em;
-    font-weight: 400;
-    color: #FFFFFF;
-}
-#PITABI
-{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding-bottom: 3%;
-}
-
-.PhotosyArea
-{
-    margin:1em;
-    border: 0.5em solid white;
-    object-fit:cover; /*aby bylo kwadratowe*/
-    width: 10em;
-    height: 10em;
-
+    background: linear-gradient(180deg, #0C2C4C 0%, rgba(0, 36, 67, 0.38) 5.21%, rgba(219, 233, 239, 0.78) 100%);
 }
 
 #addpinbox
@@ -167,7 +110,6 @@ form label
 {
     color: white;
     font-size: 14px;
-    margin: 3% 1% 1%;
 }
 
 form
@@ -175,9 +117,9 @@ form
     margin-left: 7%;
     margin-right: 7%;
 }
-h1, #addpinh1
+h1
 {
-    font-size: 175%;
+    font-size: 140%;
     margin-left: 5px;
     margin-right: 5px;
     text-align: center;
@@ -185,34 +127,17 @@ h1, #addpinh1
 
 }
 
-#addpinbox form input:not([type=submit])
+#addpinbox form input
 {
     border-radius: 5px;
 }
 
 #submitpin
 {
-    width: 36%;
-    height: 2em;
-    text-align: center;
-    margin: 2% auto 5%;
-    background: #BFE0EE;
-    opacity: 100%;
-    border: 0.25em solid #84D9EC;
-    font-size: 0.9em;
-    font-weight: bold;
-    text-indent: 0;
-    border-radius: 10px;
+    width: 30%;
+    margin-top:3px;
 }
 
-#pincolorbox {
-    margin-top: 2%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-    align-items: stretch;
-}
 
 /* COMMON RADIO AND CHECKBOX STYLES  */
 input[type=radio],
@@ -254,65 +179,4 @@ input[type=radio]#three + label:before
 input[type=radio]#four + label:before
 {
     background-color: #0047ff;
-}
-
-
-
-
-
-
-
-
-
-.modal-content{
-    text-align:left;
-    height: 100vh;
-    width: 96% !important;
-    margin-left:2%;
-    margin-right:2%;
-    background-color:transparent !important;
-    margin-top: -2%;
-}
-
-#photoPreview{
-    width:100%;
-    height: 100vh;
-
-}
-
-.modal.fade.show
-{
-    background-color: rgba(12, 44, 76, 0.87);
-}
-
-.modal-header {
-
-    border-bottom: 0 solid #e9ecef !important;
-    border-top-left-radius: 0rem !important;
-    border-top-right-radius: 0rem !important;
-}
-
-
-#modal-dialog {
-    max-width: 6000px !important;
-    margin: 1.75rem auto;
-}
-
-
-.modal-body1 {
-    border: 0.2em solid #84D9EC;
-    position: relative;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-
-}
-
-.modal-dialog .modal-content .modal-header .close {
-    position: absolute;
-    top: 15px;
-    right: 0;
-    color: #84D9EC;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
 }
