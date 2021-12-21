@@ -57,6 +57,7 @@ public class CommentController {
         return "redirect:/mainPage";
     }
 
+
     @RequestMapping("/addComment1")
     public String addComment1(@RequestParam(name="comment") String content, @RequestParam(name="idPost") Long idPost){
 
@@ -84,7 +85,6 @@ public class CommentController {
         System.out.println("Komentarze: " + post.getComments() );
         return "redirect:/photoPreview/post/" + post.getIdPost();
     }
-
 
 
 

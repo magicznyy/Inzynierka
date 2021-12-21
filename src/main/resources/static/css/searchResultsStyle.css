@@ -109,14 +109,10 @@ display: flex;
 
 }
 
-.modal.fade.show
-{
-background-color: rgba(12, 44, 76, 0.87);
-}
-
 .modal-header {
 
-        border-bottom: 0 solid #e9ecef !important;
+    padding-left: 4rem !important;
+        border-bottom: 0px solid #e9ecef !important;
         border-top-left-radius: 0rem !important;
         border-top-right-radius: 0rem !important;
 }
@@ -129,10 +125,11 @@ background-color: rgba(12, 44, 76, 0.87);
 
 
 .modal-body1 {
-    border: 0.2em solid #84D9EC;
     position: relative;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
+
+
 
 }
 

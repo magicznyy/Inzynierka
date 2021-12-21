@@ -11,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.io.File;
-import java.util.Objects;
 
 
 @Controller
@@ -22,32 +20,17 @@ public class PhotoPreviewController {
     private PostRepository postRepository;
 
     @GetMapping("/photoPreview/post/{idPost}")
-    public String photoPreview(Model model, @PathVariable(name = "idPost") Long idPost) {
+    public String photoPreview(Model model, @PathVariable(name="idPost") Long idPost){
 
         Post post = postRepository.findPostByidPost(idPost);
         model.addAttribute("post", post);
-        model.addAttribute("comments", post.getComments());
-        model.addAttribute("reactionCounter", post.countReactions());
-
-        if(post.getPhoto().getPin() != null )
-        model.addAttribute("lat", post.getPhoto().getPin().getLatitude());
-        else
-            model.addAttribute("lat", "empty");
-
-        if(post.getPhoto().getPin()!= null )
-            model.addAttribute("long", post.getPhoto().getPin().getLongitude());
-        else
-            model.addAttribute("long", "empty");
-
-        File directory = new File("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user1");
-
-        if (directory.list() != null) {
-            String[] imagename = Objects.requireNonNull(directory.list());
-            model.addAttribute("photos", imagename);
-        }
 
         return "photoPreview";
     }
 
+    @GetMapping("/photoPreview")
+String photo(){
+        return "photoPreview";
+    }
 
 }

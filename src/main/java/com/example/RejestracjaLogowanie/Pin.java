@@ -42,6 +42,7 @@ public class Pin {
     @Column(name = "kolorpinezki")
     private String pinColor;
 
+
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "uzytkownik_iduzytkownik", referencedColumnName = "iduzytkownik")

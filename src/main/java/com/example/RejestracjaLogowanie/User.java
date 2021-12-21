@@ -34,7 +34,7 @@ public class User implements UserDetails {
         this.prywatnosckonta = null;
         this.czyzbanowany = 0;
         this.prywatnosckonta = "null";
-        this.profilePicPath = "/images/profpic/nopicture.jpg";
+        this.notificationsCounter = 0;
         this.mapsCenterLatitude = 52.237049;
         this.mapsCenterLongitude = 21.017532;
         this.notificationsCounter = 0;
@@ -114,6 +114,7 @@ public class User implements UserDetails {
     {
         this.reactions.add(reaction);
     }
+
 
     public List<Comment> getComments() {
         return comments;

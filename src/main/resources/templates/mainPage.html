@@ -16,7 +16,7 @@
 
 
 </head>
-<body onload="fetchPosts()">
+<body >
 
 <div id="nav">
     <a th:href="@{/mainPage}">
@@ -59,88 +59,110 @@
 
 
         <a th:href="@{/profile}">
-            <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+            <img src="/images/profpic/nopicture.jpg" id="profpicminature" alt="profile picture">
         </a>
     </div>
 
     <div id="mainbox" >
-        <div id="mainpageuserbox"> <!-- set maxheight 80%-->
+        <div id="mainpageuserbox" > <!-- set maxheight 80%-->
 
-            <!--
-           <div class="post" id="post"> flex column
+            
+           <div class="post" th:each="post: ${posts}" th:id="'post' + ${post.getIdPost()}">
                 <div id="postheader">
                     <div id="leftheader">
-                        <div id="profpicture"><img src="/images/profpic/nopicture.jpg" alt="zdjęcie profilowe"></div>
-                        <div id="nick">@Testerowanie</div>
+                        <div id="profpicture"><img th:src="${post.getUser().getProfilePicPath() != null} ? ${post.getUser().getProfilePicPath()} : '/images/profpic/nopicture.jpg'"  alt="zdjęcie profilowe" class="opacityonhover"></div>
+                        <div id="nick" class="opacityonhover">@ [[${post.getUser().getLogin()}]]  </div>
                     </div>
                     <div id="rightheader">
-                        <div><button>Obserwuj</button></div>
-                        <div><button><img src="/icons/MainPage/iconPostSettingsMainpage.svg" alt="post settings icon"></button></div>
+                        <div>
+                            <form id="followForm"   method="post">
+                                <input type="hidden" id="login" name="followedUserLogin" value="obs">
+                                <input type="submit" name="follow" value="Obserwuj" id="followbutton" class="opacityonhover"/>
+                            </form>
+                        </div>
+                        <div>
+                            <button id="settingsbutton">
+                                <img src="/icons/MainPage/iconPostSettingsMainpage.svg" alt="post settings icon" class="opacityonhover">
+                            </button>
+                        </div>
                     </div>
                     
                 </div>
                 <div id="postphoto">
-                    <img src="/images/user13/17.png" alt="zdjęcie nr13" id="image1" >
-
-                    <div id="showpicture" class="modal">
-                        <span class="close">&times;</span>
-                        <img class="modal-content" id="img01">
-                        <div id="photodetailsbox">
-                            <div>Informacje o zdjęciu:</div><hr>
-                            <div class="photoInfo">Rozmiar:
-                                </div><hr>
-                            <div class="photoInfo">Wymiary:
-                                </div><hr>
-                            <div class="photoInfo">Ujęcie:
-                                </div><hr>
-                            <div class="photoInfo">ISO: 
-                                </div><hr>
-                            <div class="photoInfo">
-                                Urządzenie: 
-                                </div>
-                        </div>
-                    </div>
-                    
+                    <img  th:src="${post.getPhoto().getPath()}" th:alt="'zdjecie nr ' + ${post.getPhoto().getPhotoId()}" th:id="'image' + ${post.getPhoto().getPhotoId()}" class="opacityonhover">
                 </div>
-                <script src="/js/modal.js" type="text/javascript"></script>
-
 
                 <div id="postinfobox">
-                        <div id="leftinfobox">
-                            <div id="descriptionbox">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor enim quis dolorum, similique quo ullam dignissimos aliquid molestiae explicabo, delectus velit officiis at asperiores amet quas ratione commodi praesentium necessitatibus placeat neque. Perferendis saepe laudantium neque velit architecto, fugiat iusto impedit? Cum ab in voluptatibus, natus quasi praesentium est unde voluptates libero ratione iure quaerat vel commodi, adipisci a veniam rem molestias beatae aliquid eaque sunt odio tempora! Nesciunt rerum animi praesentium fugiat consectetur dolores voluptate dolorum iure maxime ipsa.
-                            </div>
-                            <div id="tagsbox">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti voluptas expedita dignissimos excepturi, deserunt officiis, cupiditate eligendi similique hic magni ex rerum nihil perferendis ducimus, maiores distinctio suscipit voluptates modi.
+                        <div id="topinfobox">
+                            <div id="descriptionbox" th:text="${post.getDescription()}">
+                                 
                             </div>
                         </div>
-                        <div id="rightinfobox">
                             <div id="reactionbox">
-                                <img src="/icons/Post/iconLikePost.svg" alt="reaction icon">
-                                235
+
+                                <div id="reactionform">
+                                    <form th:action="@{/addReaction}" method="post">
+                                        <label for="reaction">
+                                            <img src="/icons/Post/iconLikePost.svg" alt="reaction icon" class="opacityonhover">
+                                        </label>
+                                        <input type="hidden" name="idPostReakcja" th:id="'idPostReakcja'+ ${post.getIdPost()}" th:value="${post.getIdPost()}"/>
+                                        <input type="submit" value="Lubie to!" name="reaction" id="reaction" />
+                                    </form>
+                                    <div id="reactioncount" th:text="${post.countReactions()}"></div>
+                                </div>
+                                
+                                <div id="commentsform">
+                                    <form  method="post">
+                                        <label for="reaction">
+                                            <img src="/icons/Post/iconCommentPost.svg" alt="comments icon" class="opacityonhover">
+                                        </label>
+                                        <input type="submit" value="Wyślij" name="showComment" id="showComment" />
+                                    </form>
+                                    <div id="commentscount" th:text="${post.getCommentsNumber()}"></div>
+                                </div>
+                                
                             </div>
-                            <div id="commentsbox">
-                                <img src="/icons/Post/iconCommentPost.svg" alt="comments icon">
-                                24
+                </div>
+                <form th:action="@{/addComment}" method="post" id="addComment" class="comment" >
+                    <label>Dodaj komentarz:</label>
+                    <textarea name="comment" id="commentinput" maxlength="2000"></textarea>
+                    <input type="hidden" name="idPost"  th:id="${post.getIdPost()}" th:value="${post.getIdPost()}"/>
+                    <input type="submit" value="Wyślij" name="sendComment" th:id="'sendCommentfor'+${post.getIdPost()}" id="sendComment"/>
+                </form>
+                <div id="commentsbox" >
+                    <div th:id="'Commentnr'+${comment.getIdComment()}" class="comment" th:each="comment: ${post.getComments()}">
+                        <div class="commenteravatar">
+                            <img th:src="${post.getUser().getProfilePicPath() != null} ? ${post.getUser().getProfilePicPath()} : '/images/profpic/nopicture.jpg'" alt="zdjęcie profilowe" class="opacityonhover">
+                        </div>
+                        <div class="commentbody">
+                            <div class="commentnavbar">
+                                <div class="commenternickname" th:text="${comment.getUser().getLogin()}">
+
+                                </div>
+                                <div class="commentdate" th:text="${comment.getData()}">
+
+                                </div>
+                            </div>
+                            <div class="commenttext" th:text="${comment.getTresc()}">
                             </div>
                         </div>
-                </div>
-                <div id="comments">
-                    
-                </div>
-                -->
+                    </div>
 
+            </div>
+        
+        <!--
         <div id="postbox">
-            <div th:each="post: ${posts}">
-                <img src="${post.getPhoto().getPath()}" alt="zdjęcie id1">
-                <p>Id postu:<a th:text="${post.getIdPost()}" ></a></p>
-                <p>Opis: <a th:text="${post.getDescription()}"></a></p>
-                <p>Tagi: <a th:text="${post.getTags()}"></a></p>
+            <div th:each="post: ${posts}" >
+               --<img src="${post.getPhoto().getPath()}" alt="zdjęcie id1">
+               -- <p>Id postu:<a th:text="${post.getIdPost()}" ></a></p>
+               --<p>Opis: <a th:text="${post.getDescription()}"></a></p>
+               --<p>Tagi: <a th:text="${post.getTags()}"></a></p>
                 <p>Id zdjecia: <a th:text="${post.getPhoto().getPhotoId()}"></a></p>
-                <p>Login twórcy: <a th:text="${post.getUser().getLogin()}"></a></p>
+                --<p>Login twórcy: <a th:text="${post.getUser().getLogin()}"></a></p>
                 <div id="podmien"></div>
                 <button onclick="photoFetcher()">Dej zdjęcie</button>
                 <div id="photoDiv"></div>
+                
                 <div id="commentBox">
                     <form th:action="@{/addComment}" method="post">
                         <label>Dodaj komentarz:</label>
@@ -158,15 +180,18 @@
                         <input type="submit" value="Lubie to!" name="reaction" id="reaction"/>
                     </form>
                 </div>
-
             </div>
 
 
         </div>
+    -->
     </div>
 
 </div>
 
 </div>
+
+</div>
+
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.example.RejestracjaLogowanie;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jmx.export.naming.IdentityNamingStrategy;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -128,15 +129,17 @@ public class Post {
         this.comments.add(comment);
 
     }
+    public void addReaction(Reaction reaction)
+    {
+        this.reactions.add(reaction);
+    }
 
     public List<Reaction> getReactions() {
         return reactions;
     }
-
     public void setReactions(List<Reaction> reactions) {
         this.reactions = reactions;
     }
-
     public List<Comment> getComments() {
         return comments;
     }
@@ -145,9 +148,11 @@ public class Post {
         this.comments = comments;
     }
 
-    public void addReaction(Reaction reaction)
-    {
-        this.reactions.add(reaction);
+    public Integer getReactionsNumber(){
+        return reactions.size();
+    }
+    public Integer getCommentsNumber(){
+        return comments.size();
     }
 
 
@@ -156,12 +161,10 @@ public class Post {
         Integer reactionsNuber = 0;
 
         for (Reaction reaction : this.reactions
-             ) {
+        ) {
             reactionsNuber ++ ;
         }
 
         return reactionsNuber;
     }
-
-
 }

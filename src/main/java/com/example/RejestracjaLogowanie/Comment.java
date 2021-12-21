@@ -16,7 +16,7 @@ public class Comment {
 
     public Comment(String tresc, User user, Post post) {
         this.data = new Date();
-        this.content = tresc;
+        this.tresc = tresc;
         this.post = post;
         this.user = user;
     }
@@ -31,7 +31,7 @@ public class Comment {
     private Date data;
 
     @Column(name = "tresc")
-    private String content;
+    private String tresc;
 
 
     @ManyToOne(targetEntity = User.class)
@@ -64,12 +64,12 @@ public class Comment {
         this.data = data;
     }
 
-    public String getContent() {
-        return content;
+    public String getTresc() {
+        return tresc;
     }
 
-    public void setContent(String tresc) {
-        this.content = tresc;
+    public void setTresc(String tresc) {
+        this.tresc = tresc;
     }
 
     public User getUser() {
@@ -89,6 +89,7 @@ public class Comment {
     }
 
 
+
     public Notification getNotification() {
         return notification;
     }
@@ -96,4 +97,5 @@ public class Comment {
     public void setNotification(Notification notification) {
         this.notification = notification;
     }
+
 }
