@@ -1,5 +1,3 @@
-import { getExif } from "/js/showPhoto.js"
-
 window.onload = function () {
     var modalContainer = document.getElementById("showpicture");
     var imageFromBox = document.getElementById("image1");

@@ -7,100 +7,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
 
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
-    <script th:inline="javascript" src="/js/photoLocation.js" defer></script>
 
-   <!-- to je do podgląadu tego zoomowanego -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="/js/jquery.pan.js"></script>
-    <script type="text/javascript">
-    $(function(){
-    $(".pan").pan();
-    })
-    </script>
-    <link rel="stylesheet" href="/css/css_jquery/jquery.pan.css">
-
-    <!--a to je do exifow-->
-    <script src="/js/exif/node_modules/exif-js/exif.js"></script>
-    <script src="/js/showExif.js" type="text/javascript"></script>
 
 </head>
-<body onload="getExif()">
+<body>
 <div id="main">
     <div id="content">
+        <div id="EXIFinfo">
+        <h1>Dane EXIF:</h1>
+        </div>
         <div id="photoBox">
-            <img id="mainPhoto"  class="pan"  th:src="@{${post.getPhoto().getPath()}}"/>
+            <img id="photo" th:src="@{${post.getPhoto().getPath()}}">
         </div>
-        <div id="commentatingBox">
-            <div id="commentBox">
-                <h1>Komentarze:</h1>
-                <div th:each="comment: ${comments}" class="comments">
-                    <div class="singleComment">
-                        <div class="userInfoComment">
-                            <img th:src="@{${comment.getUser().getProfilePicPath()}}" width="30px" height="30px" class="album"/> <h3 th:text="${comment.getUser().getLogin()}">  </h3>
-                        </div>
-                        <div th:text="${comment.getContent()}" class="commentContent">
-
-                        </div><hr>
-                    </div>
-                </div>
-            </div>
-
-            <form  th:action="@{/addComment1}" id="addComment" method="post">
-                <input type="hidden" name="idPost" id="idPost" th:value="${post.getIdPost()}"/>
-                <label for="commentTextArea"></label><textarea id="commentTextArea" name="comment" cols="2"></textarea>
-                <div class="form-actions">
-                    <button type="submit" class="btn" id="submitPassword" >Dodaj</button>
-                </div>
-
-            </form>
-        </div>
-
-
-        </div>
-    <div id="DescriptionAndLikesBox">
-        <div id="photoDescpription">
-            <div id="userDescription"> <a th:text="${post.getDescription()}"></a></div>
-            <div id="userTags"> <a th:text="${post.getTags()}"></a></div><!-- wypisane w pętli i pewnie css jako display inline -->
-        </div>
-        <div id="photoLikes">
-
-            <form th:action="@{/addReaction1}" method="post">
-                <label>Reakcja:</label>
-                <input type="hidden" name="idPostReakcja" id="idPostReakcja" th:value="${post.getIdPost()}"/>
-                <input type="image"  src="/icons/Post/iconLikePost.svg" value="Lubie to!" name="reaction" id="like"/>
-            </form>
-
-            <h3 th:text="${reactionCounter}"></h3>
-
-        </div>
-
-
+    <div id="commentBox">
+        <h1>Komentarze:</h1>
     </div>
-    <div id="photoDetailsAndMap">
-        <div id="photodetailsbox">
-            <h1> Informacje o zdjęciu:</h1><hr>
-            <div class="photoInfo">Rozmiar:
-            </div><hr>
-            <div class="photoInfo">Wymiary:
-            </div><hr>
-            <div class="photoInfo">Ujęcie:
-            </div><hr>
-            <div class="photoInfo">ISO:
-            </div><hr>
-            <div class="photoInfo">
-                Urządzenie:
-            </div>
-        </div>
-        <div  th:if="${lat != 'empty'}" id="map"></div>
-        <input  type="hidden" id="lngPhoto" th:value="${lat}"/>
-        <input  type="hidden" id="latPhoto" th:value="${long}"/>
-
-
-
     </div>
-
 </div>
 
 </body>

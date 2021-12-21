@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,26 +32,36 @@ public class ReactionController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private NotificationRepository notificationRepository;
 
 
     @RequestMapping("/addReaction")
     public String addReaction(@RequestParam(name="idPostReakcja") Long idPost)
     {
+        System.out.println("przekazano id= " + idPost);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
 
 
-        if(isReactionSet(user,idPost)== false) {
+        if(!isReactionSet(user, idPost)) {
             Post post = postRepository.findPostByidPost(idPost);
             Reaction reaction = new Reaction(post, user);
             user.addReaction(reaction);
             post.addReaction(reaction);
             reactionRepository.save(reaction);
-        }
 
+
+            String link = "/photoPreview/post/" + post.getIdPost();
+            Notification notification = new Notification(link,post.getUser(),user,reaction);
+            notificationRepository.save(notification);
+            post.getUser().addNotification(notification);
+
+        }
         else{
             removeReaction(idPost, user);
+            System.out.println(user.getId() + " -1 do " + idPost);
         }
             return "redirect:/mainPage";
 
@@ -91,6 +102,14 @@ public class ReactionController {
             user.addReaction(reaction);
             post.addReaction(reaction);
             reactionRepository.save(reaction);
+
+            String link = "/photoPreview/post/" + post.getIdPost();
+            Notification notification = new Notification(link,post.getUser(),user,reaction);
+            notificationRepository.save(notification);
+            post.getUser().addNotification(notification);
+
+
+            System.out.println("tu: " + post.getUser().getNotifications().toString());
         }
 
         else{
@@ -109,15 +128,15 @@ public class ReactionController {
         for (Reaction tempReaction : usersReactions) {
             if(tempReaction.getPost().getIdPost() == idPost)
             {
+
                 usersReactions.remove(tempReaction);
                 tempReaction.getPost().getReactions().remove(tempReaction);
                 reactionRepository.delete(tempReaction);
                 break;
             }
-
         }
 
-        return "redirect:/photoPreview/post/" + idPost;
+        return "redirect:/mainPage";
     }
 
 

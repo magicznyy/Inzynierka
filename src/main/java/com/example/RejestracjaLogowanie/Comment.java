@@ -1,6 +1,8 @@
 package com.example.RejestracjaLogowanie;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,7 +16,7 @@ public class Comment {
 
     public Comment(String tresc, User user, Post post) {
         this.data = new Date();
-        this.content = tresc;
+        this.tresc = tresc;
         this.post = post;
         this.user = user;
     }
@@ -29,15 +31,22 @@ public class Comment {
     private Date data;
 
     @Column(name = "tresc")
-    private String content;
+    private String tresc;
+
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name="uzytkownik_iduzytkownik")
     private User user;
 
+
     @ManyToOne(targetEntity = Post.class)
     @JoinColumn(name="post_idpost")
     private Post post;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private Notification notification;
+
 
     public Long getIdComment() {
         return idComment;
@@ -55,12 +64,12 @@ public class Comment {
         this.data = data;
     }
 
-    public String getContent() {
-        return content;
+    public String getTresc() {
+        return tresc;
     }
 
-    public void setContent(String tresc) {
-        this.content = tresc;
+    public void setTresc(String tresc) {
+        this.tresc = tresc;
     }
 
     public User getUser() {
@@ -81,6 +90,12 @@ public class Comment {
 
 
 
+    public Notification getNotification() {
+        return notification;
+    }
 
+    public void setNotification(Notification notification) {
+        this.notification = notification;
+    }
 
 }

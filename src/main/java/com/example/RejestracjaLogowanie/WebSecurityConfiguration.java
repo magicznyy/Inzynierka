@@ -56,10 +56,10 @@ public class WebSecurityConfiguration  extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/mainPage", true)
                 .permitAll()
                 .and()
-                .csrf().disable().cors();
+                .csrf().disable().cors()
 
-               // .and()
-                //.logout().permitAll();
+                .and()
+                .logout().permitAll();
         http.headers().frameOptions().sameOrigin();
     }
 

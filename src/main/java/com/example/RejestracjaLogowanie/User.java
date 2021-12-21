@@ -1,5 +1,6 @@
 package com.example.RejestracjaLogowanie;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +35,7 @@ public class User implements UserDetails {
         this.prywatnosckonta = null;
         this.czyzbanowany = 0;
         this.prywatnosckonta = "null";
-        this.profilePicPath = "/images/profpic/nopicture.jpg";
+        this.notificationsCounter = 0;
         this.mapsCenterLatitude = 52.237049;
         this.mapsCenterLongitude = 21.017532;
         this.preftemperatura = 15;
@@ -73,18 +74,27 @@ public class User implements UserDetails {
     @Column(name = "rola")
     private byte rola;
 
+    @Column(name = "iloscpowiadomien")
+    private int notificationsCounter;
+
+
+    @JsonIgnore
     @OneToMany(targetEntity=Post.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Post> posts = new ArrayList<>();
 
-
+    @JsonIgnore
     @OneToMany(targetEntity=FollowedUser.class , orphanRemoval = true,fetch = FetchType.LAZY)
     private List <FollowedUser> followedUsers= new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(targetEntity=Notification.class , orphanRemoval = true,fetch = FetchType.LAZY)
+    private List <Notification> notifications = new ArrayList<>();;
 
+    @JsonIgnore
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Comment> comments = new ArrayList<>();
 
-
+    @JsonIgnore
     @OneToMany(targetEntity = Reaction.class, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Reaction> reactions = new ArrayList<>();
 
@@ -129,9 +139,32 @@ public class User implements UserDetails {
         this.prefprawdopodobOpadow = prefprawdopodobOpadow;
     }
 
+    public int getNotificationsCounter() {
+        return notificationsCounter;
+    }
+
+    public void setNotificationsCounter(int notificationsCounter) {
+        this.notificationsCounter = notificationsCounter;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public void addNotification(Notification notification){ this.notifications.add(notification);}
+
     public void addReaction(Reaction reaction)
     {
         this.reactions.add(reaction);
+    }
+
+
+    public List<Comment> getComments() {
+        return comments;
     }
 
     public void setComments(List<Comment> comments) {
@@ -205,9 +238,6 @@ public class User implements UserDetails {
     //tabela profil
     @Column(name = "opisprofilu" , table = "profil")
     private String profileDescription;
-
-
-
 
 
     @Column(name = "sciezkazdjecieprofilowe" , table = "profil")
