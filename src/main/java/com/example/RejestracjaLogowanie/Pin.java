@@ -44,12 +44,12 @@ public class Pin {
 
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "uzytkownik_iduzytkownik", referencedColumnName = "iduzytkownik")
     private User user;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "zdjecie_idzdjecie", referencedColumnName = "idzdjecie")
     private Photo photo;
 

@@ -35,6 +35,13 @@ public class Photo {
     @OneToOne(mappedBy = "photo", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private Post post;
 
+    public Pin getPin() {
+        return pin;
+    }
+
+    public void setPin(Pin pin) {
+        this.pin = pin;
+    }
 
     @OneToOne(mappedBy = "photo", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private Pin pin;

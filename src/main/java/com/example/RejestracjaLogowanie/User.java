@@ -34,7 +34,7 @@ public class User implements UserDetails {
         this.aktywnosc =  0;
         this.prywatnosckonta = null;
         this.czyzbanowany = 0;
-        this.prywatnosckonta = "null";
+        this.profilePicPath = "/images/profpic/nopicture.jpg";
         this.notificationsCounter = 0;
         this.mapsCenterLatitude = 52.237049;
         this.mapsCenterLongitude = 21.017532;
@@ -74,8 +74,6 @@ public class User implements UserDetails {
     @Column(name = "rola")
     private byte rola;
 
-    @Column(name = "iloscpowiadomien")
-    private int notificationsCounter;
 
 
     @JsonIgnore
