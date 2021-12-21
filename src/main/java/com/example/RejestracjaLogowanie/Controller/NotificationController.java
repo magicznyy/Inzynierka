@@ -51,8 +51,8 @@ public class NotificationController {
 
         //do newNotifications kopiuje tylko nowe powiadomienia z notifications
         List<Notification> newNotifications = new ArrayList<>();
+        if(notifications.isEmpty()==false)
         for (int i = notifications.size()-1; i>=notifications.size()-numberOfNewNotifications; i--){
-            System.out.println("DUPAAAAA");
             newNotifications.add(notifications.get(i));
         }
 

@@ -42,8 +42,8 @@ public class FollowController {
             user.addFollowedUser(followedUser);
             followedUserRepository.save(followedUser);
 
-            String link = httpServletRequest.getRequestURL().toString();
-            Notification notification = new Notification(link,user,userRepository.findUserByLogin(followedUserLogin));
+            String link = "http://localhost:8080/test/" + user.getLogin();
+            Notification notification = new Notification(link,userRepository.findUserByLogin(followedUserLogin),user);
             notificationRepository.save(notification);
             userRepository.findUserByLogin(followedUserLogin).addNotification(notification);
         }
