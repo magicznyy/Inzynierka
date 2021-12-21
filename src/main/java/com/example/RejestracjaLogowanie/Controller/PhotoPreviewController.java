@@ -11,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.io.File;
-import java.util.Objects;
 
 
 @Controller
@@ -26,13 +24,6 @@ public class PhotoPreviewController {
 
         Post post = postRepository.findPostByidPost(idPost);
         model.addAttribute("post", post);
-
-        File directory=new File("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user1");
-
-        if(directory.list()!=null) {
-            String[] imagename = Objects.requireNonNull(directory.list());
-            model.addAttribute("photos", imagename);
-        }
 
         return "photoPreview";
     }

@@ -2,6 +2,7 @@ package com.example.RejestracjaLogowanie;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jmx.export.naming.IdentityNamingStrategy;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -123,12 +124,41 @@ public class Post {
         this.comments.add(comment);
 
     }
+    public void addReaction(Reaction reaction)
+    {
+        this.reactions.add(reaction);
+    }
 
+    public List<Reaction> getReactions() {
+        return reactions;
+    }
+    public void setReactions(List<Reaction> reactions) {
+        this.reactions = reactions;
+    }
     public List<Comment> getComments() {
         return comments;
     }
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Integer getReactionsNumber(){
+        return reactions.size();
+    }
+    public Integer getCommentsNumber(){
+        return comments.size();
+    }
+
+    public Integer countReactions(){
+
+        Integer reactionsNuber = 0;
+
+        for (Reaction reaction : this.reactions
+        ) {
+            reactionsNuber ++ ;
+        }
+
+        return reactionsNuber;
     }
 }

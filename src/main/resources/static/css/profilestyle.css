@@ -12,7 +12,7 @@
 }
 #userbox
 {
-    position: relative;
+
     width: auto;
     margin-left: 2em;
     margin-right: 2em;
@@ -47,20 +47,13 @@
 
 #settings
 {
-    position: absolute;
-    height: 13%;
-    bottom: 6px;
-    right: 6px;
+    width: 30%;
+    height: 14%;
     background: #BFE0EE;
     border: 0.15em solid #84D9EC;
     font-size: 1.2em;
     color: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-}
-
-#settings:hover
-{
-    cursor: pointer;
+    margin: auto 5% 5% 1%;
 }
 
 .photobox

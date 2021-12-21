@@ -25,7 +25,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
 
-
+    
     <script th:inline="javascript" src="/js/mapUploadPhoto.js" defer></script>
 
 
@@ -36,8 +36,8 @@
 
 <div id="nav">
     <a th:href="@{/mainPage}">
-        <img src="/icons/Navbar/iconLogoNavbar.svg" alt="Strona główna" id="logo">
-    </a>
+        <img src="/icons/Navbar/iconLogoNavbar.svg" alt="Strona główna">
+    </a> <hr>
     <a th:href="@{/uploadPhoto}">
         <img src="/icons/Navbar/iconAddPostNavbar.svg" alt="Dodaj zdjęcie">
     </a><hr>
@@ -47,9 +47,14 @@
     <a th:href="@{/photoit}">
         <img src="/icons/Navbar/iconWeatherNavbar.svg" alt="Pogoda">
     </a><hr>
-
+    <a th:href="@{/profile}">
+        <img src="/icons/Navbar/iconPhotosNavbar.svg" alt="Zakupione zdjęcia">
+    </a><hr>
     <a th:href="@{/photoit}">
         <img src="/icons/Navbar/iconReportsNavbar.svg" alt="Panel zgłoszeń">
+    </a><hr>
+    <a th:href="@{/photoit}">
+        <img src="/icons/Navbar/iconSalesNavbar.svg" alt="Panel zakupów zdjęcia">
     </a>
 </div>
 <!--
@@ -95,11 +100,19 @@
 <div id="centerbox">
 
     <div id="top">
-        <form th:action="@{/searchResults}" method="get" id="searchform">
-            <input type="search" name="searchValue" id="searchValue" placeholder="Wyszukaj">
+        <form th:action="@{/search}" method="get">
+            <input type="search" name="search" placeholder="Wyszukaj">
+            <!--<label>
+                <input type="search" name="search" placeholder="Wyszukaj">
+                <img src="/navicons/loupe.png" id="iconinput">
+            </label>--> <!--do usuniecia okej-->
             <input type="submit" value="Szukaj" id="search"/>
         </form>
-        <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
+
+        <h2 style="color: white">Saldo: </h2> <p style="color: white; font-size: 1.4em; margin-top: 1em" id="saldoreturn" th:text="${money}"></p>
+        <img src="/icons/Navbar/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
+
+
         <a th:href="@{/profile}">
             <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
         </a>
@@ -108,88 +121,94 @@
     <div id="mainbox">
 
         <div id="userbox" >
-            <div id="infobox">
-                <div id="titlebox">
-                    Dodaj zdjęcie
-                </div>
-                <div id="photoDetailsAndPreviewBox">
-                    <div id="photodetailsbox">
-                        <div>Informacje o zdjęciu:</div><hr>
-                        <div class="photoInfo">Rozmiar:
-                        </div><hr>
-                        <div class="photoInfo">Wymiary:
-                        </div><hr>
-                        <div class="photoInfo">Ujęcie:
-                        </div><hr>
-                        <div class="photoInfo">ISO:
-                        </div><hr>
-                        <div class="photoInfo">
-                            Urządzenie:
+                <div id="infobox">
+                    <div id="titlebox">
+                        Dodaj zdjęcie
+                    </div>
+                    <div>
+                        <div id="photodetailsbox">
+                            <div>Informacje o zdjęciu:</div><hr>
+                            <div class="photoInfo">Rozmiar:
+                                </div><hr>
+                            <div class="photoInfo">Wymiary:
+                                </div><hr>
+                            <div class="photoInfo">Ujęcie:
+                                </div><hr>
+                            <div class="photoInfo">ISO: 
+                                </div><hr>
+                            <div class="photoInfo">
+                                Urządzenie: 
+                                </div>
+                        </div>
+                        <div id="photoprevievbox">
                         </div>
                     </div>
-                    <div id="photoprevievbox">
-                    </div>
                 </div>
-            </div>
-            <form th:action=${"/upload"} method="post" enctype="multipart/form-data" id="addphoto">
-
-                <div id="addphotobox">
-                    <label for="filebutton">
-                        <img src="/icons/Navbar/iconAddPostNavbar.svg" alt="ikona dodaj zdjecie" />
-                    </label>
-                    <input id="filebutton" type="file" name="image" accept="image/png, image/jpeg"/>
-                </div>
-
-                <div id="addphotoinformationbox">
-                    <div id="descriptionbox">
-                        <label for="description">Dodaj opis: </label>
-                        <textarea id="description" name="description" maxlength="1700" class="uploadtextield"></textarea>
+                <form th:action=${"/upload"} method="post" enctype="multipart/form-data" id="addphoto">
+                    
+                    <div id="addphotobox">
+                        <label for="filebutton">
+                            <img src="/icons/Navbar/iconAddPostNavbar.svg" alt="ikona dodaj zdjecie" />
+                        </label>
+                        <input id="filebutton" type="file" name="image" accept="image/png, image/jpeg"/>
                     </div>
-                    <div id="tagbox">
-                        <label for="tags">Dodaj tagi: </label>
-                        <textarea id="tags" name="tags" maxlength="1700" class="uploadtextield"></textarea>
-                    </div>
-                    <div id="mapbox">
-
-                        <!-- panel mapy -->
-
-                        <div id="mapcontainer">
-                            <div id='map'></div>
-
-                            <input type="hidden" id="latUser" th:value="${lat}"/>
-                            <input type="hidden" id="lngUser" th:value="${lng}"/>
+                    
+                    <div id="addphotoinformationbox">
+                        <div id="descriptionbox">
+                            <label for="description">Dodaj opis: </label>
+                            <textarea id="description" name="description" maxlength="1700" class="uploadtextield"></textarea>
                         </div>
+                        <div id="tagbox">
+                            <label for="tags">Dodaj tagi: </label>
+                            <textarea id="tags" name="tags" maxlength="1700" class="uploadtextield"></textarea>
+                        </div>
+                        <div id="mapbox">
 
-                        <!-- panel dodania pinezki -->
-                        <div id="addpinbox" >
-                            <label for="lat">Szerokość geograficzna</label>
-                            <input type="text" id="lat" name="lat" class="uploadtextield">
-                            <label for="lng">Długość geograficzna</label>
-                            <input type="text" id="lng" name="lng" class="uploadtextield">
-                            <label for="pindescription">Opis pinezki</label>
-                            <textarea id="pindescription" name="pindescription" maxlength="150" class="uploadtextield"></textarea>
-                            <h3>Kolor pinezki</h3>
-                            <div id="pincolorbox">
-                                <input type="radio" class="pincolor" name="color" value="#ff0000" id="one">
-                                <label for="one"></label>
+                            <!-- panel mapy -->
 
-                                <input type="radio" class="pincolor" name="color" value="#00ff47" id="two">
-                                <label for="two"></label>
+                            <div id="mapcontainer">
+                                <div id='map'></div>
+                                <input type="hidden" id="pins" th:value="${pins}"/>
+                                <input type="hidden" id="pinsy" th:value="${pinsall}"/>
 
-                                <input type="radio" class="pincolor" name="color" value="#fAff00" id="three">
-                                <label for="three"></label>
-
-                                <input type="radio" class="pincolor" name="color" value="#0047ff" id="four">
-                                <label for="four"></label>
+                                <input type="hidden" id="latUser" th:value="${lat}"/>
+                                <input type="hidden" id="lngUser" th:value="${lng}"/>
                             </div>
-                        </div>
 
+                            <!-- panel dodania pinezki -->
+                            <div id="addpinbox" >
+                                    <label for="lat">Szerokość geograficzna</label>
+                                    <input type="text" id="lat" name="lat">
+                                    <label for="lng">Długość geograficzna</label>
+                                    <input type="text" id="lng" name="lng">
+                                    <label for="pindescription">Opis pinezki</label>
+                                    <input type="text" id="pindescription" name="pindescription">
+
+                                    <div id="pincolorbox">
+                                        <input type="radio" class="pincolor" name="color" value="#ff0000" id="one">
+                                        <label for="one"></label>
+
+                                        <input type="radio" class="pincolor" name="color" value="#00ff47" id="two">
+                                        <label for="two"></label>
+
+                                        <input type="radio" class="pincolor" name="color" value="#fAff00" id="three">
+                                        <label for="three"></label>
+
+                                        <input type="radio" class="pincolor" name="color" value="#0047ff" id="four">
+                                        <label for="four"></label>
+                                    </div>
+                            </form>
+                            </div>
+
+                        </div>
+                        <div id="submitbox">
+                            <input type="submit" value=" Opublikuj"/>
+                        </div>
                     </div>
-                        <input type="submit" id="submitPhoto" value="Opublikuj"/>
-                </div>
-            </form>
+                </form>
         </div>
     </div>
+</form>
 </div>
 </body>
 </html>
