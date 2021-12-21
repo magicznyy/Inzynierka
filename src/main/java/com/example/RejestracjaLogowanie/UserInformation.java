@@ -40,8 +40,8 @@ public class UserInformation {
         if(directory.list()!=null) {
             String[] imagename = Objects.requireNonNull(directory.list());
             model.addAttribute("photos", imagename);
-            System.out.println(Arrays.toString(imagename));
-            System.out.println(directory);
+           /* System.out.println(Arrays.toString(imagename));
+            System.out.println(directory);*/
 
         }
     }

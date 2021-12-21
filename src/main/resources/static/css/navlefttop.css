@@ -65,7 +65,7 @@ body
     margin-bottom: 1em;
 }
 
-#nav a img
+#nav a img:not(#logo)
 {
     width: 4em;
     background: transparent;
@@ -86,7 +86,11 @@ a
     text-decoration: none;
     text-align: center;
 }
-hr /*linia miedzy przyciskami nawigacji*/
+#signOutSubmit
+{
+
+}
+hr, .navline
 {
     display: block;
     border-style: solid;
@@ -95,11 +99,6 @@ hr /*linia miedzy przyciskami nawigacji*/
 
 }
 
-#centerbox
-{
-    width: 100%;
-    padding-left: 13em;
-}
 
 #top
 {
@@ -107,18 +106,55 @@ hr /*linia miedzy przyciskami nawigacji*/
     flex-direction: row;
 }
 
-#centerbox > #top > form
+#dropdown
 {
-    width: 80%;
+    margin: 0;
+    padding: 0;
+}
+li {
+    display: block;
+    transition-duration: 0.5s;
 }
 
-label
-{
-    position:relative;
-    padding:0 0 0 20px;
-    margin:0 20px;
+li:hover {
+    cursor: pointer;
 }
-#top form input:first-child
+
+ul li ul {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 1rem;
+    left: 0;
+    display: none;
+}
+
+ul li:hover > ul,
+ul li ul:hover {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+}
+
+ul li ul li{
+    clear: both;
+    width: 100%;
+}
+
+ul li ul li {
+    background-color: #777777;
+}
+
+ul {
+    padding: 0;
+}
+#centerbox > #top > form
+{
+    width: 90%;
+}
+
+#top form input:first-child:not(#signOutSubmit)
 {
     /*border-radius: 0.5em;*/
     height: 2.8em;
@@ -149,6 +185,7 @@ label
     margin-top: 2%;
     background: #BFE0EE;
     border: 0.25em solid #84D9EC;
+    border-radius: 10px;
     font-size: 0.9em;
     font-weight: bold;
     text-indent: 0;
@@ -164,12 +201,6 @@ label
     margin: auto 1em;
 }
 
-#saldoreturn /*informacja o saldzie*/
-{
-    margin-block-start: 1.6em;
-    margin-left: 0.4em;
-    margin-right: 0.4em;
-}
 
 #profpicminature
 {

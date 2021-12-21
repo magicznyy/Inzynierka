@@ -6,23 +6,25 @@ head, body{
     width: 100%;
     height: 99%;
     color: #DBE9EF;
-    margin-top: 0%;
+    margin-top: 0;
 }
 #mainbox {
-    height: 80%;
+    height: 85%;
+    border-radius: 14px;
+    margin-bottom: 3%;
 }
 #centerbox {
     height: 100%;
 }
 input {
-    width: 20em;   
+    width: 20em;
     text-indent: 0;
 }
 label {
     padding: 0;
 }
 #infobox {
-    
+
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
@@ -30,9 +32,6 @@ label {
     justify-content: space-evenly;
 }
 
-#infobox > div {
-    display: flex;
-}
 
 /* cały formularz wprowadzania zdjęcia */
 #addphoto {
@@ -50,29 +49,55 @@ label {
 
 /* tytuł podglądu zdjęcia */
 #titlebox {
+    margin-top:4%;
     font-size: 2.2rem;
     margin-left: 1.5rem;
+    /* flex: 20%;*/
 }
 #titlebox > div{
     display: flex;
 }
-#photodetailsbox {
-    flex-grow: 1;
+
+#infobox > div:nth-child(2){
+    flex: 90%;
 }
+
+
+#photoDetailsAndPreviewBox
+{
+    display: flex;
+}
+
+#photodetailsbox {
+    /* flex-grow: 1;*/
+    min-width: 30%;
+
+}
+
 #photoprevievbox {
-    flex-grow: 2;
-    margin: 0.8em;
-    margin-top: auto;
-    margin-bottom: auto;
+
+    /* flex-grow: 2;*/
+    width: 100%;
+    max-height: 72vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    /* background-color: rgb(12, 55, 87);*/
 }
 #photoprevievbox img {
-    width: 100%;
-    height: clamp(20vh,40em,60vh);
+    max-width: 100%;
+    max-height: 90%;
+    margin-top: auto;
+    margin-bottom: auto;
+    /*height: clamp(20vh,40em,60vh);*/
 }
 
 #photodetailsbox > div, #photodetailsbox > hr {
     margin: 0.8em 1em 1em 1.5em;
 }
+
+
+
 
 
 /* pierwsza kolumna formularza / przycisk dodaj zdjecie */
@@ -88,8 +113,11 @@ label {
     width: 2.2em;
 }
 
+
+
 /* druga kolumna / główna część formularza  */
 #addphotoinformationbox {
+    margin-top: 1%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -103,7 +131,7 @@ label {
 }
 
 #descriptionbox {
-    flex:15%;
+    flex:10%;
 }
 
 #tagbox {
@@ -113,13 +141,17 @@ label {
 .uploadtextield {
     resize: none;
     height: 100%;
-    border: 0.4em solid #84D9EC;
+    border: 0.3em solid #84D9EC;
     border-radius: 10px;
+
+    /* do tego żeby inputy nie wyjeżdżały poza diva */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 #mapbox {
     flex-grow: 3;
-    background: darkgoldenrod;
     border-radius: 20px;
     margin: 1% 0;
     flex: 30%;
@@ -131,23 +163,24 @@ label {
     flex: 60%;
 }
 #map{
-    height: 15vh;
-        min-height: 12em;
-        box-shadow: none;
+    height: 20vh;
+    min-height: 10em;
+    box-shadow: none;
 }
 
-#submitbox {
-    flex-grow: 0.2;
-    margin: auto;
-    flex: 3%;
-    width: calc(10% + 10em);
-    justify-content: center;
-    max-width: 100%;
-}
 
-#submitbox > input {
-    height: 75%;
-    width: 100%;
+#submitPhoto {
+    width: 35%;
+    height: 6%;
+
+    text-align: center;
+    margin: 2% auto 5%;
+    background: #BFE0EE;
+    border: 0.25em solid #84D9EC;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-indent: 0;
+    border-radius: 10px;
 }
 
 
@@ -157,6 +190,7 @@ label {
 
 #addphotobox > input {
     display: none;
+    padding: 10%;
 }
 #addphotobox img {
     cursor: pointer;
@@ -181,11 +215,12 @@ label {
 #addpinbox {
     width: 100%;
     height: 100%;
+    opacity: 100%;
 }
 
 #addpinbox > * {
     height: 12%;
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     width: 100%;
 }
 
@@ -193,6 +228,23 @@ label {
     width: 100%;
     margin: 0;
     padding: 0;
-    border: 0;
+    height: 2em;
+}
+
+#addpinbox h3
+{
+    color: white;
+    font-weight: 100;
+    font-size: 1.05rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#pindescription {
+    height: 2.5em;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
