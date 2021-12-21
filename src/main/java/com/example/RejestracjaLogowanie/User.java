@@ -21,7 +21,8 @@ import java.util.List;
 @SecondaryTables({
         @SecondaryTable(name  = "danelogowania", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
         @SecondaryTable(name  = "danekontaktowe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
-        @SecondaryTable(name = "profil", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
+        @SecondaryTable(name = "profil", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik")),
+        @SecondaryTable(name = "preferencjepogodowe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uzytkownik_iduzytkownik"))
 })
 @Getter
 @Setter
@@ -37,6 +38,10 @@ public class User implements UserDetails {
         this.notificationsCounter = 0;
         this.mapsCenterLatitude = 52.237049;
         this.mapsCenterLongitude = 21.017532;
+        this.preftemperatura = 15;
+        this.prefpredkoscWiatru = 5;
+        this.prefprawdopodobOpadow = 0;
+        this.prefstopienZachmurzenia = 20;
         this.notificationsCounter = 0;
     }
 
@@ -45,6 +50,8 @@ public class User implements UserDetails {
     @Column(name = "iduzytkownik")
     private Long id;
 
+    @Column(name = "iloscpowiadomien")
+    private int notificationsCounter;
 
     //tabela uzytkownik
     @NotNull
@@ -91,6 +98,46 @@ public class User implements UserDetails {
     @OneToMany(targetEntity = Reaction.class, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Reaction> reactions = new ArrayList<>();
 
+    @Column(name = "Temperatura")
+    private int preftemperatura;
+    @Column(name = "PredkoscWiatru")
+    private int prefpredkoscWiatru;
+    @Column(name = "StopienZachmurzenia")
+    private int prefstopienZachmurzenia;
+    @Column(name = "PrawdopodobienstwoOpadow")
+    private int prefprawdopodobOpadow;
+
+    public int getPreftemperatura() {
+        return preftemperatura;
+    }
+
+    public int getPrefpredkoscWiatru() {
+        return prefpredkoscWiatru;
+    }
+
+    public int getPrefstopienZachmurzenia() {
+        return prefstopienZachmurzenia;
+    }
+
+    public int getPrefprawdopodobOpadow() {
+        return prefprawdopodobOpadow;
+    }
+
+    public void setPreftemperatura(int preftemperatura) {
+        this.preftemperatura = preftemperatura;
+    }
+
+    public void setPrefpredkoscWiatru(int prefpredkoscWiatru) {
+        this.prefpredkoscWiatru = prefpredkoscWiatru;
+    }
+
+    public void setPrefstopienZachmurzenia(int prefstopienZachmurzenia) {
+        this.prefstopienZachmurzenia = prefstopienZachmurzenia;
+    }
+
+    public void setPrefprawdopodobOpadow(int prefprawdopodobOpadow) {
+        this.prefprawdopodobOpadow = prefprawdopodobOpadow;
+    }
 
     public int getNotificationsCounter() {
         return notificationsCounter;
@@ -124,24 +171,12 @@ public class User implements UserDetails {
         this.comments = comments;
     }
 
-    public List<Reaction> getReactions() {
-        return reactions;
-    }
-
     public void setReactions(List<Reaction> reactions) {
         this.reactions = reactions;
     }
 
-    public List<Post> getPosts() {
-        return posts;
-    }
-
     public void setPosts(List<Post> posts) {
         this.posts = posts;
-    }
-
-    public List<FollowedUser> getFollowedUsers() {
-        return followedUsers;
     }
 
     public void addFollowedUser(FollowedUser followedUser){
@@ -208,16 +243,8 @@ public class User implements UserDetails {
     @Column(name = "sciezkazdjecieprofilowe" , table = "profil")
     private String profilePicPath;
 
-    public String getProfileDescription() {
-        return profileDescription;
-    }
-
     public void setProfileDescription(String profileDescription) {
         this.profileDescription = profileDescription;
-    }
-
-    public String getProfilePicPath() {
-        return profilePicPath;
     }
 
     public void setProfilePicPath(String profilePicPath) {
@@ -238,10 +265,6 @@ public class User implements UserDetails {
         return aktywnosc;
     }
 
-
-    public String getPrywatnosckonta() {
-        return prywatnosckonta;
-    }
 
     public void setPrywatnosckonta(String prywatnosckonta) {
         this.prywatnosckonta = prywatnosckonta;

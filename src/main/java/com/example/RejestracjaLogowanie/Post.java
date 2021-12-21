@@ -167,4 +167,12 @@ public class Post {
 
         return reactionsNuber;
     }
+
+    public Integer getReactionsNumber(){
+        return reactions.size();
+    }
+    public Integer getCommentsNumber(){
+        return comments.size();
+    }
+
 }

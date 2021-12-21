@@ -6,7 +6,9 @@ background: linear-gradient(180deg, #0C2C4C 0%, rgba(0, 36, 67, 0.38) 35.21%, rg
 color: #BFE0EE;
 }
 
-
+#userDescription > * {
+        word-break: break-word;
+}
 
 #content{
 display: flex;

@@ -31,11 +31,25 @@ public class MainPageController {
     @Autowired
     UserRepository userRepository;
 
+    UserInformation userInformation;
+
     @GetMapping("/mainPage")
     public String mainPage(Model model){
 
-        model.addAttribute("posts", getFollowedUsersPosts());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String login = auth.getName();
+        User user=userRepository.findUserByLogin(login);
+        if(Objects.nonNull(user.getPrywatnosckonta()))
+            model.addAttribute("userpriviet", 1);
+        else model.addAttribute("userpriviet", 0);
 
+        if(user.getProfilePicPath()==null)
+            model.addAttribute("profilepic", "/images/profpic/nopicture.jpg");
+        else
+            model.addAttribute("profilepic", user.getProfilePicPath());
+
+
+        model.addAttribute("posts", getFollowedUsersPosts());
         return "mainPage";
     }
 
@@ -43,12 +57,12 @@ public class MainPageController {
     public List<Post> getFollowedUsersPosts(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+        User user1 = (User) userRepository.findUserByLogin(userDetails.getUsername());
 
         List<Post> posts = postRepository.findAll();
         List<Post> followedUsersPosts = new ArrayList<>();
         for (Post post : posts) {
-            if(user.isAlreadyFollowed(post.getUser().getLogin()) == true){
+            if(user1.isAlreadyFollowed(post.getUser().getLogin()) == true){
                 followedUsersPosts.add(post);
             }
         }

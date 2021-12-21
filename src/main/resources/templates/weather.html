@@ -33,7 +33,7 @@
     <a th:href="@{/maps}">
         <img src="/icons/Navbar/iconMapNavbar.svg" alt="Mapa">
     </a><hr>
-    <a th:href="@{/photoit}">
+    <a th:href="@{/weather}">
         <img src="/icons/Navbar/iconWeatherNavbar.svg" alt="Pogoda">
     </a><hr>
     <a th:href="@{/photoit}">
@@ -57,18 +57,17 @@
 
     <div id="mainbox">
         <div id="userbox">
-
             <div id="weatherTilesBox">
-                <div class="weatherTile" id="0">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem error dignissimos libero!</div>
-                <div class="weatherTile" id="1">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem error dignissimos libero!</div>
-                <div class="weatherTile" id="2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem error dignissimos libero!</div>
-                <div class="weatherTile" id="3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem error dignissimos libero!</div>
-                <div class="weatherTile" id="4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem error dignissimos libero!</div>
-                <div class="weatherTile" id="5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem error dignissimos libero!</div>
-                <div class="weatherTile" id="6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem error dignissimos libero!</div>
+                <div class="weatherTile" id="0"></div>
+                <div class="weatherTile" id="1"></div>
+                <div class="weatherTile" id="2"></div>
+                <div class="weatherTile" id="3"></div>
+                <div class="weatherTile" id="4"></div>
+                <div class="weatherTile" id="5"></div>
+                <div class="weatherTile" id="6"></div>
             </div>
             <div id="timePanel">
-                  <input type="range" min="0" max="23" step="1" id="timePanelInput">        
+                  <input type="range" min="0" max="23" step="1" id="timePanelInput" class="slider">        
                   <output class="timeBubble">12:00</output>
             </div>
             <div id="weatherinfobox">
@@ -77,18 +76,36 @@
                     <div class="weatherField"><div class="weatherSignField"><img alt="iconInfo" class="Weather_Info" src="icons/Weather_Info/iconWindWeather.svg">Wiatr</div><div class="weatherFieldProperty"></div> </div><hr class="jasiekLiniowy">
                     <div class="weatherField"><div class="weatherSignField"><img alt="iconInfo" class="Weather_Info" src="icons/Weather_Info/iconHumidityWeather.svg">Wilgotność</div><div class="weatherFieldProperty" style="margin-left: 6%"></div> </div><hr class="jasiekLiniowy">
                     <div class="weatherField"><div class="weatherSignField"><img alt="iconInfo" class="Weather_Info" src="icons/Weather_Info/iconPrecipWeather.svg" style="height: 50px">Opady</div><div class="weatherFieldProperty"></div> </div>
-                </div><hr class="weatherColumnSeparator">
+                </div>
                 <div id="secondWeatherInfoColumn">
                     <div class="weatherField"><div class="weatherSignField"><img alt="iconInfo" class="Weather_Info" src="icons/Weather_Info/iconSunriseWeather.svg">Wschód</div><div class="weatherFieldProperty" style="margin-left: 6%"></div> </div><hr class="jasiekLiniowy">
                     <div class="weatherField"><div class="weatherSignField"><img alt="iconInfo" class="Weather_Info" src="icons/Weather_Info/iconSundownWeather.svg">Zachód</div><div class="weatherFieldProperty" style="margin-left: 6%"></div> </div><hr class="jasiekLiniowy">
                     <div class="weatherField"><div class="weatherSignField"><img alt="iconInfo" class="Weather_Info" id="iconMoonWeather" src="icons/Weather_Info/iconMoonWeather.svg">Faza księżyca</div><div class="weatherFieldProperty" style="margin-left: 2%"></div></div><hr class="jasiekLiniowy">
                     <div class="weatherField"><div class="weatherSignField"><img alt="iconInfo" class="Weather_Info" id="iconCloudsWeather" src="icons/Weather_Info/iconCloudsWeather.svg">Zachmurzenie</div><div class="weatherFieldProperty" style="margin-left: 1%"></div> </div>
-                </div><hr class="weatherColumnSeparator">
+                </div>
                 <div id="weatherPreferences">
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                    <h2>Preferencje pogodowe:</h2>
+                    <form  th:action="@{/weatherPreferences}" method="post">
+                        <div class="preferenceBox">
+                            <label for="tempRangeInput">Temperatura: <output class="showValue"></output>°C</label>
+                            <input type="range" class="preferenceInput slider" name="tempRangeInput" id="tempRangeInput" min="-60" max="50">
+                        </div>
+                        <div class="preferenceBox">
+                            <label for="windRangeInput">Prędkość wiatru: <output class="showValue"></output>km/h</label>
+                            <input type="range" class="preferenceInput slider" name="windRangeInput" id="windRangeInput" min="0" max="120">
+                        </div>
+                        <div class="preferenceBox">
+                            <label for="cloudsRangeInput">Stopień zachmurzenia: <output class="showValue"></output>%</label>
+                            <input type="range" class="preferenceInput slider" name="cloudsRangeInput" id="cloudsRangeInput" min="0" max="100">
+                        </div>
+                        <div class="preferenceBox">
+                            <label for="precipProbRangeInput">Prawdopodobieństwo opadów: <output class="showValue"></output>%</label>
+                            <input type="range" class="preferenceInput slider" name="precipProbRangeInput" id="precipProbRangeInput" min="0" max="100">
+                        </div>
+                        <div>
+                            <input type="submit" value="Zmień" name="sendPreferencesInput" class="inputStyle">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

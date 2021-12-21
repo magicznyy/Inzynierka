@@ -39,7 +39,7 @@ public class CommentController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
-
+        if(!content.isEmpty()){
         Post post = postRepository.findPostByidPost(idPost);
         Comment comment = new Comment(content, user, post);
 
@@ -54,6 +54,7 @@ public class CommentController {
        notificationRepository.save(notification);
 
         System.out.println("Komentarze: " + post.getComments() );
+        }
         return "redirect:/mainPage";
     }
 

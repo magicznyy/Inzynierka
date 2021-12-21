@@ -16,7 +16,7 @@ public class NavigationController {
     @GetMapping("/add")
     public String add()
     {
-        return "process_success";
+        return "uploadPhoto";
     }
 
     @GetMapping("/map")
