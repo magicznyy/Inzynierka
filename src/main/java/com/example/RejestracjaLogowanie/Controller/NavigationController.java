@@ -28,7 +28,7 @@ public class NavigationController {
     @GetMapping("/weather")
     public String weather()
     {
-        return "weather";
+        return "process_success";
     }
 
     @GetMapping("/purchasedphotos")

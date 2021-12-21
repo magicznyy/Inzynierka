@@ -49,9 +49,7 @@ public class RegistrationController{
 
    private void createDirectory(Long id)
    {
-
        String path = "C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\";
-
        File directory = new File(path+"user"+id);
        if (!directory.exists()) {
            if (directory.mkdir()) {
