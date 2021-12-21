@@ -41,11 +41,11 @@ public class Pin {
     private String pinColor;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "uzytkownik_iduzytkownik", referencedColumnName = "iduzytkownik")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = Photo.class)
     @JoinColumn(name = "zdjecie_idzdjecie", referencedColumnName = "idzdjecie")
     private Photo photo;
 

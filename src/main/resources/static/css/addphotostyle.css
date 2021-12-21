@@ -10,6 +10,8 @@ head, body{
 }
 #mainbox {
     height: 85%;
+    border-radius: 14px;
+    margin-bottom: 3%;
 }
 #centerbox {
     height: 100%;
