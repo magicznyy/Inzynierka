@@ -37,7 +37,7 @@ public class ReactionController {
 
 
     @RequestMapping("/addReaction")
-    public String addReaction(@RequestParam(name="idPostReakcja") Long idPost, HttpServletRequest httpServletRequest)
+    public String addReaction(@RequestParam(name="idPostReakcja") Long idPost)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
@@ -51,10 +51,10 @@ public class ReactionController {
             post.addReaction(reaction);
             reactionRepository.save(reaction);
 
-            String link = httpServletRequest.getRequestURL().toString();
-            Notification notification = new Notification(link,user,post.getUser(),reaction);
+            String link = "/photoPreview/post/" + post.getIdPost();
+            Notification notification = new Notification(link,post.getUser(),user,reaction);
             notificationRepository.save(notification);
-            user.addNotification(notification);
+            post.getUser().addNotification(notification);
 
         }
 
@@ -87,7 +87,7 @@ public class ReactionController {
 
 
     @RequestMapping("/addReaction1")
-    public String addReaction1(@RequestParam(name="idPostReakcja") Long idPost, HttpServletRequest httpServletRequest)
+    public String addReaction1(@RequestParam(name="idPostReakcja") Long idPost)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
@@ -101,10 +101,13 @@ public class ReactionController {
             post.addReaction(reaction);
             reactionRepository.save(reaction);
 
-            String link = httpServletRequest.getRequestURL().toString();
-            Notification notification = new Notification(link,user,post.getUser(),reaction);
+            String link = "/photoPreview/post/" + post.getIdPost();
+            Notification notification = new Notification(link,post.getUser(),user,reaction);
             notificationRepository.save(notification);
-            user.addNotification(notification);
+            post.getUser().addNotification(notification);
+
+
+            System.out.println("tu: " + post.getUser().getNotifications().toString());
         }
 
         else{

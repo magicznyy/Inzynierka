@@ -1,6 +1,8 @@
 package com.example.RejestracjaLogowanie;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +18,7 @@ public class Reaction {
         this.post = post;
         this.user = user;
     }
+
     @Id
     @GeneratedValue
     @Column(name="idreakcja")
@@ -25,10 +28,12 @@ public class Reaction {
     @JoinColumn(name="uzytkownik_iduzytkownik")
     private User user;
 
+
     @ManyToOne(targetEntity = Post.class)
     @JoinColumn(name="post_idpost")
     private Post  post;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "reaction", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private Notification notification;
 

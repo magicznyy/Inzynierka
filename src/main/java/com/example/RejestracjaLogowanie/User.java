@@ -37,6 +37,7 @@ public class User implements UserDetails {
         this.profilePicPath = "/images/profpic/nopicture.jpg";
         this.mapsCenterLatitude = 52.237049;
         this.mapsCenterLongitude = 21.017532;
+        this.notificationsCounter = 0;
     }
 
     @Id
@@ -80,7 +81,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @OneToMany(targetEntity=Notification.class , orphanRemoval = true,fetch = FetchType.LAZY)
-    private List <Notification> notifications= new ArrayList<>();
+    private List <Notification> notifications = new ArrayList<>();;
 
     @JsonIgnore
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)

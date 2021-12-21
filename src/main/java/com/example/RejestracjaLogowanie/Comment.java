@@ -1,6 +1,8 @@
 package com.example.RejestracjaLogowanie;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -31,14 +33,17 @@ public class Comment {
     @Column(name = "tresc")
     private String content;
 
+
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name="uzytkownik_iduzytkownik")
     private User user;
+
 
     @ManyToOne(targetEntity = Post.class)
     @JoinColumn(name="post_idpost")
     private Post post;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private Notification notification;
 

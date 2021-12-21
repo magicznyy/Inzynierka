@@ -1,6 +1,8 @@
 package com.example.RejestracjaLogowanie;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,7 +16,7 @@ public class Notification {
 
     public Notification(String contentLink, User targetUser, User senderUser, Comment comment) {
 
-        this.notificationContent = "Powiadomienie komentarz";
+        this.notificationContent = "napisał(a) komentarz pod Twoim postem!";
         this.contentLink = contentLink;
         this.sendDate = new Date();
         this.targetUser = targetUser;
@@ -24,7 +26,7 @@ public class Notification {
 
     public Notification(String contentLink, User targetUser, User senderUser, Reaction reaction) {
 
-        this.notificationContent = "Powiadomienie reakcja";
+        this.notificationContent = " polubił(a) Twój post!";
         this.contentLink = contentLink;
         this.sendDate = new Date();
         this.targetUser = targetUser;
@@ -34,7 +36,7 @@ public class Notification {
 
     public Notification(String contentLink, User targetUser, User senderUser) {
 
-        this.notificationContent = "Powiadomienie obserowowanie";
+        this.notificationContent = " obserwuje Cię!";
         this.contentLink = contentLink;
         this.sendDate = new Date();
         this.targetUser = targetUser;
@@ -55,13 +57,16 @@ public class Notification {
     @Column(name="datawyslania")
     private Date sendDate;
 
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name="uzytkownik_iduzytkownik")
-    private User senderUser;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name="uzytkownik_iduzytkownik1")
+    private User senderUser;
+
+
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name="uzytkownik_iduzytkownik")
     private User targetUser;
+
 
     @OneToOne
     @JoinColumn(name="reakcja_idreakcja", referencedColumnName = "idreakcja")
