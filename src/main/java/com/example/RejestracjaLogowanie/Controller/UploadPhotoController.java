@@ -89,9 +89,9 @@ public class UploadPhotoController {
         if(Objects.equals(photoExtension,"jpg"))
 
 
-            builder.append("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
+            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".jpg");
         else
-            builder.append("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
+            builder.append("C:\\Users\\Hardpc\\Desktop\\Inzynierka\\src\\main\\resources\\static\\images\\user" + user.getId().toString() + "\\" + photo.getPhotoId() + ".png");
 
         String path = builder.toString();
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class ReactionController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private NotificationRepository notificationRepository;
 
 
     @RequestMapping("/addReaction")
@@ -48,7 +51,13 @@ public class ReactionController {
             user.addReaction(reaction);
             post.addReaction(reaction);
             reactionRepository.save(reaction);
-            System.out.println(user.getId() + " +1 do " + post.getIdPost());
+
+
+            String link = "/photoPreview/post/" + post.getIdPost();
+            Notification notification = new Notification(link,post.getUser(),user,reaction);
+            notificationRepository.save(notification);
+            post.getUser().addNotification(notification);
+
         }
         else{
             removeReaction(idPost, user);
@@ -65,7 +74,61 @@ public class ReactionController {
         List<Reaction> usersReactions = user.getReactions();
 
         for (Reaction tempReaction : usersReactions) {
-            if(tempReaction.getPost().getIdPost() == idPost){
+            if(tempReaction.getPost().getIdPost() == idPost)
+            {
+                    usersReactions.remove(tempReaction);
+                    tempReaction.getPost().getReactions().remove(tempReaction);
+                reactionRepository.delete(tempReaction);
+                break;
+            }
+
+        }
+
+        return "redirect:/mainPage";
+    }
+
+
+    @RequestMapping("/addReaction1")
+    public String addReaction1(@RequestParam(name="idPostReakcja") Long idPost)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
+
+
+        if(isReactionSet(user,idPost)== false) {
+            Post post = postRepository.findPostByidPost(idPost);
+            Reaction reaction = new Reaction(post, user);
+            user.addReaction(reaction);
+            post.addReaction(reaction);
+            reactionRepository.save(reaction);
+
+            String link = "/photoPreview/post/" + post.getIdPost();
+            Notification notification = new Notification(link,post.getUser(),user,reaction);
+            notificationRepository.save(notification);
+            post.getUser().addNotification(notification);
+
+
+            System.out.println("tu: " + post.getUser().getNotifications().toString());
+        }
+
+        else{
+            removeReaction(idPost, user);
+        }
+        return "redirect:/photoPreview/post/" + idPost;
+
+    }
+
+
+    @RequestMapping("/removeReaction1")
+    public String removeReaction1(Long idPost, User user)
+    {
+        List<Reaction> usersReactions = user.getReactions();
+
+        for (Reaction tempReaction : usersReactions) {
+            if(tempReaction.getPost().getIdPost() == idPost)
+            {
+
                 usersReactions.remove(tempReaction);
                 tempReaction.getPost().getReactions().remove(tempReaction);
                 reactionRepository.delete(tempReaction);
