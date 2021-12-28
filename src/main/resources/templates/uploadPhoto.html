@@ -100,9 +100,16 @@
             <input type="submit" value="Szukaj" id="search"/>
         </form>
         <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
-        <a th:href="@{/profile}">
-            <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
-        </a>
+        <ul class="ProfileAndLogOut">
+            <li>
+                <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+                <ul class="dropdownprofile">
+                    <li class="liFirstOption"><a th:href="@{/profile}">Mój profil</a></li>
+                    <li class="liSecondOption"><a href="#"><form name="logoutForm" class="logoutForm" th:action="@{/logout}" method="post">
+                        <input type="submit" id="signOutSubmit" value="Wyloguj się"/></form></a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 
     <div id="mainbox">
