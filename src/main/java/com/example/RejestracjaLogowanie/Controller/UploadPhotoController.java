@@ -53,6 +53,7 @@ public class UploadPhotoController {
         User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
         model.addAttribute("lat", user.getMapsCenterLatitude());
         model.addAttribute("lng", user.getMapsCenterLongitude());
+        model.addAttribute("profilepic", user.getProfilePicPath());
         return "uploadPhoto" ;
     }
 

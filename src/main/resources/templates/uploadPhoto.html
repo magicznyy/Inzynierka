@@ -150,11 +150,11 @@
                 <div id="addphotoinformationbox">
                     <div id="descriptionbox">
                         <label for="description">Dodaj opis: </label>
-                        <textarea id="description" name="description" maxlength="1700" class="uploadtextield"></textarea>
+                        <textarea id="description" name="description" maxlength="1700" class="uploadtextield" required></textarea>
                     </div>
                     <div id="tagbox">
                         <label for="tags">Dodaj tagi: </label>
-                        <textarea id="tags" name="tags" maxlength="1700" class="uploadtextield"></textarea>
+                        <textarea id="tags" name="tags" maxlength="1700" class="uploadtextield" required></textarea>
                     </div>
                     <div id="mapbox">
 
@@ -170,24 +170,30 @@
                         <!-- panel dodania pinezki -->
                         <div id="addpinbox" >
                             <label for="lat">Szerokość geograficzna</label>
-                            <input type="text" id="lat" name="lat" class="uploadtextield">
+                            <input type="text" id="lat" name="lat" required pattern="^(\+|-)?(?:90(?:(?:\.0{1,15})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,15})?))$" class="uploadtextield">
                             <label for="lng">Długość geograficzna</label>
-                            <input type="text" id="lng" name="lng" class="uploadtextield">
+                            <input type="text" id="lng" name="lng" required pattern="^(\+|-)?(?:580(?:(?:\.0{1,15})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,15})?))$" class="uploadtextield">
                             <label for="pindescription">Opis pinezki</label>
-                            <textarea id="pindescription" name="pindescription" maxlength="150" class="uploadtextield"></textarea>
+                            <textarea id="pindescription" name="pindescription" required maxlength="150" class="uploadtextield"></textarea>
                             <h3>Kolor pinezki</h3>
                             <div id="pincolorbox">
-                                <input type="radio" class="pincolor" name="color" value="#ff0000" id="one">
-                                <label for="one"></label>
+                                <input type="radio" class="pincolor" name="color" required value="#ff0000" id="one">
+                                <label for="one" data-tooltip="Fotografia krajobrazowa"></label>
 
-                                <input type="radio" class="pincolor" name="color" value="#00ff47" id="two">
-                                <label for="two"></label>
+                                <input type="radio" class="pincolor"  name="color" required value="#00ff47" id="two">
+                                <label for="two" data-tooltip="Fotografia przyrodnicza"></label>
 
-                                <input type="radio" class="pincolor" name="color" value="#fAff00" id="three">
-                                <label for="three"></label>
+                                <input type="radio" class="pincolor"  name="color" required value="#ff1fce" id="three">
+                                <label for="three" data-tooltip="Fotografia reportażowa"></label>
 
-                                <input type="radio" class="pincolor" name="color" value="#0047ff" id="four">
-                                <label for="four"></label>
+                                <input type="radio" class="pincolor" name="color" required value="#0047ff" id="four">
+                                <label for="four" data-tooltip="Fotografia portretowa"></label>
+
+                                <input type="radio" class="pincolor" name="color" required value="#000000" id="five">
+                                <label for="five" data-tooltip="Fotografia astronomiczna"></label>
+
+                                <input type="radio" class="pincolor" name="color" required value="#fAff00" id="six">
+                                <label for="six" data-tooltip="Inne"></label>
                             </div>
                         </div>
 

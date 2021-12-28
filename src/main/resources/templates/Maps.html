@@ -105,25 +105,31 @@
                 <h1 id="addpinh1">Dodaj pinezkę</h1>
                 <form th:action="@{/savepin}" th:method="request" id="signupForma"> <!--jak jest id=signupForm to wyrzuca komunikat z localhosta i nie dodaje się pinezka-->
                     <label for="lat">Szerokość geograficzna</label>
-                    <input type="text" id="lat" name="lat">
+                    <input type="text" id="lat" name="lat" required pattern="^(\+|-)?(?:90(?:(?:\.0{1,15})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,15})?))$">
                     <label for="lng">Długość geograficzna</label>
-                    <input type="text" id="lng" name="lng">
+                    <input type="text" id="lng" name="lng" required pattern="^(\+|-)?(?:580(?:(?:\.0{1,15})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,15})?))$">
                     <label for="pindescription">Opis pinezki</label>
-                    <input type="text" id="pindescription" name="pindescription">
+                    <input type="text" id="pindescription" required name="pindescription">
 
                     <label for="pincolorbox">Kolor pinezki</label>
                     <div id="pincolorbox">
-                        <input type="radio" class="pincolor" name="color" value="#ff0000" id="one">
-                        <label for="one"></label>
+                        <input type="radio" class="pincolor" name="color" required value="#ff0000" id="one">
+                        <label for="one" data-tooltip="Fotografia krajobrazowa"></label>
 
-                        <input type="radio" class="pincolor" name="color" value="#00ff47" id="two">
-                        <label for="two"></label>
+                        <input type="radio" class="pincolor"  name="color" required value="#00ff47" id="two">
+                        <label for="two" data-tooltip="Fotografia przyrodnicza"></label>
 
-                        <input type="radio" class="pincolor" name="color" value="#fAff00" id="three">
-                        <label for="three"></label>
+                        <input type="radio" class="pincolor"  name="color" required value="#ff1fce" id="three">
+                        <label for="three" data-tooltip="Fotografia reportażowa"></label>
 
-                        <input type="radio" class="pincolor" name="color" value="#0047ff" id="four">
-                        <label for="four"></label>
+                        <input type="radio" class="pincolor" name="color" required value="#0047ff" id="four">
+                        <label for="four" data-tooltip="Fotografia portretowa"></label>
+
+                        <input type="radio" class="pincolor" name="color" required value="#000000" id="five">
+                        <label for="five" data-tooltip="Fotografia astronomiczna"></label>
+
+                        <input type="radio" class="pincolor" name="color" required value="#fAff00" id="six">
+                        <label for="six" data-tooltip="Inne"></label>
                     </div>
                     <input type="submit" value="Dodaj" id="submitpin">
                 </form>

@@ -42,8 +42,8 @@ public class MapsController extends UserInformation {
         for(Pin pin: pins)
         {
             tabela[i][0]= String.valueOf(pin.getPinId());
-            tabela[i][1]= String.valueOf(pin.getLatitude());
-            tabela[i][2]= String.valueOf(pin.getLongitude());
+            tabela[i][1]= String.valueOf(pin.getLongitude());
+            tabela[i][2]= String.valueOf(pin.getLatitude());
             tabela[i][3]= String.valueOf(pin.getPinDescription());
             tabela[i][4]= String.valueOf(pin.getPinColor());
             if(Objects.isNull(pin.getPhoto()))
@@ -71,8 +71,8 @@ public class MapsController extends UserInformation {
             if(Objects.isNull(pina.getUser().getPrywatnosckonta()) || pina.getUser() == user)
             {
                 tabAll[j][0]= String.valueOf(pina.getPinId());
-                tabAll[j][1]= String.valueOf(pina.getLatitude());
-                tabAll[j][2]= String.valueOf(pina.getLongitude());
+                tabAll[j][1]= String.valueOf(pina.getLongitude());
+                tabAll[j][2]= String.valueOf(pina.getLatitude());
                 tabAll[j][3]= String.valueOf(pina.getPinDescription());
                 tabAll[j][4]= String.valueOf(pina.getPinColor());
                 if(Objects.isNull(pina.getPhoto()))
@@ -117,7 +117,7 @@ public class MapsController extends UserInformation {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user =  userRepository.findUserByLogin(userDetails.getUsername());
-            Pin pineza= new Pin(lng, lat, pindescription, color, user, null);
+            Pin pineza= new Pin(lat, lng, pindescription, color, user, null);
          /*   user.addPin(pineza);*/
             pinRepository.save(pineza);
 

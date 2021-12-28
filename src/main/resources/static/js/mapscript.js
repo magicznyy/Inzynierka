@@ -69,7 +69,7 @@ function f(pins)
     map.addControl(geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
             mapboxgl: mapboxgl,
-            color: "#3a97ff"
+            color: "#50d6fe"
         })
     );
 
@@ -100,7 +100,7 @@ function f(pins)
         if (event === 'contextmenu') {
             userposition = ltlng;
         }
-        markerpom = new mapboxgl.Marker({draggable: true, color: "black"})
+        markerpom = new mapboxgl.Marker({draggable: true, color: "#50d6fe"})
             .setLngLat(userposition)
             .addTo(map)
             .on('dragend', onDragEnd);
