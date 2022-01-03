@@ -45,7 +45,7 @@
         <img src="/navicons/svg/iconNotificationNavbar.svg" id="notification" alt="powiadomienie"> <!--po nacisnieciu lista-->
         <ul class="ProfileAndLogOut">
             <li>
-                <img th:src="${profilepic}" id="profpicminature" alt="profile picture">
+                <img th:src="${myprofilepic}" id="profpicminature" alt="profile picture">
                 <ul class="dropdownprofile">
                     <li class="liFirstOption"><a th:href="@{/profile}">Mój profil</a></li>
                     <li class="liSecondOption"><a href="#"><form name="logoutForm" class="logoutForm" th:action="@{/logout}" method="post">
