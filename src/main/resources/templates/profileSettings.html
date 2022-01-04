@@ -221,7 +221,7 @@
 
 
     <div id="editbox6">
-        <form  th:action="@{/deleteAccount}" method="post">
+        <form  th:action="@{/deleteAccount}" id="my-forma" method="post">
 
             <label for="username">Usuń konto: </label>
             <button onclick="myFunction2()" type="submit" class="btn">Usuń</button>
@@ -229,9 +229,10 @@
                 function myFunction2() {
                     var txt;
                     if (confirm("Na pewno chcesz całkowicie usunąć konto?")) {
-                        txt = "You pressed OK!";
                     } else {
-                        txt = "You pressed Cancel!";
+                        document.getElementById('my-forma').onsubmit = function (e) {
+                        e.preventDefault();
+                        };
                     }
                     document.getElementById("demo").innerHTML = txt;
                 }
