@@ -1,4 +1,4 @@
-function f(pins)
+function f(lg, pins)
 {
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWRpeHhkIiwiYSI6ImNrdzk5MGRleDAwN3MycG13dzliNTVlZ20ifQ.8a4kA7C251FLFX3aTngyHA';
     var userposition=[document.getElementById("lngUser").value, document.getElementById("latUser").value];
@@ -20,32 +20,60 @@ function f(pins)
     var photo;
     var idCurrUser=document.getElementById('idCurrUser').value;
     if (help.length !== 1) {
-        var ile = help.length / 8;
-        var marker = [];
-        for (var i = 0; i < ile; i++) {
-            if (help[i * 8 + 6] !== " -1")
-                photo="<input type='image'  id='"+help[i * 8 + 5]+"' src='" + help[i * 8 + 6] + "' class='pinsimages' data-toggle='modal' data-target='#exampleModal' onclick='setId(this.id)'/>";
-            else photo = "";
-            console.log(help[i * 8 +7]);
-            console.log(idCurrUser);
-            if(help[i * 8 + 7].replace(" ", '') === idCurrUser)
-                var pinitp= "<div class= 'podgladpinezki'>"+photo + help[i * 8 + 3]+"<form action='/deletepin' method='request'><input id='idPinezki' name='idPinezki' type='hidden' value='"+help[i * 8]+"'> <input type='image' class='iconBin' src='/icons/Maps/iconBinPin.svg' alt='Submit Form'/></form></div>";
-            else pinitp="<div class= 'podgladpinezki'>"+photo + help[i * 8 + 3]+"</div>";
-            if(help[i * 8] !== " -1")
-            {
-                marker[i] = new mapboxgl.Marker({
-                    color: help[i * 8 + 4],
-                    draggable: false
-                }).setLngLat([help[i * 8 + 1], help[i * 8 + 2]
-                ])
-                    .setPopup(new mapboxgl.Popup()
-                        .setHTML(pinitp)
-                    )
-                    .addTo(map);
+        var ile = help.length / 9;
+
+        if(lg === 1)
+        {
+            var marker = [];
+            for (var i = 0; i < ile; i++) {
+                if (help[i * 9 + 6] !== " -1")
+                    photo="<input type='image'  id='"+help[i * 9 + 5]+"' src='" + help[i * 9 + 6] + "' class='pinsimages' data-toggle='modal' data-target='#exampleModal' onclick='setId(this.id)'/>";
+                else photo = "";
+                console.log(help[i * 9 +7]);
+                console.log(idCurrUser);
+                if(help[i * 9 + 7].replace(" ", '') === idCurrUser)
+                {
+                    var pinitp= "<div class= 'podgladpinezki'>"+photo + help[i * 9 + 3]+"<form action='/deletepin' method='request'><input id='idPinezki' name='idPinezki' type='hidden' value='"+help[i * 9]+"'> <input type='image' class='iconBin' src='/icons/Maps/iconBinPin.svg' alt='Submit Form'/></form></div>";
+                    marker[i] = new mapboxgl.Marker({
+                        color: help[i * 9 + 4],
+                        draggable: false
+                    }).setLngLat([help[i * 9 + 1], help[i * 9 + 2]
+                    ])
+                        .setPopup(new mapboxgl.Popup()
+                            .setHTML(pinitp)
+                        )
+                        .addTo(map);
+                }
             }
-
-
         }
+
+        if(lg === 2)
+        {
+            var marker = [];
+            for (var ii = 0; ii < ile; ii++) {
+                if (help[ii * 9 + 6] !== " -1")
+                    photo="<input type='image'  id='"+help[ii * 9 + 5]+"' src='" + help[ii * 9 + 6] + "' class='pinsimages' data-toggle='modal' data-target='#exampleModal' onclick='setId(this.id)'/>";
+                else photo = "";
+                console.log(help[ii * 9 +7]);
+                console.log(idCurrUser);
+                if(help[ii * 9 + 7].replace(" ", '') === idCurrUser)
+                    var pinitp= "<div class= 'podgladpinezki'>"+photo + help[ii * 9 + 3]+"<form action='/deletepin' method='request'><input id='idPinezki' name='idPinezki' type='hidden' value='"+help[ii * 9]+"'> <input type='image' class='iconBin' src='/icons/Maps/iconBinPin.svg' alt='Submit Form'/></form></div>";
+                else pinitp="<div class= 'podgladpinezki'>"+photo + help[ii * 9 + 3]+"</div>";
+                if(help[ii * 9 + 7].replace(" ", '') === idCurrUser || help[ii * 9 + 8] === " 1")
+                {
+                    marker[ii] = new mapboxgl.Marker({
+                        color: help[ii * 9 + 4],
+                        draggable: false
+                    }).setLngLat([help[ii * 9 + 1], help[ii * 9 + 2]
+                    ])
+                        .setPopup(new mapboxgl.Popup()
+                            .setHTML(pinitp)
+                        )
+                        .addTo(map);
+                }
+            }
+        }
+
 
     }
 
@@ -53,10 +81,11 @@ function f(pins)
     {
         for( let y=0;y<marker.length;y++)
         {
-            marker[y].getElement().addEventListener('click', function () {
+            if(marker[y] !== undefined)
+                marker[y].getElement().addEventListener('click', function () {
 
-                distance(help, ile, marker[y].getLngLat().lat, marker[y].getLngLat().lng);
-            });
+                    distance(help, ile, marker[y].getLngLat().lat, marker[y].getLngLat().lng);
+                });
         }
     }
 

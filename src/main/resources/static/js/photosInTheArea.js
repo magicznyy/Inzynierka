@@ -1,24 +1,24 @@
 function distance(tab, tablenght, lat, lng) {
- /* 1 - dlugosc 2- szerokosc*/
+
 
     var phototabpath = [];
     var photopostid=[];
-    var R = 6371; // Radius of the earth in km
+    var R = 6371; // Promień ziemi w km
     var photocounter=0;
     for (var i = 0; i < tablenght; i++) {
-        var dLat = deg2rad(lat-tab[i * 8 + 2]);  // deg2rad below
-        var dLon = deg2rad(lng-tab[i * 8 + 1]);
+        var dLat = degtorad(lat-tab[i * 9 + 2]);
+        var dLon = degtorad(lng-tab[i * 9 + 1]);
         var a =
             Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(deg2rad(tab[i * 8 + 2])) * Math.cos(deg2rad(lat)) *
+            Math.cos(degtorad(tab[i * 9 + 2])) * Math.cos(degtorad(lat)) *
             Math.sin(dLon/2) * Math.sin(dLon/2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        var d = R * c; // Distance in km
+        var d = R * c; // Dystans w km
 
-        if(d<5 && tab[i * 8 + 6]!==" -1")
+        if(d<5 && tab[i * 9 + 6]!==" -1")
         {
-            phototabpath[photocounter]= tab[i * 8 + 6];
-            photopostid[photocounter]= tab[i * 8 + 5];
+            phototabpath[photocounter]= tab[i * 9 + 6];
+            photopostid[photocounter]= tab[i * 9 + 5];
             photocounter++;
         }
     }
@@ -48,6 +48,6 @@ function distance(tab, tablenght, lat, lng) {
 }
 
 
-function deg2rad(deg) {
+function degtorad(deg) {
     return deg * (Math.PI/180)
 }
