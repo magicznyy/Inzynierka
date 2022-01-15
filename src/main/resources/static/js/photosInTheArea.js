@@ -1,4 +1,4 @@
-function distance(tab, tablenght, lat, lng) {
+function distance(tab, tablenght, lat, lng, curUserr, lg) {
 
 
     var phototabpath = [];
@@ -14,8 +14,20 @@ function distance(tab, tablenght, lat, lng) {
             Math.sin(dLon/2) * Math.sin(dLon/2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         var d = R * c; // Dystans w km
-
-        if(d<5 && tab[i * 9 + 6]!==" -1")
+        //identyikator właściciela pinezki
+        var idUser= tab[i * 9 + 7].replace(" ", '');
+        //sprawdzenie, czy jest ustawiony profil publiczny czy prywatny
+        var pp = tab[i * 9 + 8].replace(" ", '');
+        if(lg===2)
+        {
+            if(d<5 && tab[i * 9 + 6]!==" -1" && (pp === "1" || idUser === curUserr))
+            {
+                phototabpath[photocounter]= tab[i * 9 + 6];
+                photopostid[photocounter]= tab[i * 9 + 5];
+                photocounter++;
+            }
+        }
+        else  if(d<5 && tab[i * 9 + 6]!==" -1" && idUser === curUserr)
         {
             phototabpath[photocounter]= tab[i * 9 + 6];
             photopostid[photocounter]= tab[i * 9 + 5];

@@ -84,7 +84,7 @@ function f(lg, pins)
             if(marker[y] !== undefined)
                 marker[y].getElement().addEventListener('click', function () {
 
-                    distance(help, ile, marker[y].getLngLat().lat, marker[y].getLngLat().lng);
+                    distance(help, ile, marker[y].getLngLat().lat, marker[y].getLngLat().lng, idCurrUser, lg);
                 });
         }
     }
@@ -105,7 +105,7 @@ function f(lg, pins)
     geocoder.on('result', function (e) {
         document.getElementById("lat").value = e.result.center[1];
         document.getElementById("lng").value = e.result.center[0];
-        distance(help, ile, e.result.center[1], e.result.center[0]);
+        distance(help, ile, e.result.center[1], e.result.center[0], idCurrUser, lg);
         console.log(el.result._latlng);
     });
 
@@ -114,7 +114,7 @@ function f(lg, pins)
     map.on('contextmenu', function (e) {
         markerpom.remove();
         addMarker(e.lngLat, 'contextmenu');
-        distance(help, ile, e.lngLat.lat, e.lngLat.lng);
+        distance(help, ile, e.lngLat.lat, e.lngLat.lng, idCurrUser, lg);
         document.getElementById("lat").value = e.lngLat.lat;
         document.getElementById("lng").value = e.lngLat.lng;
 
@@ -139,7 +139,7 @@ function f(lg, pins)
         var lngLat = markerpom.getLngLat();
         document.getElementById("lat").value = lngLat.lat;
         document.getElementById("lng").value = lngLat.lng;
-        distance(help, ile, lngLat.lat, lngLat.lng);
+        distance(help, ile, lngLat.lat, lngLat.lng, idCurrUser, lg);
     }
 
     $('#signupForm').submit(function (event) {
