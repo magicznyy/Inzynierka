@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class UserInformation {
@@ -38,10 +39,22 @@ public class UserInformation {
         File directory=new File("src/main/resources/static/images/user"+user.getId());
 
         if(directory.list()!=null) {
-            String[] imagename = Objects.requireNonNull(directory.list());
+            File[] files= directory.listFiles();
+            String[] imagename = new String[Objects.requireNonNull(directory.list()).length];
+            Arrays.sort(files, Comparator.comparing(File::lastModified).reversed());
+            int i=0;
+            for(File files1: files)
+            {
+                imagename[i]= files1.getName();
+                i++;
+            }
+            /*            String[] imagename = Objects.requireNonNull(directory.list());*/
             model.addAttribute("photos", imagename);
-           /* System.out.println(Arrays.toString(imagename));
-            System.out.println(directory);*/
+            System.out.println(Arrays.toString(files));
+            System.out.println(Arrays.deepToString(imagename));
+/*
+            System.out.println(directory);
+*/
 
         }
     }
