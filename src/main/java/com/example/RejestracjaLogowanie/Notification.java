@@ -44,7 +44,7 @@ public class Notification {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
     @Column(name = "idpowiadomienie")
     private Long idNotification;
 

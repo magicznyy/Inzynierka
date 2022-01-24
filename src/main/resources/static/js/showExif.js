@@ -2,7 +2,19 @@
 
  function getExif(){
 
-     varPhoto = document.getElementById('mainPhoto');
+    varPhoto = document.getElementById('mainPhoto');
+    varPhoto.onload = function() {
+        console.log(`w:${this.width} + h:${this.height}`);
+
+        var tmpDiv = document.querySelectorAll(".photoInfo");  
+
+        let w=this.naturalWidth;
+        let h=this.naturalHeight;
+
+        tmpDiv[0].innerHTML = `Rozmiar: ${(photo.size/1024/1024).toFixed(2)}MB`;
+        tmpDiv[1].innerHTML = `Wymiary:${w}x${h}px`;
+    }
+
     EXIF.getData(varPhoto, function(){
         console.log("pobieram dane");
         console.log(EXIF.getAllTags(this));
@@ -17,14 +29,8 @@
                             EXIF.getTag(this, "Model")];
 
 
-        console.log(allMetaData);
-        console.log(allMetaData[2].numerator + " / " + allMetaData[2].denominator + "s");
-
         let Fnumber = allMetaData[3].numerator/allMetaData[3].denominator;
-        console.log(Fnumber);
-
         let FocalLenght = allMetaData[4].numerator/allMetaData[4].denominator;
-        console.log(FocalLenght);
 
         var tmpDiv = document.querySelectorAll(".photoInfo");
         tmpDiv[1].innerHTML = `Wymiary: ${allMetaData[0]}x${allMetaData[1]}px`;

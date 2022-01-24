@@ -18,14 +18,11 @@ public class WeatherController {
     @Autowired
     UserRepository userRepository;
 
-
-
-    @GetMapping("/weatherSite")
+    @GetMapping("/weather")
     public String weather(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String login = auth.getName();
         User user=userRepository.findUserByLogin(login);
-
         if(Objects.nonNull(user.getPrywatnosckonta()))
             model.addAttribute("userpriviet", 1);
         else model.addAttribute("userpriviet", 0);
@@ -35,7 +32,9 @@ public class WeatherController {
         else
             model.addAttribute("profilepic", user.getProfilePicPath());
 
-        return "weatherSite";
+
+
+        return "weather";
     }
 
     @RequestMapping("/weatherPreferences")
@@ -65,12 +64,20 @@ public class WeatherController {
         String login = auth.getName();
         User user=userRepository.findUserByLogin(login);
 
-        String returnJSON = "{\"preftemp\":"+ user.getPreftemperatura() +
-                ",\"prefwind\":" + user.getPrefpredkoscWiatru() +
-                ",\"prefclouds\":"+ user.getPrefstopienZachmurzenia() +
-                 ",\"prefprecip\":"+ user.getPrefprawdopodobOpadow() +
-        "}";
+        String returnJSON = "{" +
+                "\"preferences\" :" +
+                                "{\"preftemp\":"+ user.getPreftemperatura() +
+                                ",\"prefwind\":" + user.getPrefpredkoscWiatru() +
+                                ",\"prefclouds\":"+ user.getPrefstopienZachmurzenia() +
+                                 ",\"prefprecip\":"+ user.getPrefprawdopodobOpadow() +
+                                "}," +
+                "\"userDetails\" :" +
+                "{ \"key\" : \"07e09c6a0dc3a225cd5db4e457e4cf2b\"" +
+                ",\"longitude\" : "+ user.getMapsCenterLongitude() +
+                ",\"latitude\" :" + user.getMapsCenterLatitude() +
+                "}" +"}";
 
         return returnJSON;
     }
+
 }

@@ -17,7 +17,7 @@ public class FollowedUser {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
     @Column(name="idobserwowanyuzytkownik")
     private Long idFollowedUser;
 

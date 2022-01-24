@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -33,7 +34,7 @@ public class CommentController {
 
 
     //to jest upośledzone dodawanie z przeładowaniem i przekierowaniem spowrotem na strone główną
-    @RequestMapping("/addComment")
+    @PostMapping("/addComment")
     public String addComment(@RequestParam(name="comment") String content, @RequestParam(name="idPost") Long idPost){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -47,6 +48,8 @@ public class CommentController {
         post.addComment(comment);
 
         commentRepository.save(comment);
+        user.addComment(comment);
+
 
         String link = "/photoPreview/post/" + post.getIdPost();
         Notification notification = new Notification(link,post.getUser(), user,comment);
@@ -66,25 +69,28 @@ public class CommentController {
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
 
-        Post post = postRepository.findPostByidPost(idPost);
-        Comment comment = new Comment(content, user, post);
+            Post post = postRepository.findPostByidPost(idPost);
+        if(!content.isEmpty()) {
+            Comment comment = new Comment(content, user, post);
 
-        //w poscie jest lista komentarzy do tego posta
-        post.addComment(comment);
+            //w poscie jest lista komentarzy do tego posta
+            post.addComment(comment);
 
-        commentRepository.save(comment);
+            commentRepository.save(comment);
+            user.addComment(comment);
 
 
+            String link = "/photoPreview/post/" + post.getIdPost();
+            Notification notification = new Notification(link, post.getUser(), user, comment);
+            notificationRepository.save(notification);
+            post.getUser().addNotification(notification);
 
-        String link = "/photoPreview/post/" + post.getIdPost();
-        Notification notification = new Notification(link,post.getUser(), user,comment);
-        notificationRepository.save(notification);
-        post.getUser().addNotification(notification);
+            System.out.println("sizen: " + post.getUser().getNotifications().toString());
 
-       System.out.println("sizen: " + post.getUser().getNotifications().toString());
-
-        System.out.println("Komentarze: " + post.getComments() );
+            System.out.println("Komentarze: " + post.getComments());
+        }
         return "redirect:/photoPreview/post/" + post.getIdPost();
+
     }
 
 

@@ -32,7 +32,7 @@ public class Post {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
     @Column(name="idpost", table="post")
     private Long idPost;
 
@@ -52,7 +52,7 @@ public class Post {
                 ", tags='" + tags + '\'' +
                 ", description='" + description + '\'' +
                 ", date=" + date +
-                ", user=" + user +
+                ", user=" + user.toString() +
                 ", photo=" + photo +
                 '}';
     }
@@ -74,7 +74,7 @@ public class Post {
     @JoinColumn(name="zdjecie_idzdjecie", referencedColumnName = "idzdjecie")
     private Photo photo;
 
-    @JsonIgnore
+
     @OneToMany(targetEntity= Comment.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Comment> comments = new ArrayList<>();
 
@@ -133,7 +133,7 @@ public class Post {
     {
         this.reactions.add(reaction);
     }
-
+    public void removeReaction(Reaction reaction) {this.reactions.remove(reaction);}
     public List<Reaction> getReactions() {
         return reactions;
     }
@@ -148,8 +148,12 @@ public class Post {
         this.comments = comments;
     }
 
-
-
+    public Integer getReactionsNumber (){
+        return reactions.size();
+    }
+    public Integer getCommentsNumber(){
+        return comments.size();
+    }
 
     public Integer countReactions(){
 
@@ -161,13 +165,6 @@ public class Post {
         }
 
         return reactionsNuber;
-    }
-
-    public Integer getReactionsNumber(){
-        return reactions.size();
-    }
-    public Integer getCommentsNumber(){
-        return comments.size();
     }
 
 }

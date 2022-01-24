@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/mainPage.css">
     <script src="/js/fetcher.js" type="text/javascript" defer></script>
     <script src="/js/showPost.js" type="text/javascript"></script>
+    <script src="/js/mainpage.js" type="text/javascript"></script>
 
 </head>
 <body >
@@ -107,12 +108,12 @@
                         </div>
 
                         <div id="commentsform">
-                            <form  method="post">
-                                <label for="reaction">
+                            <!--<form  method="post">-->
+                                <label for="showComment">
                                     <img src="/icons/Post/iconCommentPost.svg" alt="comments icon" class="opacityonhover">
                                 </label>
-                                <input type="submit" value="Wyślij" name="showComment" id="showComment" />
-                            </form>
+                                <input  value="Wyślij" name="showComment" id="showComment" />
+                            <!--</form>-->
                             <div id="commentscount" th:text="${post.getCommentsNumber()}"></div>
                         </div>
 
@@ -124,7 +125,7 @@
                     <input type="hidden" name="idPost"  th:id="${post.getIdPost()}" th:value="${post.getIdPost()}"/>
                     <input type="submit" value="Wyślij" name="sendComment" th:id="'sendCommentfor'+${post.getIdPost()}" id="sendComment"/>
                 </form>
-                <div id="commentsbox" >
+                <div class="commentsbox" >
                     <div th:id="'Commentnr'+${comment.getIdComment()}" class="comment" th:each="comment: ${post.getComments()}">
                         <div class="commenteravatar">
                             <img th:src="${comment.getUser().getProfilePicPath() != null} ? ${comment.getUser().getProfilePicPath()} : '/images/profpic/nopicture.jpg'" alt="zdjęcie profilowe" class="opacityonhover">

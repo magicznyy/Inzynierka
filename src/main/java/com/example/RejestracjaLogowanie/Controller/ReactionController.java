@@ -12,12 +12,15 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -35,8 +38,7 @@ public class ReactionController {
     @Autowired
     private NotificationRepository notificationRepository;
 
-
-    @RequestMapping("/addReaction")
+    @PostMapping(value= "/addReaction")
     public String addReaction(@RequestParam(name="idPostReakcja") Long idPost)
     {
         System.out.println("przekazano id= " + idPost);
@@ -68,17 +70,18 @@ public class ReactionController {
     }
 
 
-    @RequestMapping("/removeReaction")
+    @PostMapping(value= "/removeReaction")
     public String removeReaction(Long idPost, User user)
     {
-        List<Reaction> usersReactions = user.getReactions();
+        List<Reaction> usersReactions = new ArrayList<Reaction>(user.getReactions());
 
         for (Reaction tempReaction : usersReactions) {
-            if(tempReaction.getPost().getIdPost() == idPost)
+            if(Objects.equals(tempReaction.getPost().getIdPost(), idPost))
             {
-                    usersReactions.remove(tempReaction);
-                    tempReaction.getPost().getReactions().remove(tempReaction);
-                reactionRepository.delete(tempReaction);
+                    user.removeReaction(tempReaction);
+                    //usersReactions.remove(tempReaction);
+                    tempReaction.getPost().removeReaction(tempReaction);
+                    reactionRepository.delete(tempReaction);
                 break;
             }
 
@@ -88,7 +91,7 @@ public class ReactionController {
     }
 
 
-    @RequestMapping("/addReaction1")
+    @PostMapping(value= "/addReaction1")
     public String addReaction1(@RequestParam(name="idPostReakcja") Long idPost)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -96,7 +99,7 @@ public class ReactionController {
         User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
 
 
-        if(isReactionSet(user,idPost)== false) {
+        if(!isReactionSet(user, idPost)) {
             Post post = postRepository.findPostByidPost(idPost);
             Reaction reaction = new Reaction(post, user);
             user.addReaction(reaction);
@@ -120,17 +123,17 @@ public class ReactionController {
     }
 
 
-    @RequestMapping("/removeReaction1")
+    @PostMapping(value= "/removeReaction1")
     public String removeReaction1(Long idPost, User user)
     {
-        List<Reaction> usersReactions = user.getReactions();
+        List<Reaction> usersReactions = new ArrayList<Reaction>(user.getReactions());
 
         for (Reaction tempReaction : usersReactions) {
-            if(tempReaction.getPost().getIdPost() == idPost)
+            if(Objects.equals(tempReaction.getPost().getIdPost(), idPost))
             {
-
-                usersReactions.remove(tempReaction);
-                tempReaction.getPost().getReactions().remove(tempReaction);
+                user.removeReaction(tempReaction);
+                //usersReactions.remove(tempReaction);
+                tempReaction.getPost().removeReaction(tempReaction);
                 reactionRepository.delete(tempReaction);
                 break;
             }
@@ -140,13 +143,12 @@ public class ReactionController {
     }
 
 
-    public boolean isReactionSet(User user, Long idPost ){
+    private boolean isReactionSet(User user, Long idPost ){
 
-        List<Reaction> usersReactions = user.getReactions();
-
+        List<Reaction> usersReactions =new ArrayList<Reaction>(user.getReactions());
 
         for (Reaction tempReaction : usersReactions) {
-            if(tempReaction.getPost().getIdPost() == idPost)
+            if(Objects.equals(tempReaction.getPost().getIdPost(), idPost))
                 return true;
         }
         return false;

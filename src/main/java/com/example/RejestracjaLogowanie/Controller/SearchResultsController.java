@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +50,21 @@ public class SearchResultsController extends PostService   {
              System.out.println("Pusto");
         }
 
+
+        List<Post> testSprawdz = new ArrayList<Post>(postRepository.findByTagsContainingIgnoreCase(searchValue));
+
+        List<String> miniaturesPath = new ArrayList<String>();
+        for (Post post : testSprawdz){
+            File file = new File("\\static" + post.getPhoto().getPath());
+
+            miniaturesPath.add((file.getParent() + "\\resized" + "\\" + file.getName()).substring(7));
+        }
+
+
         if(user!=null)
         model.addAttribute("user", user);
         model.addAttribute("matchingPosts", postsMatchTags(searchValue, allPosts));
+        model.addAttribute("paths",miniaturesPath);
         model.addAttribute("searchValue", searchValue);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
