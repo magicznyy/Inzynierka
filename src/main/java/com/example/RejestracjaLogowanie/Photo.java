@@ -20,7 +20,7 @@ public class Photo {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     @Column(name = "idzdjecie")
     private Long photoId;
 
@@ -45,6 +45,7 @@ public class Photo {
 
     @OneToOne(mappedBy = "photo", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private Pin pin;
+    
 
     public Long getPhotoId() {
         return photoId;

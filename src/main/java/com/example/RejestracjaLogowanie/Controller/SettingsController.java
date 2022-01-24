@@ -156,9 +156,9 @@ public class SettingsController extends UserInformation {
         StringBuilder builder = new StringBuilder();
 
         if(Objects.equals(photoExtension,"jpg"))
-            builder.append("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\user" + user.getId().toString()  + ".jpg");
+            builder.append("src/main/resources/static/images/profpic/user" + user.getId().toString()  + ".jpg");
         else
-            builder.append("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\profpic\\user" + user.getId().toString()  + ".png");
+            builder.append("src/main/resources/static/images/profpic/user" + user.getId().toString()  + ".png");
 
         String path = builder.toString();
 

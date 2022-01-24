@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -49,107 +50,99 @@ public class MainPageController {
             model.addAttribute("profilepic", user.getProfilePicPath());
 
 
-        model.addAttribute("posts", getFollowedUsersPosts());
+
         return "mainPage";
     }
 
     //to jest straszne, ale dziala na razie
-    public List<Post> getFollowedUsersPosts(){
+    public List<Post> getFollowedUsersPosts(Integer lastPostID){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user1 = (User) userRepository.findUserByLogin(userDetails.getUsername());
 
-        List<Post> posts = postRepository.findAll();
-        List<Post> followedUsersPosts = new ArrayList<>();
-        for (Post post : posts) {
-            if(user1.isAlreadyFollowed(post.getUser().getLogin()) == true){
-                followedUsersPosts.add(post);
+        List<Post> followedUsersPosts = new ArrayList<Post>();
+        List<FollowedUser> followedUsers = user1.getFollowedUsers();
+
+        //brak postow o takim id
+        if(lastPostID < -1 || lastPostID==0)
+            return followedUsersPosts;
+
+        //pobierz posty o dowolnym id
+        if(lastPostID==-1)
+            lastPostID=Integer.MAX_VALUE;
+
+        int postsNumber=0;
+        for(FollowedUser fUser : followedUsers){
+            List<Post> tempPosts = new ArrayList<Post>(fUser.getFollowedUser().getPosts());
+
+            for(int i = tempPosts.size(); i-- >0;){
+                if(tempPosts.get(i).getIdPost()<lastPostID && postsNumber<25) {
+                    followedUsersPosts.add(tempPosts.get(i));
+                    postsNumber++;
+                }
+
             }
         }
+
         return followedUsersPosts;
     }
 
 
     @ResponseBody
-    @GetMapping(value = "/mainPage/data", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Post mainPageData() throws JsonProcessingException {
-
-        ObjectMapper mapper = new ObjectMapper();
-        Post post = postRepository.findAll().get(0);
-        mapper.writeValueAsString(post);
-
-        return Optional.ofNullable(post)
-                .orElse(new Post());
-    }
-
-    @ResponseBody
-    @GetMapping(value = "/mainPage/data/getPosts", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Post> mainPageFetchPosts() throws JsonProcessingException {
+    @GetMapping(value = "/mainPage/data/getPosts/{id}" , produces = MediaType.APPLICATION_JSON_VALUE)
+    public String mainPageFetchPosts(@PathVariable("id") Integer lastPostID) throws JsonProcessingException {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         User user = (User) userRepository.findUserByLogin(userDetails.getUsername());
 
-        /*List<FollowedUser> users = user.getFollowedUsers();
-        List<Post> followedUsersPosts = null;
-        for (FollowedUser usr : users ){
-            try {
-                followedUsersPosts.addAll(usr.getUser().getPosts());
-            }catch (NullPointerException e){
-                System.out.println(e.toString());
-            }
-        }*/
-
-        List<Post> allposts = new ArrayList<>();
-        List<Post> followedUsersPosts = new ArrayList<>();
-
-        allposts.addAll(postRepository.findAll());
-
-
-        for (Post pr : allposts){
-            System.out.println(pr);
-            if(pr.getUser().getLogin().equals("Kolega"))
-                followedUsersPosts.add(pr);
-        }
-
-        //List<User> users = new ArrayList<>();;
-        //users.add(userRepository.findUserByLogin("Kolega"));
-
-        //System.out.println(userRepository.findUserByLogin("Kolega"));
-
-
-        /*
-        for (User usr : users ){
-            try {
-                followedUsersPosts.addAll(usr.getPosts());
-                System.out.println(followedUsersPosts);
-            }catch (NullPointerException e){
-                System.out.println(e.toString());
-            }
-        }*/
-
-        //System.out.println(followedUsersPosts);
-
+        List<Post> followedUsersPosts = new ArrayList<Post>();
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValueAsString(followedUsersPosts);
+        String wynik = mapper.writeValueAsString( getFollowedUsersPosts(lastPostID));
 
-        return Optional.ofNullable(followedUsersPosts)
-                .orElse(Collections.<Post> emptyList());
+        return wynik;
     }
 
 
 
     @ResponseBody
-    @GetMapping(value = "/mainPage/data/{id}", produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<byte[]> mainPagePhoto(@PathVariable("id") Integer id) throws IOException {
+    @GetMapping(value = "/mainPage/data/avatar/{login}")
+    public ResponseEntity<byte[]> mainPageGetAvatar(@PathVariable("login") String login) throws IOException {
         String path = "\\static";
-        path +=  photoRepository.findAll().get(id).getPath();
+
+        path +=  userRepository.findUserByLogin(login).getProfilePicPath();
         ClassPathResource imageFile = new ClassPathResource(path);
-        System.out.println("ścieżka wysyłana =" +path);
+
+        byte[] imageBytes = StreamUtils.copyToByteArray(imageFile.getInputStream());
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(imageBytes);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/mainPage/data/photo/{id}")
+    public ResponseEntity<byte[]> mainPageGetPhotoSmall(@PathVariable("id") Long id) throws IOException {
+        String path = "\\static";
+        Photo photo = photoRepository.getById(id);
+        path +=  photo.getPath();
+
+
+        //utworzenie ścieżki do miniatury
+        File file = new File(path);
+        String folder = file.getParent();
+
+        path =  file.getParent() + "\\resized" + "\\" + file.getName();
+
+        ClassPathResource imageFile = new ClassPathResource(path);
+
+        String photoExtension = path.substring(path.length()-3).toLowerCase();
+        MediaType mediaType=MediaType.ALL;
+        if(photoExtension.equals("jpg"))
+            mediaType = MediaType.IMAGE_JPEG;
+        else if(photoExtension.equals("png"))
+            mediaType = MediaType.IMAGE_PNG;
 
 
         byte[] imageBytes = StreamUtils.copyToByteArray(imageFile.getInputStream());
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
+        return ResponseEntity.ok().contentType(mediaType).body(imageBytes);
     }
 
 

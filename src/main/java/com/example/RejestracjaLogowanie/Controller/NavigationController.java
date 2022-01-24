@@ -25,7 +25,7 @@ public class NavigationController {
         return "process_success";
     }
 
-    @GetMapping("/weather")
+    @GetMapping("/weathersite")
     public String weather()
     {
         return "weather";

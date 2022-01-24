@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,7 +47,7 @@ public class User implements UserDetails {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
     @Column(name = "iduzytkownik")
     private Long id;
 
@@ -75,10 +76,13 @@ public class User implements UserDetails {
     private byte rola;
 
 
+    public List<Post> getPosts() {
+        return posts;
+    }
 
     @JsonIgnore
-    @OneToMany(targetEntity=Post.class , cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    private List <Post> posts = new ArrayList<>();
+    @OneToMany(targetEntity=Post.class, cascade =CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    public List <Post> posts = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(targetEntity=FollowedUser.class , orphanRemoval = true,fetch = FetchType.LAZY)
@@ -89,19 +93,26 @@ public class User implements UserDetails {
     private List <Notification> notifications = new ArrayList<>();;
 
     @JsonIgnore
-    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Comment.class, cascade =CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Comment> comments = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(targetEntity = Reaction.class, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Reaction.class, cascade =CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List <Reaction> reactions = new ArrayList<>();
 
+    @JsonIgnore
     @Column(name = "Temperatura")
     private int preftemperatura;
+
+    @JsonIgnore
     @Column(name = "PredkoscWiatru")
     private int prefpredkoscWiatru;
+
+    @JsonIgnore
     @Column(name = "StopienZachmurzenia")
     private int prefstopienZachmurzenia;
+
+    @JsonIgnore
     @Column(name = "PrawdopodobienstwoOpadow")
     private int prefprawdopodobOpadow;
 
@@ -159,8 +170,17 @@ public class User implements UserDetails {
     {
         this.reactions.add(reaction);
     }
+    public void removeReaction(Reaction reaction){
+        this.reactions.remove(reaction);
+    }
+    public void addComment(Comment comment){
+        this.comments.add(comment);
+    }
+    public void addPost(Post post){
+        this.posts.add(post);
+    }
 
-
+    @JsonIgnore
     public List<Comment> getComments() {
         return comments;
     }
@@ -216,24 +236,30 @@ public class User implements UserDetails {
     }
 
     //tabela danelogowania
+    @JsonIgnore
     @Column(name = "email", table = "danelogowania")
     private String email;
 
+    @JsonIgnore
     @Column( name = "hashhasla",table= "danelogowania")
     private String hashhasla;
 
     //tabela danekontaktowe
+    @JsonIgnore
     @Column( name = "imie",table= "danekontaktowe")
     private String imie;
 
+    @JsonIgnore
     @Column( name = "nazwisko",table= "danekontaktowe")
     private String nazwisko;
 
+    @JsonIgnore
     @Column( name = "nrkontabankowego",table= "danekontaktowe")
     private String nrkontabankowego;
 
 
     //tabela profil
+    @JsonIgnore
     @Column(name = "opisprofilu" , table = "profil")
     private String profileDescription;
 
@@ -249,9 +275,11 @@ public class User implements UserDetails {
         this.profilePicPath = profilePicPath;
     }
 
+    @JsonIgnore
     @Column(name = "szerokoscgeograficzna" , table = "profil")
     private Double mapsCenterLatitude;
 
+    @JsonIgnore
     @Column(name = "dlugoscgeograficzna" , table = "profil")
     private Double mapsCenterLongitude;
 
@@ -285,47 +313,51 @@ public class User implements UserDetails {
         return "User{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                ", saldo='" + saldo + '\'' +
                 ", aktywnosc='" + aktywnosc + '\'' +
                 ", prywatnoscKonta='" + prywatnosckonta + '\'' +
                 ", czyZbanowany='" + czyzbanowany + '\'' +
                 ", rola='" + rola + '\'' +
-                ", hash='" + hashhasla + '\'' +
-                ", posty='" + getPosts() + '\'' +
+                ", hash='" + hashhasla + '\''+
                 '}';
     }
 
-
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("USER"));
     }
 
+    @JsonIgnore
     @Override
     public String getPassword() {
         return null;
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return null;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return false;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return false;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return false;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return false;

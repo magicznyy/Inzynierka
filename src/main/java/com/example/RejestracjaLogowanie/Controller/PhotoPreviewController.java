@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.io.File;
+import java.util.Objects;
 
 
 @Controller
@@ -37,7 +39,7 @@ public class PhotoPreviewController {
         else
             model.addAttribute("long", "empty");
 
-        File directory = new File("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user1");
+        File directory = new File("src/main/resources/static/images/user1");
 
         if (directory.list() != null) {
             String[] imagename = Objects.requireNonNull(directory.list());

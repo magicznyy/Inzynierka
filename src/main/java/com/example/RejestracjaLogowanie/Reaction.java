@@ -20,7 +20,7 @@ public class Reaction {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
     @Column(name="idreakcja")
     private Long idReaction;
 

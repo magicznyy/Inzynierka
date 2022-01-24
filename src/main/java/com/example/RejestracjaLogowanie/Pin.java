@@ -25,7 +25,7 @@ public class Pin {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
     @Column(name = "idpinezka")
     private Long pinId;
 

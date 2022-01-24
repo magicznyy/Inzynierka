@@ -22,8 +22,7 @@ public class Comment {
     }
 
     @Id
-    @GeneratedValue
-
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
     @Column(name="idkomentarz")
     private Long idComment;
 
@@ -38,7 +37,7 @@ public class Comment {
     @JoinColumn(name="uzytkownik_iduzytkownik")
     private User user;
 
-
+    @JsonIgnore
     @ManyToOne(targetEntity = Post.class)
     @JoinColumn(name="post_idpost")
     private Post post;

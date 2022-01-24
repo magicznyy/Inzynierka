@@ -123,9 +123,9 @@
     <div >
         <h1>Zdjęcia</h1>
         <div id = "matchedPhotos" th:if="${matchingPosts.isEmpty() == false}">
-            <div th:each="post: ${matchingPosts}" >
+            <div th:each="post,iter: ${matchingPosts}" >
 
-                <input type="image"  th:id=${post.getIdPost()} th:src="@{${post.getPhoto().getPath()}}" class="album" data-toggle="modal" data-target="#exampleModal" th:onclick="setId(this.id)"/>
+                <input type="image"  th:id=${post.getIdPost()} th:src="${paths[iter.index]}" class="album" data-toggle="modal" data-target="#exampleModal" th:onclick="setId(this.id)"/>
 
 
             </div>
