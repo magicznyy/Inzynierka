@@ -1,6 +1,7 @@
 /* nadpisanie dotychczasowych wartości */
 head, body{
     height: 100vh;
+    line-height: normal !important;
 }
 #userbox {
     width: 100%;
@@ -22,6 +23,7 @@ input {
 }
 label {
     padding: 0;
+    display: contents !important;
 }
 #infobox {
 

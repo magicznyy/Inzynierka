@@ -48,7 +48,7 @@ margin-right: 3%;
 #iconAddPhoto {
     cursor: pointer;
     position: absolute;
-    bottom: 0.3em;
+    bottom: 2em;
     width: 2.5em;
     left: 6.7em;
 }
@@ -194,6 +194,18 @@ button[type="submit"]:hover, input[type="submit"]:hover
 h1, label
 {
     color: #FFFFFF;
+}
+
+label {
+    margin-bottom: 0rem !important;
+}
+h1{
+    font-size: 2.0rem;
+}
+.btn {
+    padding: 0em !important;
+    line-height: 1.6;
+    width: 4em;
 }
 
 h3

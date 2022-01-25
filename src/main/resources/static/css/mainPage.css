@@ -193,6 +193,9 @@
     overflow-y: auto;
     border: 0.3em solid #84D9EC;
     border-radius: 10px;
+    font-family: none !important;
+    font-size: 1rem !important;
+    line-height: 1.1em !important;
 }
 
 #addComment > input[type="submit"]{

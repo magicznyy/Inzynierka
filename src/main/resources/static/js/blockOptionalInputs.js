@@ -13,7 +13,6 @@
 
   textFields.forEach( (element,index) => 
   	{element.addEventListener("change", function(){      
-      
       if(element.value!="")
       	stateArray[index]=true;
       else

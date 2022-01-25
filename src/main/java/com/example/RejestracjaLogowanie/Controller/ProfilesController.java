@@ -54,7 +54,7 @@ public class ProfilesController {
 
 
 
-        File directory=new File("C:\\Users\\x\\IdeaProjects\\Inzynierka\\src\\main\\resources\\static\\images\\user"+user.getId());
+        File directory=new File("src/main/resources/static/images/user"+user.getId());
 
         if(directory.list()!=null) {
             String[] imagename = Objects.requireNonNull(directory.list());
@@ -70,7 +70,7 @@ public class ProfilesController {
         if(currUser.getProfilePicPath()==null)
             model.addAttribute("myprofilepic", "/images/profpic/nopicture.jpg");
         else
-            model.addAttribute("myprofilepic", user.getProfilePicPath());
+            model.addAttribute("myprofilepic", currUser.getProfilePicPath());
 
 
         return "profiles";

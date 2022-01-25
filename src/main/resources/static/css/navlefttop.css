@@ -103,8 +103,8 @@ a
 hr, .navline
 {
     display: block;
-    border-style: solid;
-    border-width: 0.01em;
+    border-style: solid !important;
+    border-width: 0.01em !important;
     color: #BFE0EE;
 
 }
@@ -194,6 +194,7 @@ ul {
     border-radius: 10px;
 
     text-indent: 1em; /*odstep dla placeholdera*/
+    font-size: small !important;
 
 }
 
@@ -217,7 +218,7 @@ ul {
     background: #BFE0EE;
     border: 0.25em solid #84D9EC;
     border-radius: 10px;
-    font-size: 0.9em;
+    font-size: small !important;
     font-weight: bold;
     text-indent: 0;
     color: rgba(0, 0, 0, 0.7);
@@ -229,7 +230,7 @@ ul {
 #notification
 {
     width: 2em;
-    margin: auto 1em;
+    margin: 1em;
 }
 
 
@@ -261,3 +262,44 @@ ul {
     padding:0 0 0 20px;
     margin:0 20px;
 }*/
+
+
+.dropdown-menu {
+    height: 30vw !important;
+    margin-top: 1vw !important;
+    margin-right: 5vw !important;
+    background: #BFE0EE !important;
+    border: 0.15em solid #84D9EC !important;
+    font-size: 1.2em !important;
+    color: rgba(0, 0, 0, 0.7) !important;
+    overflow-x: hidden;
+}
+
+.row{
+    padding-top:1vh;
+    padding-bottom:1vh;
+    margin-left:0.2vw;
+    padding-left: 3vw;
+
+}
+
+.row:hover {
+  background-color: #d2e5ed;
+}
+
+.divider {
+  border-top: 3px solid #bbb;
+}
+
+.listProfPic{
+    height:50px;
+    width:50px;
+    margin-left:0.3vw;
+}
+
+.photobox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
